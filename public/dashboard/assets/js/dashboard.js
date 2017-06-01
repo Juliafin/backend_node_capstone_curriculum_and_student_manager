@@ -211,6 +211,13 @@ var state = {
   }
 };
 
+function studentNavbarListener () {
+   $('nav li').click(function (event) {
+    console.log('clicked');
+
+  });
+}
+
 function navbarListener() {
 
   $('nav li').click(function (event) {
@@ -296,6 +303,25 @@ function displayNav() {
 
     $('body').append(loggedIn);
     navbarListener();
+
+  }
+}
+
+function displayStudentNav() {
+  if (window.localStorage.getItem('token')) {
+
+    var loggedIn = `
+    <nav>
+      <div class="nav">
+        <li>Welcome</li>
+        <li>Student Projects</li>
+        <li id="logged_in">Not <span>${window.localStorage.getItem('current_user')}?</span class="logged_user"><br><span>Log out</span></li>
+    </div>
+  </nav>
+              `;
+
+    $('body').append(loggedIn);
+    studentNavbarListener();
 
   }
 }
@@ -949,11 +975,6 @@ function renderStudentCurriculum (record, color) {
   var studentCurriculumModal = `
   
 <div class="student_curriculum_container slowPopIn">
-  <div class="frame_top"></div>
-    <div class="curriculum_frame_bottom"></div>
-    <div class="curriculum_frame_left"></div>
-    <div class="curriculum_frame_right"></div>
-    <div class="curriculum_frame_top"></div>
 
   <section class="slider">
     <div class="flexslider">
@@ -1001,7 +1022,9 @@ function renderStudentCurriculum (record, color) {
           <br>
           <p class="project_date">Project started on ${moment(project.project_date).format('dddd, MMMM Do YYYY')} </p>
           <p class="project_description">Project Description: <br> ${project.project_description}</p>
-          <p class="teacher_project_comments">Project Comments: <br> ${('teacher_project_comments' in project || "No comments were provided.")}</p>
+          <div class="teacher_project_container">
+            <p class="teacher_project_comments">Project Comments: <br> ${(project.teacher_project_comments || "No comments were provided.")}</p>
+          </div>
         </div>
       `;
 
@@ -1043,11 +1066,8 @@ function renderStudentCurriculum (record, color) {
       if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
         $(this).css('color', 'black');
       }
-    }
-  
+    }  
   );
-
-
 
     $('.flexslider').flexslider({
       animation: "slide"
@@ -1059,11 +1079,11 @@ function exitStudentCurriculumListener() {
   $('button.exit_student_curriculum').click(function (event) {
 
     //Re-enable listeners
-    $('button.student_exit, button.edit_info, button.student_curriculum, .curriculum_frame_bottom, .curriculum_frame_top, .curriculum_frame_left, .curriculum_frame_right').css('pointer-events', "auto");
+    $('button.student_exit, button.edit_info, button.student_curriculum').css('pointer-events', "auto");
     
     $('div.student_curriculum_container').fadeOut();
     setTimeout(function () {
-      $('div.student_curriculum_container, .curriculum_frame_bottom, .curriculum_frame_top, .curriculum_frame_left, .curriculum_frame_right').remove();
+      $('div.student_curriculum_container').remove();
 
     }, 700);
     });
@@ -1228,9 +1248,21 @@ function authenticateResult() {
         console.log(result.last_name);
         state.teacher_first_name = result.first_name;
         state.teacher_last_name = result.last_name;
-        displayNav();
-        studentInfoListener();
-        addstudentProjecCardListener();
+        state.role = result.role;
+        console.log(state.role);
+        if (state.role === 'teacher') {
+          saveStudentData();          
+          displayNav();
+          studentInfoListener();
+          addstudentProjecCardListener();
+        } else if (state.role === 'student') {
+          displayStudentNav();
+          getStudentData()
+          .then(function(data) {
+            console.log(data);
+          })
+
+        }
       } else {
         $('div.background').html(state.templates.unauthorized);
       }
@@ -1299,7 +1331,7 @@ function saveStudentData() {
 ($(document).ready(function () {
   $(this).scrollTop(0);
   authenticateResult();
-  saveStudentData();
+  
   $('.flexslider').flexslider({
     animation: "slide"
   });

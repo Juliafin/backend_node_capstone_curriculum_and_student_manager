@@ -589,40 +589,6 @@ div.frame_right {
   width: 9.5vw;
 }
 
-.curriculum_frame_right{
-  position: absolute;
-  right: -11.5vw;
-  height: 100%;
-  z-index: 1300;
-  width: 11.5vw;
-}
-
-.curriculum_frame_left {
-  position: absolute;
-  left: -11.5vw;
-  height: 100%;
-  z-index: 1300;
-  width: 11.5vw;
-}
-
-.curriculum_frame_top {
-  position: absolute;
-  top: -2vw;
-  height: 4.5vh;
-  z-index: 1300;
-  width: 99vw;
-  left: -11.5vw;
-}
-
-.curriculum_frame_bottom {
-  position: absolute;
-  bottom: -2vw;
-  height: 1.5vh;
-  z-index: 1300;
-  width: 100%;
-}
-
-
 .columns {
   column-count: 3;
   margin: 0 3vw;
@@ -708,4 +674,9 @@ button.exit_student_curriculum {
     color: white;
     height: 4vw;
     font-size: 2vw;
+}
+
+div.teacher_project_container{
+    overflow: auto;
+    height: 6vw;
 }
