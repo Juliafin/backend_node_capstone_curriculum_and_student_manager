@@ -1,7 +1,6 @@
 var state = {
   student_records: [],
-  teacher_first_name: '',
-  teacher_last_name: '',
+  current_student: {},
   templates: {
     addStudent: `
     <div class="addStudent popIn">
@@ -212,8 +211,39 @@ var state = {
 };
 
 function studentNavbarListener () {
-   $('nav li').click(function (event) {
+  $('nav li').click(function (event) {
     console.log('clicked');
+
+    if ($(this).text() === 'Welcome') {
+      setTimeout(function () {
+        // console.log('scrolling up');
+         $(this).scrollTop(0);
+      }, 1);
+      $('.student_curriculum_container.student_version').remove();
+      $(this).addClass('selected');
+      $('div.nav li').not($(this)).removeClass('selected');
+      renderStudentWelcome(state.current_student);
+    }
+
+    if ($(this).text() === 'Student Projects') {
+      setTimeout(function () {
+        // console.log('scrolling up');
+         $(this).scrollTop(0);
+      }, 1);
+      $(this).addClass('selected');
+      $('div.nav li').not($(this)).removeClass('selected');
+      $('div.student_welcome').remove();
+      renderStudentCurriculum(state.current_student.student_record);
+    }
+
+    if ($(this).attr('id') === 'logged_in') {
+      console.log('clearing token');
+      window.localStorage.setItem('token', '');
+      window.localStorage.setItem('current_user', '');
+      window.localStorage.setItem('dashboard_url', '');
+      window.location = "/";
+
+    }
 
   });
 }
@@ -725,6 +755,25 @@ function clearStudentform() {
     $('input[name="teacher_comments"]').val('');
 }
 
+function renderStudentWelcome(studentData) {
+   var lesson_start_time = moment(studentData.student_record.student_lesson_time.startTime).format("hh:mm A");
+  var lesson_end_time = moment(studentData.student_record.student_lesson_time.endTime).format("hh:mm A");
+  var lesson_start_date = moment(studentData.student_record.student_lesson_time.startDate).format('dddd, MMMM Do YYYY');
+  var studentDashHtml = `
+
+    <div class="student_welcome popIn">
+    <h1>Welcome ${state.student_first_name} ${state.student_last_name}, </h1>
+    <h2 class="features F_one">Your teacher is <strong>${studentData.student_record.author.first_name} ${studentData.student_record.author.last_name}</strong>.
+    <h2 class="features F_two">Your first lesson date was on <strong>${lesson_start_date}</strong></h2>
+    <h2 class="features F_three">Your weekly lesson time is every <strong>${studentData.student_record.student_lesson_time.weekday}</strong> from <strong>${lesson_start_time}</strong> until <strong>${lesson_end_time}</strong> </h2>
+    <h2 class="features F_four">Please click on <strong>Student Projects</strong> to view your latest assignments from your teacher.
+    </div>
+  `;
+
+  $('div.background').html(studentDashHtml);
+
+}
+
 function renderStudentCard(state) {
 
   state.forEach(function (student_record, index) {
@@ -971,24 +1020,20 @@ function studentCurriculumListener(color) {
   });
 }
 
-function renderStudentCurriculum (record, color) {
+function renderStudentCurriculum (record, color=null) {
   var studentCurriculumModal = `
   
-<div class="student_curriculum_container slowPopIn">
+<div class="student_curriculum_container student_version slowPopIn">
 
   <section class="slider">
     <div class="flexslider">
 
       <div class="flex-viewport">
-
         <ul class="slides">
-
         </ul>
-
       </div>
 
       <ol class="flex-control-nav flex-control-paging">
-
       </ol>
 
       <ul class="flex-direction-nav">
@@ -999,8 +1044,10 @@ function renderStudentCurriculum (record, color) {
           <a class="flex-next" href="#">Next</a>
         </li>
       </ul>
+
     </div>
   </section>
+
   <button class="exit_student_curriculum">
   Exit Student Curriculum
   </button>
@@ -1008,15 +1055,15 @@ function renderStudentCurriculum (record, color) {
 </div>
     `;
 
-    $('button.student_exit, button.edit_info, button.student_curriculum, .frame_bottom, .frame_top, .frame_left, .frame_right').css('pointer-events', "none");
+  $('button.student_exit, button.edit_info, button.student_curriculum, .frame_bottom, .frame_top, .frame_left, .frame_right').css('pointer-events', "none");
 
-    $('body').prepend(studentCurriculumModal);
+  $('body').prepend(studentCurriculumModal);
 
-    console.log(record);
+  console.log(record);
+   
+  var studentCurriculumHtml = record.student_curriculum.map(function (project, index) {
 
-    var studentCurriculumHtml = record.student_curriculum.map(function (project, index) {
-
-      var projectHtml = `
+    var projectHtml = `
         <div class="project_container" index="${index}" id =${record.id} draggable="false">
           <p class="project_name">Project Name: <br> ${project.project_name}</p>
           <br>
@@ -1028,50 +1075,57 @@ function renderStudentCurriculum (record, color) {
         </div>
       `;
 
-      if (index === 0) {
-        return `<li class="clone" aria-hidden="true"> ${projectHtml} </li>`;
-      } else {
-        return `<li class="" data-thumb-alt=""> ${projectHtml} </li>`;
-      }
-    }).join('');
-    console.log(studentCurriculumHtml);
-    if (record.student_curriculum.length !== 0 ) {
-      $('ul.slides').html(studentCurriculumHtml);
+    if (index === 0) {
+      return `<li class="clone" aria-hidden="true"> ${projectHtml} </li>`;
     } else {
-      var noProjects = `
+      return `<li class="" data-thumb-alt=""> ${projectHtml} </li>`;
+    }
+  }).join('');
+  console.log(studentCurriculumHtml);
+  
+  if (record.student_curriculum.length !== 0 ) {
+    $('ul.slides').html(studentCurriculumHtml);
+  } else {
+    var noProjects = `
       <li class="clone" aria-hidden="true">
       <p class="no_projects">No Projects were added.</p>
       </li>`;
-      $('ul.slides').html(noProjects);
-    }
+    $('ul.slides').html(noProjects);
+  }
 
+
+
+  if (color !== null) {
     $('.flexslider').css('background-color', color);
 
     $('button.exit_student_curriculum').css('background-color', color);
 
 
     if ($('div.flexslider').css('background-color') === 'rgb(255, 193, 7)') {
-    $('div.student_curriculum_container p').css('color', 'black');
-  };
+      $('div.student_curriculum_container p').css('color', 'black');
+    }
 
     $('button.exit_student_curriculum').hover(
-    function(event) {
-      $(this).css('background-color', 'rgb(33, 80, 97)');
-      if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
-        $(this).css('color', 'white');
-      }
-    },
-    function(event) {
-      $(this).css('background-color', color);
-      if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
-        $(this).css('color', 'black');
-      }
-    }  
-  );
+      function(event) {
+        $(this).css('background-color', 'rgb(33, 80, 97)');
+        if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
+          $(this).css('color', 'white');
+        }
+      },
+      function(event) {
+        $(this).css('background-color', color);
+        if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
+          $(this).css('color', 'black');
+        }
+      }  
+    );
+  }
 
-    $('.flexslider').flexslider({
-      animation: "slide"
-    });
+  
+  // Initialize the modal
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
 
 }
 
@@ -1086,7 +1140,7 @@ function exitStudentCurriculumListener() {
       $('div.student_curriculum_container').remove();
 
     }, 700);
-    });
+  });
 }
 
 function studentEditListener() {
@@ -1246,21 +1300,40 @@ function authenticateResult() {
       if (redirectHome() === false) {
         console.log(result.first_name);
         console.log(result.last_name);
-        state.teacher_first_name = result.first_name;
-        state.teacher_last_name = result.last_name;
+        
         state.role = result.role;
         console.log(state.role);
         if (state.role === 'teacher') {
+          state.teacher_first_name = result.first_name;
+          state.teacher_last_name = result.last_name;
           saveStudentData();          
           displayNav();
           studentInfoListener();
           addstudentProjecCardListener();
         } else if (state.role === 'student') {
+          state.student_first_name = result.first_name;
+          state.student_last_name = result.last_name;
           displayStudentNav();
           getStudentData()
           .then(function(data) {
+            state.current_student = data;
+            console.log('State.current_student', state.current_student);
+            renderStudentWelcome(data);
+
             console.log(data);
           })
+          .catch(function(err) {
+            console.log(err);
+            var serverError = `
+              
+              <div class="student_not_found popIn">
+                <h1>Welcome ${state.student_first_name} ${state.student_last_name},</h1>
+                <h2>Unfortunately, your teacher hasn't yet added you as a student. Please encourage them to sign up!</h2>
+              </div> 
+            `;
+
+            $('div.background').html(serverError);
+          });
 
         }
       } else {
@@ -1307,9 +1380,9 @@ function renderWelcome () {
   $('div.background').html(welcomeHTML);
 
 
-if (state.student_records.length === 0) {
-  $('.features F_One').text('You have not added any students yet.');
-}
+  if (state.student_records.length === 0) {
+    $('.features F_One').text('You have not added any students yet.');
+  }
 }
 
 function saveStudentData() {

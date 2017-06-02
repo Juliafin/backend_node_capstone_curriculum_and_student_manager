@@ -374,19 +374,19 @@ p.success {
   animation-direction: normal
 }
 
-.card:nth-child(4n+1)>.card_color {
+.card:nth-child(4n+1)>.card_color, .slides > li:nth-child(4n+1) {
   background-color: #9c27b0;
 }
 
-.card:nth-child(4n+2)>.card_color {
+.card:nth-child(4n+2)>.card_color, .slides > li:nth-child(4n+2) {
   background-color: #ff5722;
 }
 
-.card:nth-child(4n+3)>.card_color {
+.card:nth-child(4n+3)>.card_color, .slides > li:nth-child(4n+3) {
   background-color: #ffc107;
 }
 
-.card:nth-child(4n+4)>.card_color {
+.card:nth-child(4n+4)>.card_color, .slides > li:nth-child(4n+4) {
   background-color: #4caf50;
 }
 
@@ -432,18 +432,7 @@ button#student_project:active {
   background-color: #b7c3ce;
 }
 
-button.add_student_project:hover,
-button.add_student_project:focus,
-button.student_info:hover,
-button.student_info:focus,
-button.edit_info:hover,
-button.edit_info:focus,
-button.student_exit:hover,
-button.student_exit:focus,
-button.student_curriculum:hover,
-button.student_curriculum:focus,
-button.exit_student_curriculum:hover,
-button.exit_student_curriculum:focus {
+button.add_student_project:hover, button.add_student_project:focus, button.student_info:hover, button.student_info:focus, button.edit_info:hover, button.edit_info:focus, button.student_exit:hover, button.student_exit:focus, button.student_curriculum:hover, button.student_curriculum:focus, button.exit_student_curriculum:hover, button.exit_student_curriculum:focus, .student_version button.exit_student_curriculum:hover, .student_version button.exit_student_curriculum:focus {
   background: rgb(33, 80, 97);
   filter: brightness(120%);
   transform: scale(1.1);
@@ -506,12 +495,12 @@ input:focus {
   z-index: 1000;
   height: 91vh;
   width: 77vw;
-  left: -9px;
+  left: -1vw;
   right: 0;
   top: 0;
   bottom: 0;
   margin: auto;
-  border: 2px solid black;
+  border: .3vw solid black;
   background: rgba(255, 255, 255, 0.87);
   overflow: auto;
 }
@@ -648,7 +637,7 @@ div.flex-viewport>ul.slides {
 }
 
 .flexslider {
-  height: 24vw;
+  height: 27vw;
   margin-bottom: 3vw;
   text-align: center;
 }
@@ -679,4 +668,23 @@ button.exit_student_curriculum {
 div.teacher_project_container{
     overflow: auto;
     height: 6vw;
+}
+
+div.student_not_found.popIn {
+    margin-top: 16vw;
+    font-family: trocchi;
+}
+
+div.student_not_found > h2 {
+  color: white;
+}
+
+.student_curriculum_container.student_version.slowPopIn {
+    position: relative;
+    z-index: 0;
+    margin-top: 4vw;
+}
+
+.student_version button.exit_student_curriculum {
+    background: rgb(178, 18, 18);
 }
