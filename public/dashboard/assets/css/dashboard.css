@@ -194,6 +194,8 @@ select {
 
 .mode_select {
   text-align: center;
+  border-bottom: 1px solid #ffaa5b;
+  padding: 1vw;
 }
 
 input#parent_first_name {
@@ -204,11 +206,11 @@ input#parent_last_name {
   width: 18vw;
 }
 
-input#first_name {
+input#first_name, input#existing_first_name {
   width: 13vw;
 }
 
-input#last_name {
+input#last_name, input#existing_last_name {
   width: 21vw;
 }
 
@@ -374,19 +376,19 @@ p.success {
   animation-direction: normal
 }
 
-.card:nth-child(4n+1)>.card_color, .slides > li:nth-child(4n+1) {
+.card:nth-child(4n+1)>.card_color, .student_version .slides > li:nth-child(4n+1) {
   background-color: #9c27b0;
 }
 
-.card:nth-child(4n+2)>.card_color, .slides > li:nth-child(4n+2) {
+.card:nth-child(4n+2)>.card_color, .student_version .slides > li:nth-child(4n+2) {
   background-color: #ff5722;
 }
 
-.card:nth-child(4n+3)>.card_color, .slides > li:nth-child(4n+3) {
+.card:nth-child(4n+3)>.card_color, .student_version .slides > li:nth-child(4n+3) {
   background-color: #ffc107;
 }
 
-.card:nth-child(4n+4)>.card_color, .slides > li:nth-child(4n+4) {
+.card:nth-child(4n+4)>.card_color, .student_version .slides > li:nth-child(4n+4) {
   background-color: #4caf50;
 }
 
@@ -408,7 +410,8 @@ button.student_curriculum,
   border: 1px grey solid;
 }
 
-button[name="add_student"],
+button[name="add_student"], 
+button[name="edit_student"],
 button#student_project {
   margin: 2vw;
   width: 20vw;
@@ -656,6 +659,10 @@ p.no_projects {
 .project_container p.project_name {
     margin-top: 1vw;
     font-size: 3vw;
+}
+
+div.project_container {
+    height: 26vw;
 }
 
 button.exit_student_curriculum {
