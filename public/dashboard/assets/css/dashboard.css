@@ -242,7 +242,7 @@ label>span {
 
 p.error {
   display: inline-block;
-  color: rgb(178, 18, 18);
+  color: rgb(255, 43, 43);
   margin-right: 2vw;
   font-size: 1.5vw;
 }

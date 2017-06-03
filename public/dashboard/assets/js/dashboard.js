@@ -271,7 +271,8 @@ function navbarListener() {
         reset: true
       });
 
-      addStudentListener();
+      addStudentFormListener();
+      editStudentFormListener();
       addEditRadioListener();
     }
 
@@ -380,21 +381,20 @@ function postStudentData(studentObj) {
   });
 }
 
-function editStudentListener() {
-
-
-}
-
-
-function addStudentListener() {
+function editStudentFormListener() {
+  console.log('edit button listener starting');
+  // remove any existing listeners
   
-  $('button[name="add_student"]').off();
-  $('button[name="add_student"]').click(function (event) {
+  $('button[name="edit_student"]').off();
+  $('button[name="edit_student"]').click(function(event) {
+    console.log('edit student listener added');
     event.preventDefault();
+    // remove existing errors on the radio button
     $('.radio_button_error').remove();
-    
-    if (! ($('input#add_student').is(':checked'))) {
-      var radiobuttonError = `<p class="error radio_button_error">The Add Student Radio Button must be checked</p>`;
+
+    // Check if the radio button is checked, return an error if it isn't
+    if (! ($('input#edit_student').is(':checked'))) {
+      var radiobuttonError = `<p class="error radio_button_error">The Edit Student radio button must be checked</p>`;
 
       $('.mode_select').prepend(radiobuttonError);
 
@@ -402,24 +402,75 @@ function addStudentListener() {
       return;
     }
 
-      var studentObj = {
+    // Collect the inputs
+    var studentObj = {
 
-        first_name: $('input[name="first_name"]').val(),
-        last_name: $('input[name="last_name"]').val(),
-        email: $('input[name="email"]').val(),
-        parent_first_name: $('input[name="parent_first_name"]').val(),
-        parent_last_name: $('input[name="parent_last_name"]').val(),
-        street_address: $('input[name="street_address"]').val(),
-        apartment_number: $('input[name="apartment_number"]').val(),
-        city: $('input[name="city"]').val(),
-        state: $('select#state').val(),
-        zipcode: $('input[name="zipcode"]').val(),
-        startDate: $('input[name="startDate"]').val(),
-        weekday: $('select#weekday').val(),
-        startTime: $('input[name="startTime"]').val(), // 12:30
-        endTime: $('input[name="endTime"]').val(), // 01:30
-        teacher_comments: $('textarea[name="teacher_comments"]').val()
-      };
+      existing_first_name: $('input[name="existing_first_name"]').val(),
+      existing_last_name: $('input[name="existing_last_name"]').val(),    
+      first_name: $('input[name="first_name"]').val(),
+      last_name: $('input[name="last_name"]').val(),
+      email: $('input[name="email"]').val(),
+      parent_first_name: $('input[name="parent_first_name"]').val(),
+      parent_last_name: $('input[name="parent_last_name"]').val(),
+      street_address: $('input[name="street_address"]').val(),
+      apartment_number: $('input[name="apartment_number"]').val(),
+      city: $('input[name="city"]').val(),
+      state: $('select#state').val(),
+      zipcode: $('input[name="zipcode"]').val(),
+      startDate: $('input[name="startDate"]').val(),
+      weekday: $('select#weekday').val(),
+      startTime: $('input[name="startTime"]').val(), // 12:30
+      endTime: $('input[name="endTime"]').val(), // 01:30
+      teacher_comments: $('textarea[name="teacher_comments"]').val()
+    };
+
+    console.log(studentObj);
+
+
+
+
+  });
+}
+
+
+function addStudentFormListener() {
+  // remove any existing listeners
+  $('button[name="add_student"]').off();
+  $('button[name="add_student"]').click(function (event) {
+    event.preventDefault();
+  
+  // remove any existing errors that have been printed
+    $('.radio_button_error').remove();
+    
+    // Check if the radio button is checked, return an error if it isn't
+    if (! ($('input#add_student').is(':checked'))) {
+      var radiobuttonError = `<p class="error radio_button_error">The Add Student radio button must be checked.</p><br>`;
+
+      $('.mode_select').prepend(radiobuttonError);
+
+      $(document).scrollTop(160);
+      return;
+    }
+
+    // collect the inputs
+    var studentObj = {
+
+      first_name: $('input[name="first_name"]').val(),
+      last_name: $('input[name="last_name"]').val(),
+      email: $('input[name="email"]').val(),
+      parent_first_name: $('input[name="parent_first_name"]').val(),
+      parent_last_name: $('input[name="parent_last_name"]').val(),
+      street_address: $('input[name="street_address"]').val(),
+      apartment_number: $('input[name="apartment_number"]').val(),
+      city: $('input[name="city"]').val(),
+      state: $('select#state').val(),
+      zipcode: $('input[name="zipcode"]').val(),
+      startDate: $('input[name="startDate"]').val(),
+      weekday: $('select#weekday').val(),
+      startTime: $('input[name="startTime"]').val(), // 12:30
+      endTime: $('input[name="endTime"]').val(), // 01:30
+      teacher_comments: $('textarea[name="teacher_comments"]').val()
+    };
 
     console.log(studentObj.startTime);
     console.log(studentObj.endTime);
@@ -436,11 +487,13 @@ function addStudentListener() {
     studentObj.endTime = endTime;
     // console.log(studentObj.startDate);
     console.log(startDate);
-
     console.log(studentObj);
 
+    // validate the student form
     var validatedStudent = validateNewStudent(studentObj);
     console.log('validated student', validatedStudent);
+
+    // if the returned object has a success message, delete the message then post the student
     if ('message' in validatedStudent && validatedStudent.message === 'No errors found.') {
       delete validatedStudent.message;
       postStudentData(validatedStudent)
@@ -451,11 +504,17 @@ function addStudentListener() {
           <p class="success">Student successfully added!</p>
           `;
           $('div.button_container').before(success);
+
+          // clear the form if the student has posted sucessfully
           clearStudentform();
         })
         .catch(function (err) {
           console.log('There was an error');
           console.log(err);
+          var failure = `
+          <p class="error">This student already exists. If you wish to edit this student, please click the Edit Student button.</p>
+          `;
+          $('div.button_container').before(failure);
         });
     }
 
@@ -866,7 +925,7 @@ function addstudentProjecCardListener () {
     }, 1);
 
     $('div.background').empty();
-      // TODO Make template
+      
     $('div.background').html(state.templates.addStudentProject);
       
     $('div.nav li')
@@ -1016,7 +1075,7 @@ function renderStudentInfo(student_record, color) {
   }, 800);
 
   studentInfoExitListener();
-  studentEditListener();
+  studentCardEditButtonListener();
   studentCurriculumListener(color);
 
 }
@@ -1190,7 +1249,7 @@ function addEditRadioListener() {
       });
 
       console.log('The add student radio button is checked');
-      addStudentListener();
+      addStudentFormListener();
 
       // Remove the edit inputs if they exist
       $('label[for="existing_first_name"], label[for="existing_last_name"], input#existing_first_name, input#existing_last_name, .edit_break').remove();
@@ -1212,6 +1271,8 @@ function addEditRadioListener() {
 
 
       console.log('The edit student radio button is checked');
+      editStudentFormListener();
+      
       var editNameFields = `
           <br class="edit_break">
           <label for="existing_first_name">Existing first name</label>
@@ -1229,7 +1290,7 @@ function addEditRadioListener() {
 
 
 // listener for edit info button on student cards
-function studentEditListener() {
+function studentCardEditButtonListener() {
   $('button.edit_info').click(function(event) {
     event.preventDefault();
     console.log('This is the edit info listener');
@@ -1297,26 +1358,28 @@ function studentEditListener() {
     // Establish the radio listener and the state of the form
     // TODO ABSOLUTELY ADD THE EDIT LISTENER
     addEditRadioListener();
+    editStudentFormListener();
+    
     $('input#edit_student').prop('checked', true);
     $('button[name="add_student"]').off('click').css({
-        'pointer-events': 'none',
-        'background-color': 'rgb(138, 138, 138)'
-      });
+      'pointer-events': 'none',
+      'background-color': 'rgb(138, 138, 138)'
+    });
 
 
     $('.add_student_header').text('Edit Student');
       // Remove listener from adding student
-      $('button[name="add_student"]').off('click');
-      console.log('The edit student radio button is checked');
-      var editNameFields = `
+    $('button[name="add_student"]').off('click');
+    console.log('The edit student radio button is checked');
+    var editNameFields = `
           <br class="edit_break">
-          <label for="existing_first_name">Existing first name</label>
+          <label for="existing_first_name">Existing First Name</label>
           <input type="text" name="existing_first_name" id="existing_first_name">
 
-          <label for="existing_last_name">Existing Last name</label>
+          <label for="existing_last_name">Existing Last Name</label>
           <input type="text" name="existing_last_name" id="existing_last_name">
           `;
-      $('.mode_select').after(editNameFields);
+    $('.mode_select').after(editNameFields);
 
 
     var optionalFields = ['parent_first_name', 'parent_last_name', 'teacher_comments', 'apartment_number'];
