@@ -141,8 +141,8 @@ var state = {
         </textarea>
 
         <div class="button_container">
-          <button type="submit" name="add_student">Add Student</button>
-          <button type="submit" name="edit_student">Edit Student</button>
+          <button type="button" name="add_student">Add Student</button>
+          <button type="button" name="edit_student">Edit Student</button>
         </div>
 
 
@@ -381,6 +381,18 @@ function postStudentData(studentObj) {
   });
 }
 
+function updateStudentData(studentObj, id) {
+  console.log('this is the obj to be sent', studentObj);
+  return $.ajax({
+    type: 'PUT',
+    url: `/cu-manager/${id}`,
+    data: studentObj,
+    headers: {
+      Authorization: `bearer ${window.localStorage.getItem('token')}`
+    }
+  });
+}
+
 function editStudentFormListener() {
   console.log('edit button listener starting');
   // remove any existing listeners
@@ -390,11 +402,11 @@ function editStudentFormListener() {
     console.log('edit student listener added');
     event.preventDefault();
     // remove existing errors on the radio button
-    $('.radio_button_error').remove();
+    $('.radio_button_error, .radio_button_break').remove();
 
     // Check if the radio button is checked, return an error if it isn't
     if (! ($('input#edit_student').is(':checked'))) {
-      var radiobuttonError = `<p class="error radio_button_error">The Edit Student radio button must be checked</p>`;
+      var radiobuttonError = `<p class="error radio_button_error">The Edit Student radio button must be checked.</p><br class="radio_button_break">`;
 
       $('.mode_select').prepend(radiobuttonError);
 
@@ -424,10 +436,23 @@ function editStudentFormListener() {
       teacher_comments: $('textarea[name="teacher_comments"]').val()
     };
 
-    console.log(studentObj);
+      // convert time/date fiels to ISO strings
+    var rawstartTime = moment(studentObj.startTime, "hh:mm:A").format("HH:mm");
+    var rawendTime = moment(studentObj.endTime, "hh:mm:A").format("HH:mm");
+    var startDate = moment(studentObj.startDate, 'YYYY-MM-DD').toISOString();
+    console.log(rawendTime, rawstartTime);
+    var startTime = moment(rawstartTime, "hh:mm").toISOString();
+    var endTime = moment(rawendTime, "hh:mm").toISOString();
+    studentObj.startTime = startTime;
+    studentObj.startDate = startDate;
+    studentObj.endTime = endTime;
+    // console.log(studentObj.startDate);
+    console.log(startDate);
+    console.log('student form data for editing a student', studentObj);
 
 
-
+    var validatedStudent = validateNewStudent(studentObj);
+    console.log('Validated student for edit form', validatedStudent);
 
   });
 }
@@ -439,12 +464,12 @@ function addStudentFormListener() {
   $('button[name="add_student"]').click(function (event) {
     event.preventDefault();
   
-  // remove any existing errors that have been printed
-    $('.radio_button_error').remove();
+    // remove any existing errors that have been printed
+    $('.radio_button_error, .radio_button_break').remove();
     
     // Check if the radio button is checked, return an error if it isn't
     if (! ($('input#add_student').is(':checked'))) {
-      var radiobuttonError = `<p class="error radio_button_error">The Add Student radio button must be checked.</p><br>`;
+      var radiobuttonError = `<p class="error radio_button_error">The Add Student radio button must be checked.</p><br class="radio_button_break">`;
 
       $('.mode_select').prepend(radiobuttonError);
 
@@ -487,7 +512,7 @@ function addStudentFormListener() {
     studentObj.endTime = endTime;
     // console.log(studentObj.startDate);
     console.log(startDate);
-    console.log(studentObj);
+    console.log('Student form data for adding a student', studentObj);
 
     // validate the student form
     var validatedStudent = validateNewStudent(studentObj);
@@ -523,7 +548,11 @@ function addStudentFormListener() {
 
 function validateNewStudent(studentObj) {
 
-  $('.error').remove();
+  // remove previous errors
+  $('.error, .errors').remove();
+
+  // return borders to normal
+    $('input').css('border', 'none');
 
   var errors = {};
   var formData = {};
@@ -536,7 +565,7 @@ function validateNewStudent(studentObj) {
     console.log(studentObj[field]);
     console.log(field);
 
-    if (studentObj[field] === "") {
+    if (studentObj[field] === "" || studentObj[field] === null) {
       // if the following fields are empty, do nothing (they are optional)
       switch (field) {
       case 'parent_first_name':
@@ -555,6 +584,8 @@ function validateNewStudent(studentObj) {
       case "last_name":
       case "parent_first_name":
       case "parent_last_name":
+      case 'existing_first_name':
+      case 'existing_last_name':
        
         if (studentObj[field].length > 35) {
           errors[field] = `The ${field.replace('_', ' ')} field must contain more than 35 characters.`;
@@ -627,13 +658,29 @@ function validateNewStudent(studentObj) {
 
     console.log(errors);
 
-    Object.keys(errors).forEach(function (elem) {
+    var errorHtml = Object.keys(errors).map(function (elem, index) {
       var currentError = errors[elem];
       var errorMsg = `<p class="error" id="${elem}_error"> ${currentError}</p>`;
-      $(`input[name="${elem}"]`).after(errorMsg);
-    });
+      console.log(Object.keys(errors).length);
+
+      $(`input[name="${elem}"]`).css('border', '0.3vw solid red');
+      
+      if (index === 0) {
+        var errorDiv = `<div class="errors"><p class="error" id="${elem}_error"> ${currentError}</p>`;
+        return (errorDiv);
+      } else if (index === Object.keys(errors).length-1) {
+        var closeErrDiv = `<p class="error" id="${elem}_error"> ${currentError}</p></div>`;
+        return (closeErrDiv);
+      } else {
+        return errorMsg;
+      }
+            
+    }).join("").replace(',', "");
+
+    console.log(errorHtml);
+      $(`.mode_select`).after(errorHtml);
     // Scroll to start of form
-    $(document).scrollTop(310);
+    $(document).scrollTop(138.5);
     return errors;
 
   } else {
@@ -1228,12 +1275,14 @@ function exitStudentCurriculumListener() {
   });
 }
 
+
 function addEditRadioListener() {
 
   $('input#add_student, input#edit_student').click(function (event) {
+    
 
     // Remove previous errors on the form
-    $('.error').remove();
+    $('.error, .errors').remove();
 
     if ($('input#add_student').is(':checked')) {
       $('.add_student_header').text('Add Student');
@@ -1275,7 +1324,7 @@ function addEditRadioListener() {
       
       var editNameFields = `
           <br class="edit_break">
-          <label for="existing_first_name">Existing first name</label>
+          <label for="existing_first_name">Existing First Name</label>
           <input type="text" name="existing_first_name" id="existing_first_name">
 
           <label for="existing_last_name">Existing Last name</label>

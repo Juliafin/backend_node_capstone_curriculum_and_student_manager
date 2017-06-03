@@ -247,6 +247,13 @@ p.error {
   font-size: 1.5vw;
 }
 
+.errors {
+    border-top: 0.2vw solid red;
+    border-bottom: 0.2vw solid red;
+    margin: 4vw 0;
+    padding-bottom: 1vw;
+}
+
 form.project>label {
   display: block;
   margin-bottom: 4vh;
@@ -422,15 +429,13 @@ button#student_project {
   font-size: 2vw;
 }
 
-button[name="add_student"]:hover,
-button#student_project:hover {
+button[name="add_student"]:hover, button[name="edit_student"]:hover, button#student_project:hover {
   filter: brightness(120%);
   color: #ffaa5b;
   transition: all 300ms linear;
 }
 
-button[name="add_student"]:active,
-button#student_project:active {
+button[name="add_student"]:active, button[name="edit_student"]:active, button#student_project:active {
   color: aliceblue;
   background-color: #b7c3ce;
 }
