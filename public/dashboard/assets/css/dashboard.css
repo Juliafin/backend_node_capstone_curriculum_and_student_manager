@@ -157,9 +157,10 @@ input {
   font-size: 2vw;
 }
 
-input#add_student_project {
+input#add_student_project, input#edit_student_project {
     height: 2vw;
     width: 2vw;
+    margin: 0 2vw;
 }
 
 input#edit_student_project {
@@ -240,6 +241,17 @@ input#startTime {
 input#endTime {
     display: inline-block;
 }
+
+input#project_number {
+    width: 8vw;
+    margin: 0;
+    padding-left: 2.3vw;
+}
+
+.project input {
+    margin: 0;
+}
+
 
 p.optional_text {
   color: aliceblue;

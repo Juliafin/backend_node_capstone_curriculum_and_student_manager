@@ -183,7 +183,6 @@ curriculum_router.post('/', (req, res) => {
       missing.student_lesson_time = student_lesson_time;
     }
 
-
     if (Object.keys(missing).length !== 0) {
       const missingObj = {
         missing_fields: missing
@@ -209,8 +208,6 @@ curriculum_router.post('/', (req, res) => {
         console.log(err);
       });
 
-
-
         // attach user data to created document
     req.body.author = {};
     req.body.author.id = req.user._user._id;
@@ -232,7 +229,7 @@ curriculum_router.post('/', (req, res) => {
   }
 });
 
-
+// Update a student record, providing the entire document in the req.body
 curriculum_router.put('/:id', (req, res) => {
   if (req.user._user.role !== 'teacher') {
     return res.status(401).json({

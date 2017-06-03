@@ -159,27 +159,29 @@ var state = {
 
     addStudentProject: `
     <div class="addProject popIn">
-      <h1>Add a Project</h1>
+      <h1 class="add_student_project">Add Student Project</h1>
       <p class="optional_text">Student name must match an existing student.<span class="optional">*</span></p>
 
       
       <form class="project">
 
           <div class="mode_select">
-          <label for="add_student_project" id="add_label">Add Student Project</label>            
-          <input type="radio" name="radSize" id="add_student_project" value="add_student_project" checked="checked">
-          <label for="edit_student_project" id="edit_label">Edit Student Project</label>
-          <input type="radio" name="radSize" id="edit_student_project" value="edit_student_project">
-        </div>
+          
+            <label for="add_student_project" id="add_label">Add Student Project</label>            
+            <input type="radio" name="radSize" id="add_student_project" value="add_student_project">
 
-          <label for="first_name">Student's first name</label>
+            <label for="edit_student_project" id="edit_label">Edit Student Project</label>
+            <input type="radio" name="radSize" id="edit_student_project" value="edit_student_project">
+          </div>
+
+          <label for="first_name">Student First Name</label>
           <input type="text" name="student_first_name" id="student_first_name">
 
-          <label for="last_name">Student's last name</label>
+          <label for="last_name">Student Last Name</label>
           <input type="text" name="student_last_name" id="student_last_name">
 
-          <label for="email">Student's Email</label>
-          <input type="email" name="student_email" id="student_email">
+          <label for="email">Student Email</label>
+          <input type="email" name="email" id="student_email">
         
           <label for="project_date">Project Date</label>
           <input type="date" name="project_date" id="project_date">
@@ -195,8 +197,8 @@ var state = {
           </textarea>
           
           <div class="button_container">
-          <button type="button" name="add_student_project" id="add_student_project">Add Student Project</button>
-          <button type="button" name="edit_student_project" id="edit_student_project">Edit Student Project</button>
+            <button type="button" name="add_student_project" id="add_student_project">Add Student Project</button>
+            <button type="button" name="edit_student_project" id="edit_student_project">Edit Student Project</button>
           </div>
       
       </form>
@@ -290,7 +292,9 @@ function navbarListener() {
       $('div.background').html(state.templates.addStudentProject);
       $(this).addClass('selected');
       $('div.nav li').not($(this)).removeClass('selected');
-      addStudentProjectListener();
+      addStudentProjectFormListener();
+      editStudentProjectFormListener();
+      addEditStudentProjectFormRadioListener();
       $('input#project_date').val(moment().format('YYYY-MM-DD'));
     }
 
@@ -518,7 +522,7 @@ function editStudentFormListener() {
           })
           .catch(function(err) {
             console.log('error', err);
-            var failure = `<p class="error">Student was not found.<p>`
+            var failure = `<p class="error">Student was not found.<p>`;
             $('button_container').before(failure);
           });
     }
@@ -760,14 +764,69 @@ function validateNewStudent(studentObj) {
   }
 }
 
-function addStudentProjectListener() {
+function editStudentProjectFormListener() {
+  // Remove any existing listeners
+  $('button#edit_student_project').off();
+
+  $('button#edit_student_project').click(function (event) {
+    
+    // Check if the edit radio button is checked before collecting inputs
+    if (! ($('input#edit_student_project').is(':checked'))) {
+      var radiobuttonError = `<p class="error radio_button_error">The Edit Student radio button must be checked.</p><br class="radio_button_break">`;
+
+      $('.mode_select').prepend(radiobuttonError);
+
+      $(document).scrollTop(160);
+      return;
+    }
+   
+    event.preventDefault();
+    $('input#project_date').val(moment().format('YYYY-MM-DD'));
+    var student_curriculum = {
+      project_number :$('input[name="project_number"]').val().trim(),
+      student_first_name: $('input[name="student_first_name"]').val().trim(),
+      student_last_name: $('input[name="student_last_name"]').val().trim(),
+      email: $('input[name="email"]').val().trim(),
+      project_date: $('input#project_date').val().trim(),
+      project_name: $('input#project_name').val().trim(),
+      project_description: $('input#project_description').val().trim(),
+      teacher_project_comments: $('textarea#project_comments').val().trim()
+    };
+
+    // Validate the input and verify the 'no errors' message 
+    var validatedProject = validateStudentProject(student_curriculum);
+
+    console.log(validatedProject);
+  
+
+  });
+}
+
+function addStudentProjectFormListener() {
+  // Remove any existing listeners
+  $('button#add_student_project').off();
+
   $('button#add_student_project').click(function (event) {
+    
+    // Remove previous radio button errors
+    $('.radio_button_error').remove()
+
+    // Check if the add radio button is checked before collecting inputs
+    if (! ($('input#add_student_project').is(':checked'))) {
+      var radiobuttonError = `<p class="error radio_button_error">The Add Student radio button must be checked.</p><br class="radio_button_break">`;
+
+      $('.mode_select').prepend(radiobuttonError);
+
+      $(document).scrollTop(160);
+      return;
+    }
+
     event.preventDefault();
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     var student_curriculum = {
       student_first_name: $('input[name="student_first_name"]').val().trim(),
       student_last_name: $('input[name="student_last_name"]').val().trim(),
-      email: $('input[name="student_email"]').val().trim(),
+      email: $('input[name="email"]').val().trim(),
       project_date: $('input#project_date').val().trim(),
       project_name: $('input#project_name').val().trim(),
       project_description: $('input#project_description').val().trim(),
@@ -787,7 +846,7 @@ function addStudentProjectListener() {
 
 
 
-function UpdateStudentProject (checkedProject) {
+function UpdateStudentProject (checkedProject, index = "") {
 
   if ('message' in checkedProject && checkedProject.message === 'No errors found.') {
     delete checkedProject.message;
@@ -804,7 +863,7 @@ function UpdateStudentProject (checkedProject) {
       }
 
     });
-      // use the index to update the returned item in the state if it is found
+      // use the index of the student to update the returned item in the state if it is found
 
     var searchResultIndex = searchResult.order - 1;
     console.log('Search result in state matching the student the project belongs to', searchResult);
@@ -812,7 +871,8 @@ function UpdateStudentProject (checkedProject) {
       // for the update containing: student_curriculum (project date, project name, project description, project comments), the id
       // Delete the extra keys not needed in the object
     if (searchResult) {
-      var index = searchResult.student_curriculum.length.toString();
+      // if an index is provided, the project is 
+      index = index.toString() || searchResult.student_curriculum.length.toString();
 
       delete checkedProject.student_first_name;
       delete checkedProject.student_last_name;
@@ -832,29 +892,34 @@ function UpdateStudentProject (checkedProject) {
 
             var success = `<p class="success">Project successfully added!</p>`;
 
-            $('button#student_project').before(success);
-
-
-            
+            $('.button_container').before(success);
 
             console.log('Updated state:', state.student_records);
-
           })
           .catch(function (err) {
             console.log(err);
+            var failure = `<p class="error"> Project could not be added.<p>`;
+            $ ('.button_container').before(failure);
           });
 
 
     } else {
       console.log('the search result wasnt found');
+      var failure = `<p class="error">Project could not be added.<p>`;
+      $ ('.button_container').before(failure);
     }
   }
 }
 
 
-
-
 function validateStudentProject(curriculum) {
+
+  // Return borders to normal
+  $('input').css('border', 'none');
+  
+  // Remove previous errors
+  $('.error, .errors').remove();
+  
   console.log(curriculum);
   var errors = {};
   var formdata = {};
@@ -911,6 +976,14 @@ function validateStudentProject(curriculum) {
         }
         break;
 
+      case "project_number":
+        if (parseInt(curriculum[field]) < 1) {
+          errors[field] = `The ${field.replace('_', ' ')} field may not be less than 1.`;
+        } else {
+          formdata[field] = curriculum[field];
+        }
+        break;
+
       } // ends switch
     }
   });
@@ -922,7 +995,7 @@ function validateStudentProject(curriculum) {
   //     $(`input[name="${elem}"]`).after(errorMsg);
   //   });
 
-if (Object.keys(errors).length > 0) {
+  if (Object.keys(errors).length > 0) {
 
     console.log(errors);
 
@@ -1044,7 +1117,7 @@ function renderStudentCard(state) {
 }
 
 
-function addstudentProjecCardListener () {
+function addstudentProjectCardListener () {
 
   $('div.background').on('click', 'button.add_student_project', function (event) {
     event.preventDefault();
@@ -1091,7 +1164,7 @@ function addstudentProjecCardListener () {
     $('input#student_email').val(student_record.email);
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     
-    addStudentProjectListener();
+    addStudentProjectFormListener();
 
   });
 }
@@ -1300,11 +1373,14 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   var studentCurriculumHtml = record.student_curriculum.map(function (project, index) {
 
     var projectHtml = `
-        <div class="project_container" index="${index}" id =${record.id} draggable="false">
-          <p class="project_name">Project Name: <br> ${project.project_name}</p>
-          <br>
-          <p class="project_date">Project started on ${moment(project.project_date).format('dddd, MMMM Do YYYY')} </p>
-          <p class="project_description">Project Description: <br> ${project.project_description}</p>
+        <div class="project_container" index="${index}" id ="${record.id}" draggable="false">
+          <div class="project_number_container" id="${index+1}">
+            <p class="project_number"># ${index+1} </p>
+          </div>
+            <p class="project_name">Project Name: <br> ${project.project_name}</p>
+            <br>
+            <p class="project_date">Project started on ${moment(project.project_date).format('dddd, MMMM Do YYYY')} </p>
+            <p class="project_description">Project Description: <br> ${project.project_description}</p>
           <div class="teacher_project_container">
             <p class="teacher_project_comments">Project Comments: <br> ${(project.teacher_project_comments || "No comments were provided.")}</p>
           </div>
@@ -1380,8 +1456,76 @@ function exitStudentCurriculumListener() {
   });
 }
 function addEditStudentProjectFormRadioListener () {
+  $('input#add_student_project, input#edit_student_project').click(function(event) {
+    
+    // Remove previous errors on the form
+    $('.error, .errors').remove();
+    
+    // Reset borders
+    $('input').css('border', 'none');
+
+    // If the Edit Student Project Radio is clicked
+    if ($('input#edit_student_project').is(':checked')) {
+
+       // Remove listener from adding student
+      $('button[name="add_student_project"]').off('click').css({
+        'pointer-events': 'none',
+        'background-color': 'rgb(138, 138, 138)'
+      });
+
+      // Change edit project button to 'active state'
+      $('button[name="edit_student_project"]').css({
+        'pointer-events': 'auto',
+        'background-color': 'rgb(178, 18, 18)'
+      });
+
+      // Remove the project number edit field
+      $('label[for="project_number"], input#project_number').remove();
+
+      var editNameFields = `
+          <label for="project_number">Project Number</label>
+          <input type="number" name="project_number" id="project_number">
+          `;
+
+      $('.mode_select').after(editNameFields);
+
+      $('h1.add_a_project').text('Edit Student Project');
+
+      //add the edit form listener
+      editStudentProjectFormListener();
+      
+    // If the Add Student Project Radio is clicked
+    } else if ($('input#add_student_project').is(':checked')) {
+
+
+      // Remove Listener from Edit student project button
+      $('button[name="edit_student_project"]').off().css({
+        'pointer-events': 'none',
+        'background-color': 'rgb(138, 138, 138)'
+      });
+      
+      // Change add Student Project button to active state
+      $('button[name="add_student_project"]').css({
+        'pointer-events': 'auto',
+        'background-color': 'rgb(178, 18, 18)'
+      });
+
+      // Remove the project number edit field
+      $('label[for="project_number"], input#project_number').remove();
+
+
+      $('h1.add_a_project').text('Add Student Project');
+      addStudentProjectFormListener();
+      
+
+     
+
+    }
+
+  });
 
 }
+
 
 function addEditStudentFormRadioListener() {
 
@@ -1401,6 +1545,7 @@ function addEditStudentFormRadioListener() {
       $('label[for="first_name"]').text('First Name');
       $('label[for="last_name"]').text('Last Name');
       $('label[for="email"]').text('Email');
+      
       $('button[name="edit_student"]').off().css({
         'pointer-events': 'none',
         'background-color': 'rgb(138, 138, 138)'
@@ -1419,16 +1564,18 @@ function addEditStudentFormRadioListener() {
       $('label[for="existing_first_name"], label[for="existing_last_name"],label[for="existing_email"], input#existing_first_name, input#existing_last_name, input#existing_email, .edit_break').remove();
 
 
-    } else if($('input#edit_student').is(':checked')) {
+    } else if ($('input#edit_student').is(':checked')) {
 
       // change labels for editing a student
       $('.add_student_header').text('Edit Student');
       $('label[for="first_name"]').text('New First Name');
       $('label[for="last_name"]').text('New Last Name');
       $('label[for="email"]').text('New Email');
+
+      // Remove the edit inputs if they exist
+      $('label[for="existing_first_name"], label[for="existing_last_name"],label[for="existing_email"], input#existing_first_name, input#existing_last_name, input#existing_email, .edit_break').remove();
+
       
-      // Reset borders
-      $('input').css('border', 'none');
 
       // Remove listener from adding student
       $('button[name="add_student"]').off('click').css({
@@ -1648,7 +1795,7 @@ function authenticateResult() {
           saveStudentData();          
           displayNav();
           studentInfoListener();
-          addstudentProjecCardListener();
+          addstudentProjectCardListener();
         } else if (state.role === 'student') {
           state.student_first_name = result.first_name;
           state.student_last_name = result.last_name;
