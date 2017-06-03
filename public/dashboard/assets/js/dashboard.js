@@ -419,6 +419,7 @@ function editStudentFormListener() {
 
       existing_first_name: $('input[name="existing_first_name"]').val(),
       existing_last_name: $('input[name="existing_last_name"]').val(),    
+      existing_email: $('input[name="existing_email"]').val(),    
       first_name: $('input[name="first_name"]').val(),
       last_name: $('input[name="last_name"]').val(),
       email: $('input[name="email"]').val(),
@@ -453,6 +454,12 @@ function editStudentFormListener() {
 
     var validatedStudent = validateNewStudent(studentObj);
     console.log('Validated student for edit form', validatedStudent);
+
+    if ('message' in validatedStudent && validatedStudent.message === 'No errors found.') {
+      delete validatedStudent.message;
+
+
+    }
 
   });
 }
@@ -595,6 +602,7 @@ function validateNewStudent(studentObj) {
         break;
 
       case "email":
+      case "existing_email":
         var emailValid = new RegExp(/^.+@{1}.+\.[a-zA-Z]{2,4}$/);
         if (!(emailValid.test(studentObj[field]))) {
           errors[field] = `The ${field} field is not valid.`;
@@ -1039,6 +1047,8 @@ function renderStudentInfo(student_record, color) {
   console.log(lesson_start_time);
   console.log(lesson_end_time);
 
+  var apartment_number = "Apt. #" + student_record.address.apartment_number; 
+
   var parentEmpty = `Parent's name not provided`;
   var teacherCommentsEmpty = `Teacher comments not provided`;
 
@@ -1056,7 +1066,7 @@ function renderStudentInfo(student_record, color) {
           
           <p class="parent_name"> Parent's name: <br><span id="parent_first_name">${student_record.parent_first_name}</span> <span id="parent_last_name">${student_record.parent_last_name}</span></p>
           
-          <p class="street_address">Address: <br><span id="street_address">${student_record.address.street_address}</span></p>
+          <p class="street_address">Address: <br><span id="street_address">${student_record.address.street_address} <span class="apartment_number"></span> </span></p>
           
           <p class="street_address_2"><span id="city">${student_record.address.city}</span>, <span id="state">${student_record.address.state}</span> <span id="zipcode">${student_record.address.zipcode}</span></p>
           
@@ -1086,6 +1096,11 @@ function renderStudentInfo(student_record, color) {
     `;
   console.log(studentHtml);
   $('body').prepend(studentHtml);
+
+  if (student_record.address.apartment_number) {
+    $('.apartment_number').text(apartment_number);
+  }
+
   $('.color_strip, button.edit_info, button.student_exit, button.student_curriculum').css('background-color', color);
 
   if ($('.color_strip').css('background-color') === 'rgb(255, 193, 7)') {
@@ -1283,9 +1298,17 @@ function addEditRadioListener() {
 
     // Remove previous errors on the form
     $('.error, .errors').remove();
+    
+    // Reset borders
+    $('input').css('border', 'none');
 
     if ($('input#add_student').is(':checked')) {
+
+      // change labels for adding a student
       $('.add_student_header').text('Add Student');
+      $('label[for="first_name"]').text('First Name');
+      $('label[for="last_name"]').text('Last Name');
+      $('label[for="email"]').text('Email');
       $('button[name="edit_student"]').off().css({
         'pointer-events': 'none',
         'background-color': 'rgb(138, 138, 138)'
@@ -1301,11 +1324,20 @@ function addEditRadioListener() {
       addStudentFormListener();
 
       // Remove the edit inputs if they exist
-      $('label[for="existing_first_name"], label[for="existing_last_name"], input#existing_first_name, input#existing_last_name, .edit_break').remove();
+      $('label[for="existing_first_name"], label[for="existing_last_name"],label[for="existing_email"], input#existing_first_name, input#existing_last_name, input#existing_email, .edit_break').remove();
 
 
     } else if($('input#edit_student').is(':checked')) {
+
+      // change labels for editing a student
       $('.add_student_header').text('Edit Student');
+      $('label[for="first_name"]').text('New First Name');
+      $('label[for="last_name"]').text('New Last Name');
+      $('label[for="email"]').text('New Email');
+      
+      // Reset borders
+    $('input').css('border', 'none');
+
       // Remove listener from adding student
       $('button[name="add_student"]').off('click').css({
         'pointer-events': 'none',
@@ -1329,6 +1361,11 @@ function addEditRadioListener() {
 
           <label for="existing_last_name">Existing Last name</label>
           <input type="text" name="existing_last_name" id="existing_last_name">
+
+          <label for="existing_email">Existing Email</label>
+          <input type="text" name="existing_email" id="existing_email">
+
+
           `;
       $('.mode_select').after(editNameFields);
     }
