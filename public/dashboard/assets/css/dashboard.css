@@ -227,6 +227,20 @@ input[type="date"] {
   font-size: 2vw;
 }
 
+label[for="startTime"], label[for="endTime"] {
+    display: inline-block;
+    margin-right: .5vw;
+}
+
+input#startTime {
+    display: inline-block;
+    left: -86px;
+}
+
+input#endTime {
+    display: inline-block;
+}
+
 p.optional_text {
   color: aliceblue;
 }
@@ -419,7 +433,8 @@ button.student_curriculum,
 
 button[name="add_student"], 
 button[name="edit_student"],
-button#student_project {
+button#add_student_project,
+button#edit_student_project {
   margin: 2vw;
   width: 20vw;
   height: 5vw;
@@ -429,13 +444,19 @@ button#student_project {
   font-size: 2vw;
 }
 
-button[name="add_student"]:hover, button[name="edit_student"]:hover, button#student_project:hover {
+button[name="add_student"]:hover, 
+button[name="edit_student"]:hover, 
+button#add_student_project:hover,
+button#edit_student_project:hover {
   filter: brightness(120%);
   color: #ffaa5b;
   transition: all 300ms linear;
 }
 
-button[name="add_student"]:active, button[name="edit_student"]:active, button#student_project:active {
+button[name="add_student"]:active,
+button[name="edit_student"]:active, 
+button#add_student_project:active,
+button#_edit_student_project:active {
   color: aliceblue;
   background-color: #b7c3ce;
 }
@@ -699,4 +720,16 @@ div.student_not_found > h2 {
 
 .student_version button.exit_student_curriculum {
     background: rgb(178, 18, 18);
+}
+
+
+@media screen and (max-width: 600px) {
+
+  label {
+    display:block;
+  }
+
+  label#add_label, label#edit_label {
+    display: inline-block;
+  }
 }

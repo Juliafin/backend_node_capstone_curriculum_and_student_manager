@@ -55,11 +55,10 @@ div.prev {
 
 .time_pick {
 	position: relative;
-	left: 35.5%;
-	right: 50%;
-	width: 24vw;
+	/* width: 24vw; */
 	margin: 0;
 	padding: 0;
+	display: inline-block;
 }
 
 .timepicker_wrap {
@@ -93,8 +92,6 @@ div.prev {
 
 input.timepicki-input {
 	background: none repeat scroll 0 0 #FFFFFF;
-	border: 1px solid #CCCCCC;
-	border-radius: 1vw;
 	float: none;
 	margin: 0;
 	text-align: center;
@@ -102,6 +99,8 @@ input.timepicki-input {
 	font-size: 2.2vw;
 	color: #ffaa5b;
 	font-family: trocchi;
+	box-shadow: none;
+	padding-left: 0;
 }
 
 a.reset_time {
