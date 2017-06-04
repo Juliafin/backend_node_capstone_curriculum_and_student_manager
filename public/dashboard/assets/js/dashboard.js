@@ -769,6 +769,9 @@ function editStudentProjectFormListener() {
   $('button#edit_student_project').off();
 
   $('button#edit_student_project').click(function (event) {
+
+    // Remove previous radio button errors
+    $('.radio_button_error').remove();
     
     // Check if the edit radio button is checked before collecting inputs
     if (! ($('input#edit_student_project').is(':checked'))) {
@@ -776,7 +779,7 @@ function editStudentProjectFormListener() {
 
       $('.mode_select').prepend(radiobuttonError);
 
-      $(document).scrollTop(160);
+      $(document).scrollTop(0);
       return;
     }
    
@@ -784,8 +787,8 @@ function editStudentProjectFormListener() {
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     var student_curriculum = {
       project_number :$('input[name="project_number"]').val().trim(),
-      student_first_name: $('input[name="student_first_name"]').val().trim(),
-      student_last_name: $('input[name="student_last_name"]').val().trim(),
+      first_name: $('input[name="student_first_name"]').val().trim(),
+      last_name: $('input[name="student_last_name"]').val().trim(),
       email: $('input[name="email"]').val().trim(),
       project_date: $('input#project_date').val().trim(),
       project_name: $('input#project_name').val().trim(),
@@ -797,7 +800,7 @@ function editStudentProjectFormListener() {
     var validatedProject = validateStudentProject(student_curriculum);
 
     console.log(validatedProject);
-  
+    UpdateStudentProject(validatedProject, validatedProject.project_number, true);
 
   });
 }
@@ -817,15 +820,15 @@ function addStudentProjectFormListener() {
 
       $('.mode_select').prepend(radiobuttonError);
 
-      $(document).scrollTop(160);
+      $(document).scrollTop(0);
       return;
     }
 
     event.preventDefault();
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     var student_curriculum = {
-      student_first_name: $('input[name="student_first_name"]').val().trim(),
-      student_last_name: $('input[name="student_last_name"]').val().trim(),
+      first_name: $('input[name="student_first_name"]').val().trim(),
+      last_name: $('input[name="student_last_name"]').val().trim(),
       email: $('input[name="email"]').val().trim(),
       project_date: $('input#project_date').val().trim(),
       project_name: $('input#project_name').val().trim(),
@@ -846,15 +849,15 @@ function addStudentProjectFormListener() {
 
 
 
-function UpdateStudentProject (checkedProject, index = "") {
+function UpdateStudentProject (checkedProject, index = "", deleteProjectnumber = false) {
 
   if ('message' in checkedProject && checkedProject.message === 'No errors found.') {
     delete checkedProject.message;
 
       // Find the student record in the state, and append it's position in the array to the object for later processing 
     var searchResult = state.student_records.find(function (record) {
-      if (record.first_name === checkedProject.student_first_name &&
-          record.last_name === checkedProject.student_last_name &&
+      if (record.first_name === checkedProject.first_name &&
+          record.last_name === checkedProject.last_name &&
           record.email === checkedProject.email
         ) {
         return record;
@@ -863,6 +866,18 @@ function UpdateStudentProject (checkedProject, index = "") {
       }
 
     });
+    // IF the index provided to write to the curriculum is more than the curriculum array length, return an error
+    if (searchResult.student_curriculum.length < parseInt(index) - 1) {
+       var indexError = `<div class="errors">
+                          <p class="error">The project number field may not be larger than the number of student projects.</p>
+                        </div>`;
+       
+       
+       $(`.mode_select`).after(indexError);
+      // Scroll to start of form
+      $(document).scrollTop(138.5);
+
+    }
       // use the index of the student to update the returned item in the state if it is found
 
     var searchResultIndex = searchResult.order - 1;
@@ -871,26 +886,43 @@ function UpdateStudentProject (checkedProject, index = "") {
       // for the update containing: student_curriculum (project date, project name, project description, project comments), the id
       // Delete the extra keys not needed in the object
     if (searchResult) {
-      // if an index is provided, the project is 
-      index = index.toString() || searchResult.student_curriculum.length.toString();
+      // if an index is provided, the project is
+      if (index !== "") {
+        index = parseInt(index) - 1;
+        index = index.toString()
+      } else {
+        index = searchResult.student_curriculum.length.toString();
+      }
 
-      delete checkedProject.student_first_name;
-      delete checkedProject.student_last_name;
+    if (deleteProjectnumber === true) {
+      delete checkedProject.project_number;
+    }
+
+      delete checkedProject.first_name;
+      delete checkedProject.last_name;
       delete checkedProject.email;
 
       sendStudentProject(checkedProject, searchResult.id, index)
           .then(function (student_record) {
             console.log('the result was successful');
-            console.log(student_record);
+            console.log('RETURNED STUDENT RECORD!', student_record);
             // write the change back to the state;
 
-            student_record.updated.student_curriculum.forEach(function (project, projectIndex) {
-              console.log(project);
-              console.log(state.student_records[searchResultIndex].student_curriculum[projectIndex]);
-              state.student_records[searchResultIndex].student_curriculum[projectIndex] = project;
-            });
+            var writeIndex = parseInt(index);
 
-            var success = `<p class="success">Project successfully added!</p>`;
+            console.log('this is the index to write to', writeIndex);
+
+            student_record.updated.student_curriculum.forEach(function(updated_record, index) {
+              state.student_records[searchResultIndex].student_curriculum[index] = updated_record;
+            })
+            console.log(state.student_records[searchResultIndex]);
+
+            if (deleteProjectnumber === true) {
+
+             var success = `<p class="success">Project successfully edited!</p>`;
+            } else {
+              var success = `<p class="success">Project successfully added!</p>`;
+            }
 
             $('.button_container').before(success);
 
@@ -931,8 +963,8 @@ function validateStudentProject(curriculum) {
     } else {
       switch (field) {
 
-      case 'student_first_name':
-      case 'student_last_name':
+      case 'first_name':
+      case 'last_name':
         var whiteSpace = new RegExp(/\s/);
         if (curriculum[field].length > 25) {
           errors[field] = `The ${field.replace('_', ' ')} field must have a maximum of 25 characters.`;
@@ -1489,7 +1521,7 @@ function addEditStudentProjectFormRadioListener () {
 
       $('.mode_select').after(editNameFields);
 
-      $('h1.add_a_project').text('Edit Student Project');
+      $('h1.add_student_project').text('Edit Student Project');
 
       //add the edit form listener
       editStudentProjectFormListener();
@@ -1514,14 +1546,10 @@ function addEditStudentProjectFormRadioListener () {
       $('label[for="project_number"], input#project_number').remove();
 
 
-      $('h1.add_a_project').text('Add Student Project');
+      $('h1.add_student_project').text('Add Student Project');
       addStudentProjectFormListener();
       
-
-     
-
     }
-
   });
 
 }
@@ -1877,6 +1905,7 @@ function saveStudentData() {
       console.log(data);
       data.student_records.forEach(function (record, index) {
         record.order = index + 1;
+        record.student_curriculum_length = record.student_curriculum.length;
         state.student_records.push(record);
       });
       renderWelcome();
