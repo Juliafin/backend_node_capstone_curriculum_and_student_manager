@@ -167,6 +167,16 @@ input {
   font-size: 2vw;
 }
 
+label[for="student_search"] {
+    display: block;
+}
+
+input#student_search {
+    width: 47vw;
+    margin: 1vw 0;
+
+}
+
 input#add_student_project, input#edit_student_project {
     height: 2vw;
     width: 2vw;

@@ -210,6 +210,10 @@ var state = {
     studentList: `
     <div class="studentList popIn">
       <h1>Student List</h1>
+
+      <label for="student_search">Student Search</label>
+      <input type="text" name="student_search" id="student_search">
+
       <div class="card_container">
       </div>
     </div>`
@@ -317,6 +321,7 @@ function navbarListener() {
       $(this).addClass('selected');
       $('div.nav li').not($(this)).removeClass('selected');
       renderStudentCard(state.student_records);
+      studentSearchListener();
     }
 
     if ($(this).attr('id') === 'logged_in') {
@@ -438,6 +443,25 @@ function updateStudent(studentObj, id) {
     }
   });
 }
+
+function studentSearchListener() {
+ 
+    $('input#student_search').keydown(  
+      $.debounce(500,  
+        function(event) {
+          var input = $('input#student_search').val();
+          console.log('input entered');
+          console.log(input);
+        }
+       )
+    );
+
+ 
+  
+  
+}
+
+
 
 // Listener for editing students on the add / edit student form
 function editStudentFormListener() {
