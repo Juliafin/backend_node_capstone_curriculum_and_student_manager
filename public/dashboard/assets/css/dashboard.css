@@ -120,6 +120,16 @@ nav {
   border-radius: 20px;
 }
 
+.nav li:nth-child(3) {
+    margin-left: 3vw;
+}
+
+.nav li:nth-child(1) {
+    margin-left: 3vw;
+    margin-right:3vw;
+    width: 80%;
+}
+
 fieldset.general_info {
   margin-top: 5vw;
 }
@@ -425,12 +435,7 @@ p.success {
   background-color: #4caf50;
 }
 
-button.add_student_project,
-button.student_info,
-button.student_exit,
-button.edit_info,
-button.student_curriculum,
-.exit_student_curriculum {
+button.add_student_project, button.student_info, button.student_exit, button.edit_info, button.student_curriculum, .exit_student_curriculum, .edit_student_curriculum_modal, .add_student_curriculum_modal {
   margin-top: 2vw;
   border-radius: 2px;
   outline: none;
@@ -473,7 +478,8 @@ button#_edit_student_project:active {
   background-color: #b7c3ce;
 }
 
-button.add_student_project:hover, button.add_student_project:focus, button.student_info:hover, button.student_info:focus, button.edit_info:hover, button.edit_info:focus, button.student_exit:hover, button.student_exit:focus, button.student_curriculum:hover, button.student_curriculum:focus, button.exit_student_curriculum:hover, button.exit_student_curriculum:focus, .student_version button.exit_student_curriculum:hover, .student_version button.exit_student_curriculum:focus {
+button.add_student_project:hover, button.add_student_project:focus, button.student_info:hover, button.student_info:focus, button.edit_info:hover, button.edit_info:focus, button.student_exit:hover, button.student_exit:focus, button.student_curriculum:hover, button.student_curriculum:focus, button.exit_student_curriculum:hover, button.exit_student_curriculum:focus, .student_version button.exit_student_curriculum:hover, .student_version button.exit_student_curriculum:focus, button.edit_student_curriculum_modal:hover, button.edit_student_curriculum_modal:focus,
+button.add_student_curriculum_modal:hover, button.add_student_curriculum_modal:focus {
   background: rgb(33, 80, 97);
   filter: brightness(120%);
   transform: scale(1.1);
@@ -703,11 +709,13 @@ div.project_container {
     height: 26vw;
 }
 
-button.exit_student_curriculum {
+button.exit_student_curriculum, button.edit_student_curriculum_modal, button.add_student_curriculum_modal {
     margin-top: 0vw;
     color: white;
     height: 4vw;
     font-size: 2vw;
+    width: 17vw;
+    margin: 0 1vw;
 }
 
 div.teacher_project_container{

@@ -285,7 +285,7 @@ function navbarListener() {
       addEditStudentFormRadioListener();
     }
 
-    if ($(this).text() === 'Add Student Project') {
+    if ($(this).text() === 'Add / Edit Student Project') {
 
       setTimeout(function () {
         // console.log('scrolling up');
@@ -339,7 +339,7 @@ function displayNav() {
     <nav>
       <div class="nav">
         <li>Add / Edit Student</li>
-        <li>Add Student Project</li>      
+        <li>Add / Edit Student Project</li>      
   		  <li>Student List and Schedule</li>
         <li id="logged_in">Not <span>${window.localStorage.getItem('current_user')}?</span class="logged_user"><br><span>Log out</span></li>
     </div>
@@ -1230,14 +1230,19 @@ function addstudentProjectCardListener () {
       })
       .removeClass('selected');
 
+      // Set Radio button to checked state
+    $('input#add_student_project').prop('checked', true);
+
       // Write student values to form
     $('input#student_first_name').val(student_record.first_name);
     $('input#student_last_name').val(student_record.last_name);
     $('input#student_email').val(student_record.email);
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     
-    // Add listener to add project button on the form
+    // Add listeners to add project button on the form
     addStudentProjectFormListener();
+    addEditStudentProjectFormRadioListener();
+    editStudentProjectFormListener();
 
   });
 }
@@ -1397,16 +1402,21 @@ function studentCurriculumListener(color) {
 
     renderStudentCurriculum(student_record, color);
     exitStudentCurriculumListener();
+    editStudentProjectModalButtonListener();
+    addStudentProjectModalButtonListener();
 
   });
 }
 
+
+// Render the modal for student projects.
+// The student version (when student_version = false), displays in window
+// The teacher version displays as a 3rd depth layer modal
 function renderStudentCurriculum (record, color=null, student_version=false) {
   // console.log('student_curriculum rendering');
   
   // Create Modal Html - flexslider plugin
   var studentCurriculumModal = `
-  
   
   <div class="student_curriculum_container slowPopIn">
 
@@ -1436,6 +1446,11 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
     <button class="exit_student_curriculum">
     Exit Project List
     </button>
+    
+    <button class="add_student_curriculum_modal">
+    Add Project
+    </button>
+    
     <button class="edit_student_curriculum_modal">
     Edit Project
     </button>
@@ -1451,7 +1466,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   // Displays a student version of the modal if a student is logged in
   if (student_version === true) {
     $('.student_curriculum_container').addClass('student_version');
-    $('.edit_student_curriculum_modal').remove();
+    $('.edit_student_curriculum_modal, .add_student_curriculum_modal').remove();
   }
 
   // console.log(record);
@@ -1490,7 +1505,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   } else {
     var noProjects = `
       <li class="clone" aria-hidden="true">
-      <p class="no_projects">No Projects were added.</p>
+      <p class="no_projects" id="${record.id}">No Projects were added.</p>
       </li>`;
     $('ul.slides').html(noProjects);
   }
@@ -1500,14 +1515,14 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   if (color !== null) {
     $('.flexslider').css('background-color', color);
 
-    $('button.exit_student_curriculum').css('background-color', color);
+    $('button.exit_student_curriculum, button.edit_student_curriculum_modal, .add_student_curriculum_modal').css('background-color', color);
 
 
     if ($('div.flexslider').css('background-color') === 'rgb(255, 193, 7)') {
-      $('div.student_curriculum_container p').css('color', 'black');
+      $('div.student_curriculum_container p, button.exit_student_curriculum, button.edit_student_curriculum_modal, .add_student_curriculum_modal').css('color', 'black');
     }
 
-    $('button.exit_student_curriculum').hover(
+    $('button.exit_student_curriculum, button.edit_student_curriculum_modal, button.add_student_curriculum_modal').hover(
       function(event) {
         $(this).css('background-color', 'rgb(33, 80, 97)');
         if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
@@ -1531,6 +1546,191 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 
 }
 
+function addStudentProjectModalButtonListener() {
+  $('button.add_student_curriculum_modal').click(function (event) {
+    // Remove previous errors
+    $('.errors, .error').remove();
+
+    console.log('Edit project button clicked');
+
+    // Get student data
+    
+    var studentID = $('.flex-active-slide > .no_projects').attr('id');
+    console.log('Student ID', studentID);
+
+
+    var student = state.student_records.find(function(record) {
+      if (studentID === record.id) {
+        return record;
+      }
+    });
+
+    console.log(student);
+
+    // Re-allow scrolling on main page
+    $('html, body').css('overflow', 'auto');
+
+    // Remove scroll from the modal
+    $('div.student_modal').css('overflow', 'auto');
+
+    // Re-allow clicks on the main page
+    $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "auto");
+
+    // Stagger fading out modals
+    $('div.student_curriculum_container').fadeOut(400, function() {
+      
+      $('div.student_modal').fadeOut();
+      setTimeout(function () {
+        $('div.student_modal').remove();
+
+      }, 700);
+    });
+  
+    setTimeout(function () {
+      $('div.student_curriculum_container').remove();
+
+    }, 700);
+
+    // Set html to student project form
+    $('div.background').empty();
+    $('div.background').html(state.templates.addStudentProject);
+
+    // Add listeners
+    addEditStudentProjectFormRadioListener();
+    addStudentProjectFormListener();
+    editStudentProjectFormListener();
+
+    // Set css classes for navbar state
+    $('div.nav li')
+      .filter(function(index) {
+        return $(this).text() === "Add / Edit Student Project";
+      })
+      .addClass('selected');
+      
+    $('div.nav li')
+      .filter(function(index) {
+        return $(this).text() === "Student List and Schedule";
+      })
+      .removeClass('selected');
+
+    // Scroll to top of page
+    $(document).scrollTop(0);
+
+    // Set Radio button to checked state
+    $('input#add_student_project').prop('checked', true);
+
+    // Add data to form Fields
+
+    $('input[name="student_first_name"]').val(student.first_name);
+    $('input[name="student_last_name"]').val(student.last_name);
+    $('input[name="email"]').val(student.email);
+
+  });
+
+
+}
+
+
+function editStudentProjectModalButtonListener() {
+  $('button.edit_student_curriculum_modal').click(function (event) {
+    // Remove previous errors
+    $('.errors, .error').remove();
+
+    console.log('Edit project button clicked');
+
+    // Get Project and student Ids and student data
+    var projectIndex = $('.flex-active-slide div.project_number_container').attr('id');
+    var studentID = $('.flex-active-slide > div.project_container').attr('id');
+    console.log('Project Index: ',projectIndex);
+    console.log('Student ID', studentID);
+
+    // If no projects exist throw an error
+    if (projectIndex === undefined) {
+      var noProjectsToEdit = `
+      <div class="error popIn">  
+        <p class="errors">Error: No Projects to edit, please click the Add Project button to add a new project.</p>
+      </div>
+        `;
+      $('li.flex-active-slide').append(noProjectsToEdit);
+      return;
+    }
+
+    var student = state.student_records.find(function(record) {
+      if (studentID === record.id) {
+        return record;
+      }
+    });
+
+    console.log(student);
+
+    // Re-allow scrolling on main page
+    $('html, body').css('overflow', 'auto');
+
+    // Remove scroll from the modal
+    $('div.student_modal').css('overflow', 'auto');
+
+    // Re-allow clicks on the main page
+    $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "auto");
+
+    // Stagger fading out modals
+    $('div.student_curriculum_container').fadeOut(400, function() {
+      
+      $('div.student_modal').fadeOut();
+      setTimeout(function () {
+        $('div.student_modal').remove();
+
+      }, 700);
+    });
+  
+    setTimeout(function () {
+      $('div.student_curriculum_container').remove();
+
+    }, 700);
+
+    // Set html to student project form
+    $('div.background').empty();
+    $('div.background').html(state.templates.addStudentProject);
+
+    // Add listeners
+    addEditStudentProjectFormRadioListener();
+    addStudentProjectFormListener();
+    editStudentProjectFormListener();
+
+    // Set css classes for navbar state
+    $('div.nav li')
+      .filter(function(index) {
+        return $(this).text() === "Add / Edit Student Project";
+      })
+      .addClass('selected');
+      
+    $('div.nav li')
+      .filter(function(index) {
+        return $(this).text() === "Student List and Schedule";
+      })
+      .removeClass('selected');
+
+    // Scroll to top of page
+    $(document).scrollTop(0);
+
+    // Set Radio button to checked state
+    $('input#edit_student_project').prop('checked', true);
+
+    // Add data to form Fields
+
+    $('input[name="project_number"]').val(projectIndex);
+    $('input[name="student_first_name"]').val(student.first_name);
+    $('input[name="student_last_name"]').val(student.last_name);
+    $('input[name="email"]').val(student.email);
+    $('input#project_date').val(student.student_curriculum[projectIndex-1].project_date);
+    $('input#project_name').val(student.student_curriculum[projectIndex-1].project_name);
+    $('input#project_description').val(student.student_curriculum[projectIndex-1].project_description);
+    $('textarea#project_comments').val(student.student_curriculum[projectIndex-1].teacher_project_comments);
+
+  });
+}
+
+
+// Exit the student project modal and returns to the student info modal
 function exitStudentCurriculumListener() {
   $('button.exit_student_curriculum').click(function (event) {
 
@@ -1544,6 +1744,9 @@ function exitStudentCurriculumListener() {
     }, 700);
   });
 }
+
+
+// Listener to change add / edit student project form and add listeners for adding or editing student projects
 function addEditStudentProjectFormRadioListener () {
   $('input#add_student_project, input#edit_student_project').click(function(event) {
     
@@ -1612,6 +1815,7 @@ function addEditStudentProjectFormRadioListener () {
 }
 
 
+// Listener for changing the add / edit student form to either add or edit a student, adding appropriate listeners
 function addEditStudentFormRadioListener() {
 
   $('input#add_student, input#edit_student').click(function (event) {
@@ -1845,6 +2049,7 @@ function studentInfoExitListener() {
       // console.log('clicked');
       return false;
     }
+    
     // Re-allow scrolling on main page
     $('html, body').css('overflow', 'auto');
 
