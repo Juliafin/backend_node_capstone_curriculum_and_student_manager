@@ -1,4 +1,4 @@
-/*global $, moment */
+/*global $, moment Fuse */
 
 var state = {
   student_records: [],
@@ -446,12 +446,46 @@ function updateStudent(studentObj, id) {
 
 function studentSearchListener() {
  
-    $('input#student_search').keydown(  
+  $('input#student_search').keydown(  
       $.debounce(500,  
         function(event) {
           var input = $('input#student_search').val();
           console.log('input entered');
           console.log(input);
+
+          var options = {
+            shouldSort: true,
+            tokenize: true,
+            matchAllTokens: true,
+            threshold: 0.3,
+            location: 0,
+            distance: 20,
+            maxPatternLength: 32,
+            minMatchCharLength: 4,
+            keys: [
+              "first_name",
+              "last_name",
+              "email",
+              "address.city",
+              "address.state",
+              "address.street_address",
+              "address.zipcode",
+              "student_lesson_time.weekday",
+            ]
+          };
+          var fuse = new Fuse(state.student_records, options); // "list" is the item array
+          var result = fuse.search(input);
+          console.log(result);
+          console.log(Array.isArray(result));
+          if (input === "") {
+            renderStudentCard(state.student_records);
+          }
+          $('.card_container').empty();
+          renderStudentCard(result);
+
+
+
+
         }
        )
     );
