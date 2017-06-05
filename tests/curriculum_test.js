@@ -1,3 +1,5 @@
+/* eslint-env node, mocha */
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
@@ -283,7 +285,7 @@ describe('Student Curriculum Endpoints', function () {
           deletedStudentRecord = record;
           return chai.request(app)
             .delete(`/cu-manager/${record.id}`)
-            .set('Authorization', `bearer ${teacherToken}`)
+            .set('Authorization', `bearer ${teacherToken}`);
         })
         .then(function (res) {
           res.should.have.status(200);
@@ -328,7 +330,9 @@ describe('Student Curriculum Endpoints', function () {
 
   }); // end deleteing student project test
 
-})
+});
+
+
 describe('Authentication endpoints', function () {
 
   before(function () {

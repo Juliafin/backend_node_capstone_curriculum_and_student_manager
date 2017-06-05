@@ -1,3 +1,5 @@
+/*global $, moment */
+
 var state = {
   student_records: [],
   current_student: {},
@@ -214,9 +216,11 @@ var state = {
   }
 };
 
+
+// Student version navigation bar listener
 function studentNavbarListener () {
   $('nav li').click(function (event) {
-    console.log('clicked');
+    // console.log('clicked');
 
     if ($(this).text() === 'Welcome') {
       setTimeout(function () {
@@ -241,7 +245,7 @@ function studentNavbarListener () {
     }
 
     if ($(this).attr('id') === 'logged_in') {
-      console.log('clearing token');
+      // console.log('clearing token');
       window.localStorage.setItem('token', '');
       window.localStorage.setItem('current_user', '');
       window.localStorage.setItem('dashboard_url', '');
@@ -252,6 +256,8 @@ function studentNavbarListener () {
   });
 }
 
+
+// Teacher version navigation bar listener
 function navbarListener() {
 
   $('nav li').click(function (event) {
@@ -314,7 +320,7 @@ function navbarListener() {
     }
 
     if ($(this).attr('id') === 'logged_in') {
-      console.log('clearing token');
+      // console.log('clearing token');
       window.localStorage.setItem('token', '');
       window.localStorage.setItem('current_user', '');
       window.localStorage.setItem('dashboard_url', '');
@@ -324,6 +330,8 @@ function navbarListener() {
   });
 }
 
+
+// Render navigation bar for teacher version
 function displayNav() {
   if (window.localStorage.getItem('token')) {
 
@@ -344,6 +352,7 @@ function displayNav() {
   }
 }
 
+// Render the navigation bar for student version
 function displayStudentNav() {
   if (window.localStorage.getItem('token')) {
 
@@ -363,13 +372,15 @@ function displayStudentNav() {
   }
 }
 
+
+// Update or Add student project data (same endpoint), providing the index to which to write the project
 function sendStudentProject(project, id, index) {
   var projectData = {
     'student_curriculum': project,
     'id': id,
     'index': index
   };
-  console.log('Project Data to be sent to server', projectData);
+  // console.log('Project Data to be sent to server', projectData);
   return $.ajax({
     type: 'PUT',
     url: `/cu-manager/student-curriculum-projects/${id}`,
@@ -380,6 +391,7 @@ function sendStudentProject(project, id, index) {
   });
 }
 
+// Authenticate the token in memory and return user data
 function authenticateToken() {
   return $.ajax({
     type: 'POST',
@@ -390,7 +402,7 @@ function authenticateToken() {
   });
 }
 
-
+// Get student list from the server
 function getStudentData() {
   return $.ajax({
     type: 'GET',
@@ -401,9 +413,9 @@ function getStudentData() {
   });
 }
 
-
+// Add student to the server
 function postStudentData(studentObj) {
-  console.log('this is the obj to be sent', studentObj);
+  // console.log('this is the obj to be sent', studentObj);
   return $.ajax({
     type: 'POST',
     url: '/cu-manager/',
@@ -414,8 +426,9 @@ function postStudentData(studentObj) {
   });
 }
 
+// Update and send student to the server
 function updateStudent(studentObj, id) {
-  console.log('this is the obj to be sent', studentObj);
+  // console.log('this is the obj to be sent', studentObj);
   return $.ajax({
     type: 'PUT',
     url: `/cu-manager/${id}`,
@@ -426,15 +439,17 @@ function updateStudent(studentObj, id) {
   });
 }
 
-
+// Listener for editing students on the add / edit student form
 function editStudentFormListener() {
-  console.log('edit button listener starting');
+  // console.log('edit button listener starting');
+
   // remove any existing listeners
-  
   $('button[name="edit_student"]').off();
   $('button[name="edit_student"]').click(function(event) {
-    console.log('edit student listener added');
+  
+    // console.log('edit student listener added');
     event.preventDefault();
+  
     // remove existing errors on the radio button
     $('.radio_button_error, .radio_button_break').remove();
 
@@ -475,26 +490,27 @@ function editStudentFormListener() {
     var rawstartTime = moment(studentObj.startTime, "hh:mm:A").format("HH:mm");
     var rawendTime = moment(studentObj.endTime, "hh:mm:A").format("HH:mm");
     var startDate = moment(studentObj.startDate, 'YYYY-MM-DD').toISOString();
-    console.log(rawendTime, rawstartTime);
+    // console.log(rawendTime, rawstartTime);
     var startTime = moment(rawstartTime, "hh:mm").toISOString();
     var endTime = moment(rawendTime, "hh:mm").toISOString();
     studentObj.startTime = startTime;
     studentObj.startDate = startDate;
     studentObj.endTime = endTime;
     // console.log(studentObj.startDate);
-    console.log(startDate);
-    console.log('student form data for editing a student', studentObj);
+    // console.log(startDate);
+    // console.log('student form data for editing a student', studentObj);
 
-
+    // Validate the student data
     var validatedStudent = validateNewStudent(studentObj);
-    console.log('Validated student for edit form', validatedStudent);
+    // console.log('Validated student for edit form', validatedStudent);
 
+    // If the validated object has a success message, delete the message
     if ('message' in validatedStudent && validatedStudent.message === 'No errors found.') {
       delete validatedStudent.message;
 
       // verify that the record exists in the state
       var foundRecord = state.student_records.find(function(record) {
-        console.log(record.email, validatedStudent.existing_email, record.first_name, validatedStudent.existing_first_name, record.last_name, validatedStudent.existing_last_name);
+        // console.log(record.email, validatedStudent.existing_email, record.first_name, validatedStudent.existing_first_name, record.last_name, validatedStudent.existing_last_name);
       
         if (record.email === validatedStudent.existing_email && 
             record.first_name === validatedStudent.existing_first_name && 
@@ -503,25 +519,28 @@ function editStudentFormListener() {
         }
       });
 
+      // Receive the student index in the state for later updating the recording
       var recordIndex = foundRecord.order-1;
 
-      console.log('returned ID from search of edit student form', foundRecord.id);
+      // console.log('returned ID from search of edit student form', foundRecord.id);
 
+      // Delete extra keys before sending the validated student to the server
       delete validatedStudent.existing_email;
       delete validatedStudent.existing_first_name;
       delete validatedStudent.existing_last_name;
-        
+      
+      // Update the student
       updateStudent(validatedStudent, foundRecord.id)
           .then(function(updatedRecord) {
-            console.log('updatedRecord', updatedRecord);
+            // console.log('updatedRecord', updatedRecord);
             state.student_records[recordIndex] = updatedRecord.updated;
-            console.log(state.student_records[recordIndex]);
+            // console.log(state.student_records[recordIndex]);
             var successMsg = `<p class="success">Student successfully updated!</p>`;
             $('.button_container').before(successMsg);
 
           })
           .catch(function(err) {
-            console.log('error', err);
+            // console.log('error', err);
             var failure = `<p class="error">Student was not found.<p>`;
             $('button_container').before(failure);
           });
@@ -531,7 +550,9 @@ function editStudentFormListener() {
 }
 
 
+// Listener for Adding students on the add / edit student form
 function addStudentFormListener() {
+  
   // remove any existing listeners
   $('button[name="add_student"]').off();
   $('button[name="add_student"]').click(function (event) {
@@ -570,33 +591,33 @@ function addStudentFormListener() {
       teacher_comments: $('textarea[name="teacher_comments"]').val()
     };
 
-    console.log(studentObj.startTime);
-    console.log(studentObj.endTime);
+    // console.log(studentObj.startTime);
+    // console.log(studentObj.endTime);
 
     // convert time/date fiels to ISO strings
     var rawstartTime = moment(studentObj.startTime, "hh:mm:A").format("HH:mm");
     var rawendTime = moment(studentObj.endTime, "hh:mm:A").format("HH:mm");
     var startDate = moment(studentObj.startDate, 'YYYY-MM-DD').toISOString();
-    console.log(rawendTime, rawstartTime);
+    // console.log(rawendTime, rawstartTime);
     var startTime = moment(rawstartTime, "hh:mm").toISOString();
     var endTime = moment(rawendTime, "hh:mm").toISOString();
     studentObj.startTime = startTime;
     studentObj.startDate = startDate;
     studentObj.endTime = endTime;
     // console.log(studentObj.startDate);
-    console.log(startDate);
-    console.log('Student form data for adding a student', studentObj);
+    // console.log(startDate);
+    // console.log('Student form data for adding a student', studentObj);
 
     // validate the student form
     var validatedStudent = validateNewStudent(studentObj);
-    console.log('validated student', validatedStudent);
+    // console.log('validated student', validatedStudent);
 
     // if the returned object has a success message, delete the message then post the student
     if ('message' in validatedStudent && validatedStudent.message === 'No errors found.') {
       delete validatedStudent.message;
       postStudentData(validatedStudent)
         .then(function (data) {
-          console.log(data);
+          // console.log(data);
           state.student_records.push(data);
           var success = `
           <p class="success">Student successfully added!</p>
@@ -607,8 +628,8 @@ function addStudentFormListener() {
           clearStudentform();
         })
         .catch(function (err) {
-          console.log('There was an error');
-          console.log(err);
+          // console.log('There was an error');
+          // console.log(err);
           var failure = `
           <p class="error">This student already exists. If you wish to edit this student, please click the Edit Student button.</p>
           `;
@@ -619,6 +640,8 @@ function addStudentFormListener() {
   });
 }
 
+
+// Validate main Student data both for add and edit student versions
 function validateNewStudent(studentObj) {
 
   // remove previous errors
@@ -632,14 +655,14 @@ function validateNewStudent(studentObj) {
   formData.address = {};
   formData.student_lesson_time = {};
   $('.error').remove();
-  console.log(studentObj);
+  // console.log(studentObj);
 
   Object.keys(studentObj).forEach(function (field) {
-    console.log(studentObj[field]);
-    console.log(field);
+    // console.log(studentObj[field]);
+    // console.log(field);
 
     if (studentObj[field] === "" || studentObj[field] === null) {
-      // if the following fields are empty, do nothing (they are optional)
+      // If the following fields are empty, do nothing (they are optional)
       switch (field) {
       case 'parent_first_name':
       case 'parent_last_name':
@@ -649,7 +672,8 @@ function validateNewStudent(studentObj) {
       default:
         errors[field] = `The ${field.replace('_', ' ')} field is empty.`;
       }
-
+    
+    // If the fields have values, then create custom error messages if they exist or add the fields to the formdata object as a success
     } else {
       switch (field) {
 
@@ -715,10 +739,10 @@ function validateNewStudent(studentObj) {
         var endTime = moment(studentObj.endTime).format("HH:mm");
         var startTimeN = parseInt(startTime.replace(":", ""));
         var endTimeN = parseInt(endTime.replace(":", ""));
-        console.log(startTime);
-        console.log('start time', startTimeN);
-        console.log(endTime);
-        console.log('end time', endTimeN);
+        // console.log(startTime);
+        // console.log('start time', startTimeN);
+        // console.log(endTime);
+        // console.log('end time', endTimeN);
         if (endTimeN < startTimeN) {
           errors[field] = `The ${field} cannot be before the start time.`;
         } else {
@@ -728,14 +752,15 @@ function validateNewStudent(studentObj) {
     }
   });
 
+  // If the error object has keys, render the error html.
   if (Object.keys(errors).length > 0) {
 
-    console.log(errors);
+    // console.log(errors);
 
     var errorHtml = Object.keys(errors).map(function (elem, index) {
       var currentError = errors[elem];
       var errorMsg = `<p class="error" id="${elem}_error"> ${currentError}</p>`;
-      console.log(Object.keys(errors).length);
+      // console.log(Object.keys(errors).length);
 
       $(`input[name="${elem}"]`).css('border', '0.3vw solid red');
       
@@ -751,19 +776,22 @@ function validateNewStudent(studentObj) {
             
     }).join("").replace(',', "");
 
-    console.log(errorHtml);
+    // console.log(errorHtml);
     $(`.mode_select`).after(errorHtml);
     // Scroll to start of form
     $(document).scrollTop(138.5);
     return errors;
-
+  
+  // If there are no errors, return the form data with a success message
   } else {
     formData.message = "No errors found.";
-    console.log(formData);
+    // console.log(formData);
     return formData;
   }
 }
 
+
+// Listener for editing the student project form 
 function editStudentProjectFormListener() {
   // Remove any existing listeners
   $('button#edit_student_project').off();
@@ -784,6 +812,8 @@ function editStudentProjectFormListener() {
     }
    
     event.preventDefault();
+
+    // Collect form data
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     var student_curriculum = {
       project_number :$('input[name="project_number"]').val().trim(),
@@ -799,12 +829,14 @@ function editStudentProjectFormListener() {
     // Validate the input and verify the 'no errors' message 
     var validatedProject = validateStudentProject(student_curriculum);
 
-    console.log(validatedProject);
-    UpdateStudentProject(validatedProject, validatedProject.project_number, true);
+    // console.log(validatedProject);
+    UpdateAndAddStudentProject(validatedProject, validatedProject.project_number, true);
 
   });
 }
 
+
+// Listener for adding student projects on the add student project form
 function addStudentProjectFormListener() {
   // Remove any existing listeners
   $('button#add_student_project').off();
@@ -812,7 +844,7 @@ function addStudentProjectFormListener() {
   $('button#add_student_project').click(function (event) {
     
     // Remove previous radio button errors
-    $('.radio_button_error').remove()
+    $('.radio_button_error').remove();
 
     // Check if the add radio button is checked before collecting inputs
     if (! ($('input#add_student_project').is(':checked'))) {
@@ -825,6 +857,8 @@ function addStudentProjectFormListener() {
     }
 
     event.preventDefault();
+    
+    // Collect form data
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     var student_curriculum = {
       first_name: $('input[name="student_first_name"]').val().trim(),
@@ -839,18 +873,19 @@ function addStudentProjectFormListener() {
     // Validate the input and verify the 'no errors' message 
     var validatedProject = validateStudentProject(student_curriculum);
 
-    console.log(validatedProject);
-    UpdateStudentProject(validatedProject);
+    // console.log(validatedProject);
+    // Add the project with validated form data
+    UpdateAndAddStudentProject(validatedProject);
 
     
   });
 }
 
-
-
-
-function UpdateStudentProject (checkedProject, index = "", deleteProjectnumber = false) {
-
+// Update a student project with validated form data
+// If an index and boolean of true are provided, sets the state to update the project instead of adding a new one
+function UpdateAndAddStudentProject (checkedProject, index = "", deleteProjectnumber = false) {
+  
+  // Check if the validated object has a success message, and if it does delete it
   if ('message' in checkedProject && checkedProject.message === 'No errors found.') {
     delete checkedProject.message;
 
@@ -868,20 +903,20 @@ function UpdateStudentProject (checkedProject, index = "", deleteProjectnumber =
     });
     // IF the index provided to write to the curriculum is more than the curriculum array length, return an error
     if (searchResult.student_curriculum.length < parseInt(index) - 1) {
-       var indexError = `<div class="errors">
+      var indexError = `<div class="errors">
                           <p class="error">The project number field may not be larger than the number of student projects.</p>
                         </div>`;
        
        
-       $(`.mode_select`).after(indexError);
+      $(`.mode_select`).after(indexError);
       // Scroll to start of form
       $(document).scrollTop(138.5);
-
+      return;
     }
       // use the index of the student to update the returned item in the state if it is found
 
     var searchResultIndex = searchResult.order - 1;
-    console.log('Search result in state matching the student the project belongs to', searchResult);
+    // console.log('Search result in state matching the student the project belongs to', searchResult);
       // If the result is found, build the object to send
       // for the update containing: student_curriculum (project date, project name, project description, project comments), the id
       // Delete the extra keys not needed in the object
@@ -889,61 +924,78 @@ function UpdateStudentProject (checkedProject, index = "", deleteProjectnumber =
       // if an index is provided, the project is
       if (index !== "") {
         index = parseInt(index) - 1;
-        index = index.toString()
+        index = index.toString();
       } else {
         index = searchResult.student_curriculum.length.toString();
       }
 
-    if (deleteProjectnumber === true) {
-      delete checkedProject.project_number;
-    }
-
+    // If the submitted form contained the 'edit' version, delete the project_number field
+      if (deleteProjectnumber === true) {
+        delete checkedProject.project_number;
+      }
+      // Delete extra keys before sending to the api
       delete checkedProject.first_name;
       delete checkedProject.last_name;
       delete checkedProject.email;
 
+
+      // Send the validated project data and then write the changes to the state
       sendStudentProject(checkedProject, searchResult.id, index)
           .then(function (student_record) {
-            console.log('the result was successful');
-            console.log('RETURNED STUDENT RECORD!', student_record);
+            // console.log('the result was successful');
+            // console.log('RETURNED STUDENT RECORD!', student_record);
             // write the change back to the state;
 
             var writeIndex = parseInt(index);
 
-            console.log('this is the index to write to', writeIndex);
+            // console.log('this is the index to write to', writeIndex);
 
             student_record.updated.student_curriculum.forEach(function(updated_record, index) {
               state.student_records[searchResultIndex].student_curriculum[index] = updated_record;
-            })
-            console.log(state.student_records[searchResultIndex]);
+            });
+            // console.log(state.student_records[searchResultIndex]);
 
+            // Edit version of form: throw a different success depending on the argument
             if (deleteProjectnumber === true) {
-
-             var success = `<p class="success">Project successfully edited!</p>`;
+              var success = `<p class="success">Project successfully edited!</p>`;
             } else {
               var success = `<p class="success">Project successfully added!</p>`;
             }
 
             $('.button_container').before(success);
 
-            console.log('Updated state:', state.student_records);
+            // console.log('Updated state:', state.student_records);
           })
           .catch(function (err) {
-            console.log(err);
-            var failure = `<p class="error"> Project could not be added.<p>`;
+            // console.log(err);
+
+            // Throw a different error if edit version
+            if (deleteProjectnumber === true) {
+              var failure = `<p class="error"> Project could not be edited.<p>`;
+            } else {
+              var failure = `<p class="error"> Project could not be added.<p>`;
+            }
+
+            // Display failure message
             $ ('.button_container').before(failure);
           });
 
-
+    // If the matching student is not found in the state, throw an error
     } else {
-      console.log('the search result wasnt found');
-      var failure = `<p class="error">Project could not be added.<p>`;
+      // console.log('the search result wasnt found');
+      
+      // Throw different error if edit version
+      if (deleteProjectnumber === true) {
+        var failure = `<p class="error"> Project could not be edited.<p>`;
+      } else {
+        var failure = `<p class="error">Project could not be added.<p>`;
+      }
       $ ('.button_container').before(failure);
     }
   }
 }
 
-
+// Validate project form for both adding and editing
 function validateStudentProject(curriculum) {
 
   // Return borders to normal
@@ -952,11 +1004,11 @@ function validateStudentProject(curriculum) {
   // Remove previous errors
   $('.error, .errors').remove();
   
-  console.log(curriculum);
+  // console.log(curriculum);
   var errors = {};
   var formdata = {};
 
-
+  // Get keys of the provided object, and iterate through the object checking each field and producing custom errors 
   Object.keys(curriculum).forEach(function (field) {
     if (curriculum[field] === '') {
       errors[field] = `The ${field.replace(/_/g,' ')} field is empty.`;
@@ -1020,21 +1072,15 @@ function validateStudentProject(curriculum) {
     }
   });
 
-  // if (Object.keys(errors).length > 0) {
-  //   Object.keys(errors).forEach(function (elem) {
-  //     var currentError = errors[elem];
-  //     var errorMsg = `<p class="error" id="${elem}_error"> ${currentError}</p>`;
-  //     $(`input[name="${elem}"]`).after(errorMsg);
-  //   });
-
+  // Checks if the error object is empty, and if not, render the error html and return the errors
   if (Object.keys(errors).length > 0) {
 
-    console.log(errors);
+    // console.log(errors);
 
     var errorHtml = Object.keys(errors).map(function (elem, index) {
       var currentError = errors[elem];
       var errorMsg = `<p class="error" id="${elem}_error"> ${currentError}</p>`;
-      console.log(Object.keys(errors).length);
+      // console.log(Object.keys(errors).length);
 
       $(`input[name="${elem}"]`).css('border', '0.3vw solid red');
       
@@ -1050,21 +1096,25 @@ function validateStudentProject(curriculum) {
             
     }).join("").replace(',', "");
 
-    console.log(errorHtml);
+    // console.log(errorHtml);
+    // Render the errors to the DOM
     $(`.mode_select`).after(errorHtml);
     // Scroll to start of form
     $(document).scrollTop(138.5);
     return errors;
 
-
+  // If there are no errors, return the form data and append a message to indicate that
   } else {
     formdata.message = "No errors found.";
-    console.log(formdata);
+    // console.log(formdata);
     return formdata;
   }
 
 }
 
+
+// TODO make this function clear all forms and add those clears
+// clear main student form
 function clearStudentform() {
   $('input[name="first_name"]').val(''),
     $('input[name="last_name"]').val(''),
@@ -1083,7 +1133,7 @@ function clearStudentform() {
     $('input[name="teacher_comments"]').val('');
 }
 
-
+// Render welcome screen for students
 function renderStudentWelcome(studentData) {
   var lesson_start_time = moment(studentData.student_record.student_lesson_time.startTime).format("hh:mm A");
   var lesson_end_time = moment(studentData.student_record.student_lesson_time.endTime).format("hh:mm A");
@@ -1103,16 +1153,12 @@ function renderStudentWelcome(studentData) {
 
 }
 
+
+// Renders main student list
 function renderStudentCard(state) {
 
   state.forEach(function (student_record, index) {
-    // var colorArr = ['#4caf50','#9c27b0', '#ff5722', '#ffc107' ];
-    // var lastColor = colorArr[Math.floor(Math.random() * colorArr.length)];
-    //  var colorIndex = 0;
-    //  if (colorIndex > 3) {
-    //    colorIndex = 0;
-    //  }
-
+   
     var studentCard = `
     <div class="card flip" id=${student_record.id}>
       <div class="card_color">
@@ -1130,18 +1176,9 @@ function renderStudentCard(state) {
     </div>
   `;
     
-
     // stagger the append of the cards
     setTimeout(function () {
-      // var bgColor = colorArr[Math.floor(Math.random() * colorArr.length)];
-      // while (bgColor === lastColor) {
-      //   bgColor = colorArr[Math.floor(Math.random() * colorArr.length)];
-      // }
       $('.card_container').append(studentCard);
-      // console.log(colorIndex);
-      // console.log(colorArr[colorIndex]);
-      // $(`.card_color${colorIndex}`).css('background-color', lastColor);
-      // colorIndex +=1;
     }, 200 * index);
 
   });
@@ -1149,13 +1186,15 @@ function renderStudentCard(state) {
 }
 
 
+// *Delegated - Listens for clicks on add student project button, and renders the form filled out with student data 
 function addstudentProjectCardListener () {
 
   $('div.background').on('click', 'button.add_student_project', function (event) {
     event.preventDefault();
 
-    console.log('add student project clicked on card');
+    // console.log('add student project clicked on card');
 
+    // Get id from html and search for the matching record
     var id = $(this).closest('div.card').attr('id');
     // console.log(id);
     var student_record = state.student_records.find(function (record) {
@@ -1167,17 +1206,18 @@ function addstudentProjectCardListener () {
     });
 
 
-      // 'redirect' to student Project form
+    // 'Redirect' to student Project form
     setTimeout(function () {
         // console.log('scrolling up');
       $(this).scrollTop(0);
 
     }, 1);
 
-    $('div.background').empty();
-      
+    // Render Html
+    $('div.background').empty();    
     $('div.background').html(state.templates.addStudentProject);
-      
+    
+    // Set css classes for navbar state
     $('div.nav li')
       .filter(function(index) {
         return $(this).text() === "Add / Edit Student Project";
@@ -1190,18 +1230,20 @@ function addstudentProjectCardListener () {
       })
       .removeClass('selected');
 
-
+      // Write student values to form
     $('input#student_first_name').val(student_record.first_name);
     $('input#student_last_name').val(student_record.last_name);
     $('input#student_email').val(student_record.email);
     $('input#project_date').val(moment().format('YYYY-MM-DD'));
     
+    // Add listener to add project button on the form
     addStudentProjectFormListener();
 
   });
 }
 
 
+// Listens for events on the student info button, which renders the detailed student info
 function studentInfoListener() {
 
   $('div.background').on('click', 'button.student_info', function (event) {
@@ -1224,26 +1266,27 @@ function studentInfoListener() {
   });
 }
 
-
+// Render the the detailed student info into a modal
 function renderStudentInfo(student_record, color) {
 
   // Stop scroll on main window
   $('html, body').css('overflow', 'hidden');
-  console.log('This is the student record inside the student info render', student_record);
+  // console.log('This is the student record inside the student info render', student_record);
 
   // disable bottom click events
   $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "none");
 
+
   var lesson_duration = moment(student_record.student_lesson_time.endTime).diff(moment(student_record.student_lesson_time.startTime), 'minutes');
   var lesson_start_time = moment(student_record.student_lesson_time.startTime).format("hh:mm A");
   var lesson_end_time = moment(student_record.student_lesson_time.endTime).format("hh:mm A");
-  console.log(student_record.student_lesson_time.startTime);
-  console.log(student_record.student_lesson_time.endTime);
-  console.log(lesson_start_time);
-  console.log(lesson_end_time);
+  // console.log(student_record.student_lesson_time.startTime);
+  // console.log(student_record.student_lesson_time.endTime);
+  // console.log(lesson_start_time);
+  // console.log(lesson_end_time);
 
+  // Create and Display main student info modal
   var apartment_number = "Apt. #" + student_record.address.apartment_number; 
-
   var parentEmpty = `Parent's name not provided`;
   var teacherCommentsEmpty = `Teacher comments not provided`;
 
@@ -1289,13 +1332,14 @@ function renderStudentInfo(student_record, color) {
       </div>
     </div>
     `;
-  console.log(studentHtml);
+  // console.log(studentHtml);
   $('body').prepend(studentHtml);
 
   if (student_record.address.apartment_number) {
     $('.apartment_number').text(apartment_number);
   }
 
+  // Sets background color according to the underlying card clicked, adjusting css
   $('.color_strip, button.edit_info, button.student_exit, button.student_curriculum').css('background-color', color);
 
   if ($('.color_strip').css('background-color') === 'rgb(255, 193, 7)') {
@@ -1337,11 +1381,12 @@ function renderStudentInfo(student_record, color) {
 
 }
 
+// Listens for clicks to open project modal
 function studentCurriculumListener(color) {
   $('button.student_curriculum ').click(function (event) {
-    console.log('student_curriculum listener');
+    // console.log('student_curriculum listener');
     var id = $(this).closest('.student_main_info').attr('id');
-    console.log(id);
+    // console.log(id);
 
 
     var student_record = state.student_records.find( function(record) {
@@ -1357,51 +1402,62 @@ function studentCurriculumListener(color) {
 }
 
 function renderStudentCurriculum (record, color=null, student_version=false) {
-  console.log('student_curriculum rendering');
+  // console.log('student_curriculum rendering');
+  
+  // Create Modal Html - flexslider plugin
   var studentCurriculumModal = `
   
-<div class="student_curriculum_container slowPopIn">
+  
+  <div class="student_curriculum_container slowPopIn">
 
-  <section class="slider">
-    <div class="flexslider">
+    <section class="slider">
+      <div class="flexslider">
 
-      <div class="flex-viewport">
-        <ul class="slides">
+        <div class="flex-viewport">
+          <ul class="slides">
+          </ul>
+        </div>
+
+        <ol class="flex-control-nav flex-control-paging">
+        </ol>
+
+        <ul class="flex-direction-nav">
+          <li class="flex-nav-prev">
+            <a class="flex-prev" href="#">Previous</a>
+          </li>
+          <li class="flex-nav-next">
+            <a class="flex-next" href="#">Next</a>
+          </li>
         </ul>
+
       </div>
+    </section>
 
-      <ol class="flex-control-nav flex-control-paging">
-      </ol>
+    <button class="exit_student_curriculum">
+    Exit Project List
+    </button>
+    <button class="edit_student_curriculum_modal">
+    Edit Project
+    </button>
+    
 
-      <ul class="flex-direction-nav">
-        <li class="flex-nav-prev">
-          <a class="flex-prev" href="#">Previous</a>
-        </li>
-        <li class="flex-nav-next">
-          <a class="flex-next" href="#">Next</a>
-        </li>
-      </ul>
-
-    </div>
-  </section>
-
-  <button class="exit_student_curriculum">
-  Exit Student Curriculum
-  </button>
-
-</div>
+  </div>
     `;
 
   $('button.student_exit, button.edit_info, button.student_curriculum, .frame_bottom, .frame_top, .frame_left, .frame_right').css('pointer-events', "none");
 
   $('body').prepend(studentCurriculumModal);
 
+  // Displays a student version of the modal if a student is logged in
   if (student_version === true) {
     $('.student_curriculum_container').addClass('student_version');
+    $('.edit_student_curriculum_modal').remove();
   }
 
-  console.log(record);
-   
+  // console.log(record);
+
+
+  // Create student curriculum html
   var studentCurriculumHtml = record.student_curriculum.map(function (project, index) {
 
     var projectHtml = `
@@ -1425,9 +1481,10 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
       return `<li class="" data-thumb-alt=""> ${projectHtml} </li>`;
     }
   }).join('');
-  console.log(studentCurriculumHtml);
-  console.log('inside student_curriculum function');
+  // console.log(studentCurriculumHtml);
+  // console.log('inside student_curriculum function');
   
+  // If there is student curriculum data, display it, if not display filler html
   if (record.student_curriculum.length !== 0 ) {
     $('ul.slides').html(studentCurriculumHtml);
   } else {
@@ -1439,7 +1496,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   }
 
 
-
+  // In teacher version, set colors based on a specific background color
   if (color !== null) {
     $('.flexslider').css('background-color', color);
 
@@ -1585,7 +1642,7 @@ function addEditStudentFormRadioListener() {
         'background-color': 'rgb(178, 18, 18)'
       });
 
-      console.log('The add student radio button is checked');
+      // console.log('The add student radio button is checked');
       addStudentFormListener();
 
       // Remove the edit inputs if they exist
@@ -1618,9 +1675,10 @@ function addEditStudentFormRadioListener() {
 
 
 
-      console.log('The edit student radio button is checked');
+      // console.log('The edit student radio button is checked');
       editStudentFormListener();
       
+      // Display additional edit fields for form
       var editNameFields = `
           <br class="edit_break">
           <label for="existing_first_name">Existing First Name</label>
@@ -1646,10 +1704,10 @@ function addEditStudentFormRadioListener() {
 function studentCardEditButtonListener() {
   $('button.edit_info').click(function(event) {
     event.preventDefault();
-    console.log('This is the edit info listener');
+    // console.log('This is the edit info listener');
 
     var id = $(this).closest('.student_main_info').attr('id');
-    console.log(id);
+    // console.log(id);
 
 
     var student_record = state.student_records.find( function(record) {
@@ -1728,7 +1786,7 @@ function studentCardEditButtonListener() {
 
       // Remove listener from adding student
     $('button[name="add_student"]').off('click');
-    console.log('The edit student radio button is checked');
+    // console.log('The edit student radio button is checked');
     var editNameFields = `
           <br class="edit_break">
           <label for="existing_first_name">Existing First Name</label>
@@ -1742,7 +1800,7 @@ function studentCardEditButtonListener() {
           `;
     $('.mode_select').after(editNameFields);
 
-
+    // Sets the form values for optional fields
     var optionalFields = ['parent_first_name', 'parent_last_name', 'teacher_comments', 'apartment_number'];
 
     optionalFields.forEach(function (field) {
@@ -1775,6 +1833,7 @@ function studentCardEditButtonListener() {
   }); 
 }
 
+// Listener for button to exit the student info screen
 function studentInfoExitListener() {
 
   $('.frame_bottom, .frame_top, .frame_left, .frame_right, button.student_exit').click(function (event) {
@@ -1783,7 +1842,7 @@ function studentInfoExitListener() {
     event.stopPropagation();
 
     if ($(this) === $('.student_main_info')) {
-      console.log('clicked');
+      // console.log('clicked');
       return false;
     }
     // Re-allow scrolling on main page
@@ -1805,18 +1864,17 @@ function studentInfoExitListener() {
   });
 }
 
-
-
+// Verify the token, and set application state based on the result
 function authenticateResult() {
   authenticateToken()
     .then(function (result) {
-      console.log(result);
+      // console.log(result);
       if (redirectHome() === false) {
-        console.log(result.first_name);
-        console.log(result.last_name);
+        // console.log(result.first_name);
+        // console.log(result.last_name);
         
         state.role = result.role;
-        console.log(state.role);
+        // console.log(state.role);
         if (state.role === 'teacher') {
           state.teacher_first_name = result.first_name;
           state.teacher_last_name = result.last_name;
@@ -1831,13 +1889,13 @@ function authenticateResult() {
           getStudentData()
           .then(function(data) {
             state.current_student = data;
-            console.log('State.current_student', state.current_student);
+            // console.log('State.current_student', state.current_student);
             renderStudentWelcome(data);
 
-            console.log(data);
+            // console.log(data);
           })
           .catch(function(err) {
-            console.log(err);
+            // console.log(err);
             var serverError = `
               
               <div class="student_not_found popIn">
@@ -1855,13 +1913,14 @@ function authenticateResult() {
       }
     })
     .catch(function (err) {
-      console.log(err);
+      // console.log(err);
       $('div.background').html(state.templates.unauthorized);
       redirectHome(err);
 
     });
 }
 
+// Redirect the user to the log in screen if they are unauthorized
 function redirectHome(err = null) {
   var pathArr = window.location.pathname.split('/');
   var urlUser = pathArr.slice(pathArr.length - 2, pathArr.length - 1)[0];
@@ -1876,6 +1935,7 @@ function redirectHome(err = null) {
   }
 }
 
+// Renders welcome screen for teachers
 function renderWelcome () {
   
   var welcomeHTML = `
@@ -1899,17 +1959,18 @@ function renderWelcome () {
   }
 }
 
+// Makes a GET request and saves the student list per teacher
 function saveStudentData() {
   getStudentData()
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
       data.student_records.forEach(function (record, index) {
         record.order = index + 1;
         record.student_curriculum_length = record.student_curriculum.length;
         state.student_records.push(record);
       });
       renderWelcome();
-      console.log('state.student_records', state.student_records);
+      // console.log('state.student_records', state.student_records);
       
     });
 }
