@@ -1929,6 +1929,16 @@ function editStudentProjectModalButtonListener() {
 
     // Set Radio button to checked state
     $('input#edit_student_project').prop('checked', true);
+    
+    // Append the html for the edit state
+    var editNameFields = `
+          <label for="project_number">Project Number</label>
+          <input type="number" name="project_number" id="project_number">
+          `;
+
+      $('.mode_select').after(editNameFields);
+
+      $('h1.add_student_project').text('Edit Student Project');
 
     // Add data to form Fields
 
@@ -1936,7 +1946,7 @@ function editStudentProjectModalButtonListener() {
     $('input[name="student_first_name"]').val(student.first_name);
     $('input[name="student_last_name"]').val(student.last_name);
     $('input[name="email"]').val(student.email);
-    $('input#project_date').val(student.student_curriculum[projectIndex-1].project_date);
+    $('input#project_date').val(moment(student.student_curriculum[projectIndex-1].project_date).format('YYYY-MM-DD'));
     $('input#project_name').val(student.student_curriculum[projectIndex-1].project_name);
     $('input#project_description').val(student.student_curriculum[projectIndex-1].project_description);
     $('textarea#project_comments').val(student.student_curriculum[projectIndex-1].teacher_project_comments);
