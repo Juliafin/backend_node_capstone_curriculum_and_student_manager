@@ -3,6 +3,7 @@
 var state = {
   student_records: [],
   current_student: {},
+  current_sort:[],
   templates: {
     addStudent: `
     <div class="addStudent popIn">
@@ -214,6 +215,14 @@ var state = {
       <label for="student_search">Student Search</label>
       <input type="text" name="student_search" id="student_search">
 
+      <select id="sort">
+        <option value="sort_students" selected="selected">Sort Students</option>
+        <option value="name_descending">Name: Descending</option>
+        <option value="name_ascending">Name: Ascending</option>
+        <option value="upcoming_students">Upcoming Students</option>
+
+      </select>
+
       <div class="card_container">
       </div>
     </div>`
@@ -322,6 +331,7 @@ function navbarListener() {
       $('div.nav li').not($(this)).removeClass('selected');
       renderStudentCard(state.student_records);
       studentSearchListener();
+      
     }
 
     if ($(this).attr('id') === 'logged_in') {
@@ -465,6 +475,8 @@ function studentSearchListener() {
             keys: [
               "first_name",
               "last_name",
+              "parent_first_name",
+              "parent_last_name",
               "email",
               "address.city",
               "address.state",
@@ -473,27 +485,161 @@ function studentSearchListener() {
               "student_lesson_time.weekday",
             ]
           };
-          var fuse = new Fuse(state.student_records, options); // "list" is the item array
+          var fuse = new Fuse(state.student_records, options); 
           var result = fuse.search(input);
+          state.current_sort = result;
+          console.log('state.current_sort', state.current_sort);
           console.log(result);
           console.log(Array.isArray(result));
           if (input === "") {
-            renderStudentCard(state.student_records);
+            if ($('option[value="sort_students"]').prop('selected') === true) {
+              console.log('sort students is selected');
+              state.current_sort.length = 0;
+              $('.card_container').empty();
+              renderStudentCard(state.student_records);
+            } else if ($('option[value="name_ascending"]').prop('selected') === true) {
+              console.log('ascending name selected');
+              var sortedAscendingName = sortFields(state.student_records, 'first_name', true);
+              $('.card_container').empty();
+              renderStudentCard(sortedAscendingName);
+
+
+            } else if ($('option[value="name_descending"]').prop('selected') === true) {
+              console.log('descending name selected');
+              var sortedDescendingName = sortFields(state.student_records, 'first_name', false);
+              $('.card_container').empty();
+              renderStudentCard(sortedDescendingName);
+              
+
+            }
+          } else {
+            $('.card_container').empty();
+            renderStudentCard(state.current_sort);
           }
-          $('.card_container').empty();
-          renderStudentCard(result);
-
-
-
 
         }
        )
     );
 
- 
-  
-  
 }
+
+
+function sortFields (arr, field, descending = true ) {
+  var sorted = arr.sort(function(a, b) {
+    if (a[field] < b[field]) {
+      if (descending === true) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+
+    if (a[field] > b[field]) {
+      if (descending === true) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+    return 0;
+  });
+
+  console.log('returning sorted array', sorted);
+  return sorted;
+        
+}
+
+
+
+// function studentListSortListener() {
+
+//   $('select#sort').change(function(event) {
+
+//     if ($('select#sort').val() === "name_descending" ) {
+//       console.log('the input has changed to name descending');
+
+//       if (state.current_sort.length !== 0) {
+//         console.log('The current length of the sort array is more than zero.');
+        
+//         console.log('sorted',sorted);
+
+
+
+//       }
+
+      
+
+//     } else if ($('select#sort').val() === "name_ascending" ) {
+//       console.log('The input has changed to name ascending');
+
+//       if (state.current_sort.length !== 0) {
+//         console.log('The current length of the sort array is more than zero.');
+//         var sorted = state.current_sort.sort(function(a, b) {
+//           if (a.first_name < b.first_name) {
+//             return -1;
+//           }
+
+//           if (a.first_name > b.first_name) {
+//             return 1;
+//           }
+
+//           return 0;
+//         });
+//         console.log('sorted',sorted);
+
+//       }
+
+
+
+
+
+//     } else if($('select#sort').val() === "upcoming_students") {
+//       console.log('The input has changed to upcoming students');
+//     }
+
+//   });
+
+// var days = {
+//   'Monday':0,
+//   'Tuesday':1,
+//   'Wednesday':2,
+//   'Thursday':3,
+//   'Friday':4,
+//   'Saturday':5,
+//   'Sunday':6
+// }
+
+// var weekday = [
+//   {
+//     day:'Monday',
+//     start_time:'5:00'
+//   },
+//   {
+//     day:'Thursday',
+//     start_time:'2:00'
+//   },
+//   {
+//     day:'Monday',
+//     start_time:'3:00'
+//   },
+//   {
+//     day:'Monday',
+//     start_time:'2:30'
+//   }
+//   ];
+  
+// weekday.sort(function(a, b){
+//   return day[a.days] - day[b.days] 
+//   || parseInt(a.start_time.replace(':', '')) - parseInt(b.start_time.replace(':', ''));
+// });
+
+
+
+// console.log(weekday);
+
+
+
+// }
 
 
 

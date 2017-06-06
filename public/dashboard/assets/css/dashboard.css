@@ -174,8 +174,13 @@ label[for="student_search"] {
 input#student_search {
     width: 47vw;
     margin: 1vw 0;
-
 }
+
+input#student_search:hover, input#student_search:focus {
+    transition: none;
+    transform: none;
+}
+
 
 input#add_student_project, input#edit_student_project {
     height: 2vw;
