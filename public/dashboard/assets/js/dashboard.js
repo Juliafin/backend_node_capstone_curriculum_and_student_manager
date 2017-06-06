@@ -217,8 +217,8 @@ var state = {
 
       <select id="sort">
         <option value="0" selected="selected">Sort Students</option>
-        <option value="1">First Name: Descending</option>
-        <option value="2">First Name: Ascending</option>
+        <option value="1">First Name: Ascending</option>
+        <option value="2">First Name: Descending</option>
         <option value="3">Last Name: Ascending</option>
         <option value="4">Last Name: Descending</option>
         
