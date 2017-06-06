@@ -221,6 +221,7 @@ var state = {
         <option value="2">First Name: Descending</option>
         <option value="3">Last Name: Ascending</option>
         <option value="4">Last Name: Descending</option>
+        <option value="5">Upcoming Schedule</option>
         
 
       </select>
@@ -490,17 +491,17 @@ function sortResults(event) {
     maxPatternLength: 32,
     minMatchCharLength: 4,
     keys: [
-        "first_name",
-        "last_name",
-        "parent_first_name",
-        "parent_last_name",
-        "email",
-        "address.city",
-        "address.state",
-        "address.street_address",
-        "address.zipcode",
-        "student_lesson_time.weekday",
-      ]
+      "first_name",
+      "last_name",
+      "parent_first_name",
+      "parent_last_name",
+      "email",
+      "address.city",
+      "address.state",
+      "address.street_address",
+      "address.zipcode",
+      "student_lesson_time.weekday",
+    ]
   };
   var fuse = new Fuse(state.student_records, options);
   var result = fuse.search(input);
@@ -518,11 +519,15 @@ function sortResults(event) {
 
   var arrayToDisplay = null;
   var selected = +($('select#sort').val());
-  if(selected){
+  if (selected === 5) {
+    arrayToDisplay = daySort(state.student_records);
+  } else if (selected) {
+    
+    console.log(selected);
     arrayToDisplay = sortFields(arrayToSort,
             sortOptions[selected][0],
             sortOptions[selected][1]);
-  }else{
+  }else {
     arrayToDisplay = arrayToSort;
   }
   $('.card_container').empty();
@@ -562,95 +567,65 @@ function studentListSortListener() {
 }
 
 
-// function studentListSortListener() {
 
-//   $('select#sort').change(function(event) {
+function daySort(arr) {
 
-//     if ($('select#sort').val() === "name_descending" ) {
-//       console.log('the input has changed to name descending');
+  var daysArray = arr.map(function(element) {
 
-//       if (state.current_sort.length !== 0) {
-//         console.log('The current length of the sort array is more than zero.');
-        
-//         console.log('sorted',sorted);
+    var dayElement = {
+      weekday: element.student_lesson_time.weekday,
+      id: element.id,
+      startTime: moment(element.student_lesson_time.startTime).format('HH:mm')
+    }; 
+    return dayElement;
+  });
+  console.log(daysArray);
 
+  var weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
 
+  var currentDay = weekdays.indexOf(moment().format('dddd'));
 
-//       }
+  var days = {};
 
-      
-
-//     } else if ($('select#sort').val() === "name_ascending" ) {
-//       console.log('The input has changed to name ascending');
-
-//       if (state.current_sort.length !== 0) {
-//         console.log('The current length of the sort array is more than zero.');
-//         var sorted = state.current_sort.sort(function(a, b) {
-//           if (a.first_name < b.first_name) {
-//             return -1;
-//           }
-
-//           if (a.first_name > b.first_name) {
-//             return 1;
-//           }
-
-//           return 0;
-//         });
-//         console.log('sorted',sorted);
-
-//       }
+  weekdays.forEach(function(day, i) {
+    days[day] = (i + 7 - currentDay) % 7;
+  });
 
 
+  var currentDay = moment().format('dddd');
+  console.log('days', days);
+
+  daysArray.sort(function(a, b){
+    return days[a.weekday] - days[b.weekday] 
+  || parseInt(a.startTime.replace(':', '')) - parseInt(b.startTime.replace(':', ''));
+  });
+
+  var daySortedArray = daysArray.map(function(record) {
+    var currentID = record.id;
+    var foundRecord = state.student_records.find(function(student_record) {
+      if (currentID === student_record.id) {
+        return student_record;
+      }
+    });
+    return foundRecord;
 
 
+  });
 
-//     } else if($('select#sort').val() === "upcoming_students") {
-//       console.log('The input has changed to upcoming students');
-//     }
-
-//   });
-
-// var days = {
-//   'Monday':0,
-//   'Tuesday':1,
-//   'Wednesday':2,
-//   'Thursday':3,
-//   'Friday':4,
-//   'Saturday':5,
-//   'Sunday':6
-// }
-
-// var weekday = [
-//   {
-//     day:'Monday',
-//     start_time:'5:00'
-//   },
-//   {
-//     day:'Thursday',
-//     start_time:'2:00'
-//   },
-//   {
-//     day:'Monday',
-//     start_time:'3:00'
-//   },
-//   {
-//     day:'Monday',
-//     start_time:'2:30'
-//   }
-//   ];
-  
-// weekday.sort(function(a, b){
-//   return day[a.days] - day[b.days] 
-//   || parseInt(a.start_time.replace(':', '')) - parseInt(b.start_time.replace(':', ''));
-// });
+  console.log('final sorted array', daySortedArray);
+  console.log('daysArray',daysArray);  
+  return daySortedArray;
+}
 
 
-
-// console.log(weekday);
-
-
-
-// }
 
 
 
@@ -1936,9 +1911,9 @@ function editStudentProjectModalButtonListener() {
           <input type="number" name="project_number" id="project_number">
           `;
 
-      $('.mode_select').after(editNameFields);
+    $('.mode_select').after(editNameFields);
 
-      $('h1.add_student_project').text('Edit Student Project');
+    $('h1.add_student_project').text('Edit Student Project');
 
     // Add data to form Fields
 
