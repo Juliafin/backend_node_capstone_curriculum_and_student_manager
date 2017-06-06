@@ -220,8 +220,7 @@ var state = {
         <option value="1">First Name: Descending</option>
         <option value="2">First Name: Ascending</option>
         <option value="3">Last Name: Ascending</option>
-        <option value="4">Last Name: Descending</option>
-        
+        <option value="4">Email: Ascending</option>
 
       </select>
 
@@ -231,13 +230,15 @@ var state = {
   }
 };
 
-
 var sortOptions = {
   1:['first_name', true],
   2:['first_name', false],
   3: ['last_name', true],
-  4: ['last_name', false]
+  4: ['email', true]
 };
+
+
+
 
 // Student version navigation bar listener
 function studentNavbarListener () {
@@ -474,59 +475,59 @@ function studentSearchListener() {
 
 function sortResults(event) {
 
-  console.log('HERE====> ' + $('select#sort').val());
+    console.log('HERE====> ' + $('select#sort').val());
 
-  var input = $('input#student_search').val();
-  console.log('input entered');
-  console.log(input);
+    var input = $('input#student_search').val();
+    console.log('input entered');
+    console.log(input);
 
-  var options = {
-    shouldSort: true,
-    tokenize: true,
-    matchAllTokens: true,
-    threshold: 0.3,
-    location: 0,
-    distance: 20,
-    maxPatternLength: 32,
-    minMatchCharLength: 4,
-    keys: [
-        "first_name",
-        "last_name",
-        "parent_first_name",
-        "parent_last_name",
-        "email",
-        "address.city",
-        "address.state",
-        "address.street_address",
-        "address.zipcode",
-        "student_lesson_time.weekday",
-      ]
-  };
-  var fuse = new Fuse(state.student_records, options);
-  var result = fuse.search(input);
-  state.current_sort = result;
-  console.log('state.current_sort', state.current_sort);
-  console.log(result);
-  console.log(Array.isArray(result));
-  var arrayToSort = null;
+    var options = {
+        shouldSort: true,
+        tokenize: true,
+        matchAllTokens: true,
+        threshold: 0.3,
+        location: 0,
+        distance: 20,
+        maxPatternLength: 32,
+        minMatchCharLength: 4,
+        keys: [
+            "first_name",
+            "last_name",
+            "parent_first_name",
+            "parent_last_name",
+            "email",
+            "address.city",
+            "address.state",
+            "address.street_address",
+            "address.zipcode",
+            "student_lesson_time.weekday",
+        ]
+    };
+    var fuse = new Fuse(state.student_records, options);
+    var result = fuse.search(input);
+    state.current_sort = result;
+    console.log('state.current_sort', state.current_sort);
+    console.log(result);
+    console.log(Array.isArray(result));
+    var arrayToSort = null;
 
-  if (input === "") {
-    arrayToSort = state.student_records;
-  } else {
-    arrayToSort = state.current_sort;
-  }
+    if (input === "") {
+        arrayToSort = state.student_records;
+    } else {
+        arrayToSort = state.current_sort;
+    }
 
-  var arrayToDisplay = null;
-  var selected = +($('select#sort').val());
-  if(selected){
-    arrayToDisplay = sortFields(arrayToSort,
+    var arrayToDisplay = null;
+    var selected = +($('select#sort').val());
+    if(selected){
+        arrayToDisplay = sortFields(arrayToSort,
             sortOptions[selected][0],
             sortOptions[selected][1]);
-  }else{
-    arrayToDisplay = arrayToSort;
-  }
-  $('.card_container').empty();
-  renderStudentCard(arrayToDisplay);
+    }else{
+        arrayToDisplay = arrayToSort;
+    }
+    $('.card_container').empty();
+    renderStudentCard(arrayToDisplay);
 }
 
 function sortFields (arr, field, descending = true ) {
@@ -556,15 +557,10 @@ function sortFields (arr, field, descending = true ) {
 
 
 
-function studentListSortListener() {
+ function studentListSortListener() {
 
-  $('select#sort').change(sortResults);
-}
-
-
-// function studentListSortListener() {
-
-//   $('select#sort').change(function(event) {
+     $('select#sort').change(sortResults);
+ }
 
 //     if ($('select#sort').val() === "name_descending" ) {
 //       console.log('the input has changed to name descending');
