@@ -159,7 +159,7 @@ input#street_address {
 
 input {
   height: 3vw;
-  border-radius: 2px;
+  border-radius: .2vw;
   border: none;
   box-shadow: 3px 3px 5px 0px #444343;
   text-align: left;
@@ -406,7 +406,7 @@ div.card {
 }
 
 .student_container p {
-  padding: 3%;
+  padding: 0vw;
   font-size: 1.3vw;
   margin-top: 10%;
 }
@@ -773,6 +773,43 @@ div.student_not_found > h2 {
     opacity: .75;
 }
 
+@media screen and (max-width: 840px) {
+
+div.card {
+  width: 33vw;
+  margin: 5vw auto;
+  height: 29vw;
+}
+
+p.lesson_time {
+  padding:0;
+  margin: 2vw;
+  font-size: 2vw;
+}
+
+p.student_basic_info {
+    font-size: 2vw;
+  }
+
+  button.add_student_project, button.student_info {
+    width: 18vw;
+    font-size: 1.5vw;
+    padding-top: 1vw;
+    height: auto;
+    padding-bottom: 3vw;
+    margin: 2vw 0vw;
+    margin-bottom: 0vw;
+  }
+
+  .card_color {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 15vw;
+}
+
+}
+
 @media screen and (max-width: 600px) {
 
   label {
@@ -782,4 +819,29 @@ div.student_not_found > h2 {
   label#add_label, label#edit_label {
     display: inline-block;
   }
+
+  div.card{
+    width: 52vw;
+    margin: 5vw auto;
+  }
+
+  p.lesson_time {
+  padding:0;
+  margin:0;
+}
+  p.student_basic_info {
+    font-size: 2vw;
+    margin: 2vw 0;
+  }
+
+  button.add_student_project, button.student_info {
+    width: 18vw;
+    font-size: 1.5vw;
+    padding-top: 1vw;
+    height: auto;
+    padding-bottom: 3vw;
+    margin: 3vw 2vw;
+    margin-top: 5vw;
+  }
+
 }
