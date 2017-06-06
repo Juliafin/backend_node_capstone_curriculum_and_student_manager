@@ -34,7 +34,7 @@ body {
   position: relative;
   width: 66vw;
   min-height: 100%;
-  padding: 0px 4% 5% 4%;
+  padding: 0px 4% 0 4%;
   margin: 9% auto;
   background-color: white;
 }
@@ -48,15 +48,16 @@ fieldset {
   margin: 0;
   min-width: 0;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 h1 {
-  padding-top: 40px;
+  padding-top: 3vw;
   text-align: center;
   color: rgb(80, 80, 80);
   margin: 0;
-  margin-bottom: 30px;
+  margin-bottom: 3vw;
+  font-size: 3vw;
 }
 
 h2.features {
@@ -102,6 +103,7 @@ label {
   margin: 1.2vw 0 1vw 10vw;
   font-weight: bold;
   margin-left: 10vw;
+  font-size: 2vw;
 }
 
 input {
@@ -109,22 +111,28 @@ input {
   margin-left: auto;
   margin-right: auto;
   width: 38vw;
-  height: 40px;
-  padding: 15px;
-  border: 2px solid;
+  height: 4vw;
+  padding: 1vw;
+  border: .2vw solid;
   border-color: #868686;
-  border-radius: 5px;
+  border-radius: .4vw;
+  font-size: 1.5vw;
 }
 
 button {
-  margin-top: 40px;
-  width: 320px;
-  height: 50px;
+  margin-top: 0vw;
+  width: 19vw;
+  height: 5vw;
   background-color: rgb(33, 80, 97);
   color: white;
-  font-size: 16px;
+  font-size: 2vw;
   border: none;
   font-family: Roboto;
+  margin-bottom: 3vw;
+}
+
+button#login_button {
+    margin-top: 3vw;
 }
 
 label#teacher_label,
@@ -143,10 +151,8 @@ label#teacher_label, label#student_label {
 }
 
 input[type="radio"] {
-  height: 19px;
-  margin-top: 11%;
-  margin-left: 0%;
-  margin-right: 2%;
+  height: 2vw;
+  margin-top: 3vw;
   padding: 0;
   cursor: pointer;
 }
@@ -190,6 +196,7 @@ a.login {
 
 .teacher_student_select {
   text-align: center;
+  height: 9vw;
 }
 
 .button_container {
