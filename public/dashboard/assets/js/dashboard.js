@@ -233,10 +233,10 @@ var state = {
 
 
 var sortOptions = {
-  1:['first_name', true],
-  2:['first_name', false],
-  3: ['last_name', true],
-  4: ['last_name', false]
+  1:['first_name', false],
+  2:['first_name', true],
+  3: ['last_name', false],
+  4: ['last_name', true]
 };
 
 // Student version navigation bar listener
