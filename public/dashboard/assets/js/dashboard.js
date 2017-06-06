@@ -1331,6 +1331,7 @@ function renderStudentWelcome(studentData) {
   var studentDashHtml = `
 
     <div class="student_welcome popIn">
+    <div class="curriculum_image"></div>
     <h1>Welcome ${state.student_first_name} ${state.student_last_name}, </h1>
     <h2 class="features F_one">Your teacher is <strong>${studentData.student_record.author.first_name} ${studentData.student_record.author.last_name}</strong>.
     <h2 class="features F_two">Your first lesson date was on <strong>${lesson_start_date}</strong></h2>
@@ -2344,7 +2345,8 @@ function redirectHome(err = null) {
 function renderWelcome () {
   
   var welcomeHTML = `
-
+    <div class="curriculum_image">
+    </div>
     <h1 class="dashboard_welcome">Welcome ${state.teacher_first_name} ${state.teacher_last_name},</h1>
 
     <h2 class="features F_one">You currently have <strong>${state.student_records.length}</strong> students!</h2>
@@ -2354,6 +2356,7 @@ function renderWelcome () {
     <h2 class="features F_three">To add a student project, click the <strong>Add Student Project</strong> button. A project can only be added for an existing student.</h2>
 
     <h2 class="features F_four">To view your student list, search and sort students, and view detailed student info and curriculum data, click the <strong>Student List and Schedule</strong> button.</h2>
+    
   `;
   
   $('div.background').html(welcomeHTML);

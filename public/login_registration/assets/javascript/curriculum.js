@@ -53,10 +53,12 @@ var state = {
 
       </form>
     </div>`,
-    home: `<h1 class="landing_heading popIn">Curriculum Manager</h1>
-    <div>
+    home: `
+    
+    <div class="curriculum_image">
 
     </div>
+    <h1 class="landing_heading popIn">Curriculum Manager</h1>
     <h2 class="features F_one">Manage and view your students' personal data</h2>
     <h2 class="features F_two">Add student projects</h2>
     <h2 class="features F_three">Keep track of lesson times</h2>
@@ -341,26 +343,6 @@ function authenticateDashboard() {
     }
   });
 }
-
-
-// function sendTokenAndRedirect() {
-
-//   // breaks redirect if the counter is 1
-//   if (window.localStorage.getItem('redirect_counter') === "1") {
-//     window.localStorage.setItem('redirect_counter', "0");
-//     return;
-//   } else if (window.localStorage.getItem('redirect_counter') === "0" || window.localStorage.getItem('redirect_counter') === "undefined") {
-//     if (window.localStorage.getItem('token')) {
-//       window.localStorage.setItem('redirect_counter', "1");
-//       authenticate().then(function (data) {
-//         console.log(data.url);
-//         appendLoggedinNav();
-//         // window.location = data.url;
-//       });
-//     }
-//     return;
-//   }
-
 
 function checkTokenAndAppendNav() {
   if (window.localStorage.getItem('token')) {

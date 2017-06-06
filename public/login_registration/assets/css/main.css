@@ -252,3 +252,16 @@ li#logged_in {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
+
+.curriculum_image {
+    background: url('./../images/curriculum_new.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 45vw;
+    position: absolute;
+    top: 2vw;
+    filter: brightness(73%);
+    z-index: -1;
+}
