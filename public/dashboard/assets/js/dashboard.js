@@ -1641,7 +1641,7 @@ function deleteStudentProjectConfirmationListener(id, project, projectposition, 
         console.log(result);
         state.student_records[studentPosition].student_curriculum.splice(projectposition, 1);
         $(`div.project_container[id="${projectposition+1}"]`).remove();
-        $(`ol.flex-control-nav.flex-control-paging:nth-child(${projectposition+1})`).remove();
+        $(`ol.flex-control-nav.flex-control-paging li:nth-child(${projectposition+1})`).remove();
         $('.slides li').removeClass('flex-active-slide');
         $('.slides:first-child').addClass('flex-active-slide');
         dismantleDeleteProjectConfirmation();
