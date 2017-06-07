@@ -1553,10 +1553,6 @@ function renderDeleteProjectConfirmation(record, projectIndex, color) {
 }
 
 
-
-
-
-
 // Render function to render the confirmation box
 function renderDeleteConfirmation(record, color) {
   var deleteconfirmation = `
@@ -1632,6 +1628,8 @@ function deleteStudentConfirmationListener(record) {
   });
 }
 
+
+// Listener for project delete confirmation button on modal
 function deleteStudentProjectConfirmationListener(id, project, projectposition, studentPosition) {
   $('button.delete_student_project_confirmation').click(function(event) {
     event.preventDefault();
@@ -1656,6 +1654,7 @@ function deleteStudentProjectConfirmationListener(id, project, projectposition, 
   });
 }
 
+
 // Listener for clicks on the cancel button in the student confirmation box
 function deleteStudentCancelConfirmationListener() {
 
@@ -1664,6 +1663,7 @@ function deleteStudentCancelConfirmationListener() {
   });
 }
 
+
 // Listener for cancel button the student project delete modal
 function deleteStudentProjectCancelConfirmationListener() {
 
@@ -1671,6 +1671,7 @@ function deleteStudentProjectCancelConfirmationListener() {
     dismantleDeleteProjectConfirmation();
   });
 }
+
 
 // Removes the delete student confirmation box
 function dismantleDeleteConfirmation() {
@@ -1688,6 +1689,7 @@ function dismantleDeleteConfirmation() {
   }, 700);
 }
 
+
 // Removes the delete student project confirmation box
 function dismantleDeleteProjectConfirmation () {
  
@@ -1701,7 +1703,6 @@ function dismantleDeleteProjectConfirmation () {
 
   }, 700);
 }
-
 
 
 // Listens for events on the student info button, which renders the detailed student info
