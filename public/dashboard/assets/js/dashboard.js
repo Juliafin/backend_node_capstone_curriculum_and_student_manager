@@ -1792,6 +1792,10 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
     <button class="edit_student_curriculum_modal">
     Edit Project
     </button>
+
+    <button class="delete_student_curriculum_modal">
+    Delete Project
+    </button>
     
 
   </div>
@@ -1804,7 +1808,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   // Displays a student version of the modal if a student is logged in
   if (student_version === true) {
     $('.student_curriculum_container').addClass('student_version');
-    $('.edit_student_curriculum_modal, .add_student_curriculum_modal').remove();
+    $('.edit_student_curriculum_modal, .add_student_curriculum_modal, .delete_student_curriculum_modal').remove();
   }
 
   // console.log(record);
@@ -1852,14 +1856,14 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   if (color !== null) {
     $('.flexslider').css('background-color', color);
 
-    $('button.exit_student_curriculum, button.edit_student_curriculum_modal, .add_student_curriculum_modal').css('background-color', color);
+    $('button.exit_student_curriculum, button.edit_student_curriculum_modal, .add_student_curriculum_modal, .delete_student_curriculum_modal').css('background-color', color);
 
 
     if ($('div.flexslider').css('background-color') === 'rgb(255, 193, 7)') {
-      $('div.student_curriculum_container p, button.exit_student_curriculum, button.edit_student_curriculum_modal, .add_student_curriculum_modal').css('color', 'black');
+      $('div.student_curriculum_container p, button.exit_student_curriculum, button.edit_student_curriculum_modal, .add_student_curriculum_modal, .delete_student_curriculum_modal').css('color', 'black');
     }
 
-    $('button.exit_student_curriculum, button.edit_student_curriculum_modal, button.add_student_curriculum_modal').hover(
+    $('button.exit_student_curriculum, button.edit_student_curriculum_modal, button.add_student_curriculum_modal, button.delete_student_curriculum_modal').hover(
       function(event) {
         $(this).css('background-color', 'rgb(33, 80, 97)');
         if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
@@ -1877,7 +1881,9 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 
   // Initialize the modal
   $('.flexslider').flexslider({
-    animation: "slide"
+    animation: "slide",
+    animationLoop: false,
+    slideshow: false
   });
 
 }
