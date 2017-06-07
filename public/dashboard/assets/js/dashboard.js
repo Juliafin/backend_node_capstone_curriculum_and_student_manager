@@ -466,6 +466,18 @@ function deletestudentData(id) {
   });
 }
 
+function deletestudentProjectData(id, project) {
+  return $.ajax({
+    type: 'DELETE',
+    url: `/cu-manager/student-curriculum-projects/${id}`,
+    data: {'student_curriculum': project},
+    headers: {
+      Authorization: `bearer ${window.localStorage.getItem('token')}`
+    }
+  });
+}
+
+
 
 // Update and send student to the server
 function updateStudent(studentObj, id) {
@@ -1484,9 +1496,14 @@ function deleteStudentCardButtonListener() {
 
 
 function renderDeleteProjectConfirmation(record, projectIndex, color) {
+  var project = record.student_curriculum[projectIndex-1];
+  console.log(project);
+  var id = record.id;
+  var projectPosition = projectIndex-1;
+  var studentPosition = record.order-1;
   var deleteconfirmation = `
     <div class="delete_student_project_confirmation_container popIn">
-      <div class="delete_color_strip">
+      <div class="delete_project_color_strip">
         <p>Are you sure you want to delete the project # ${projectIndex} with the name: ${record.student_curriculum[projectIndex-1].project_name}?</p>
       </div>
       <button class="delete_student_project_confirmation">
@@ -1507,9 +1524,9 @@ function renderDeleteProjectConfirmation(record, projectIndex, color) {
 
 
   // Set css and colors according to the element clicked
-  $('div.delete_color_strip, button.delete_student_project_confirmation, button.cancel_delete_student_project_confirmation').css('background-color', color);
+  $('div.delete_project_color_strip, button.delete_student_project_confirmation, button.cancel_delete_student_project_confirmation').css('background-color', color);
 
-  if ($('.delete_color_strip').css('background-color') === 'rgb(255, 193, 7)') {
+  if ($('.delete_project_color_strip').css('background-color') === 'rgb(255, 193, 7)') {
     $('button.delete_student_project_confirmation, button.cancel_delete_student_project_confirmation').css('color', 'black');
   }
 
@@ -1528,6 +1545,9 @@ function renderDeleteProjectConfirmation(record, projectIndex, color) {
     }
   
   );
+
+  deleteStudentProjectCancelConfirmationListener();
+  deleteStudentProjectConfirmationListener(id, project,projectPosition, studentPosition);
 
 
 }
@@ -1612,6 +1632,29 @@ function deleteStudentConfirmationListener(record) {
   });
 }
 
+function deleteStudentProjectConfirmationListener(id, project, projectposition, studentPosition) {
+  $('button.delete_student_project_confirmation').click(function(event) {
+    event.preventDefault();
+    console.log('delete student confirmation button clicked');
+    deletestudentProjectData(id, project)
+      .then(function(result) {
+        console.log(result);
+        state.student_records[studentPosition].student_curriculum.splice(projectposition, 1);
+        $(`div.project_container[id="${projectposition+1}"]`).remove();
+        $(`ol.flex-control-nav.flex-control-paging:nth-child(${projectposition+1})`).remove();
+        $('.slides li').removeClass('flex-active-slide');
+        $('.slides:first-child').addClass('flex-active-slide');
+        dismantleDeleteProjectConfirmation();
+
+      })
+      .catch(function(err) {
+        console.log(err);
+        console.log('Something went wrong');
+      });
+
+      
+  });
+}
 
 // Listener for clicks on the cancel button in the student confirmation box
 function deleteStudentCancelConfirmationListener() {
@@ -1621,6 +1664,13 @@ function deleteStudentCancelConfirmationListener() {
   });
 }
 
+// Listener for cancel button the student project delete modal
+function deleteStudentProjectCancelConfirmationListener() {
+
+  $('button.cancel_delete_student_project_confirmation').click(function(event) {
+    dismantleDeleteProjectConfirmation();
+  });
+}
 
 // Removes the delete student confirmation box
 function dismantleDeleteConfirmation() {
@@ -1637,6 +1687,21 @@ function dismantleDeleteConfirmation() {
 
   }, 700);
 }
+
+// Removes the delete student project confirmation box
+function dismantleDeleteProjectConfirmation () {
+ 
+  // Re-allow click events
+  $('button.exit_student_curriculum, button.add_student_curriculum_modal, button.edit_student_curriculum_modal, button.delete_student_curriculum_modal, .flex-next, .flex-prev, ol.flex-control-nav.flex-control-paging > a').css('pointer-events', "auto");
+
+    // Remove the modal
+  $('div.delete_student_project_confirmation_container').fadeOut();
+  setTimeout(function () {
+    $('div.delete_student_confirmation_container').remove();
+
+  }, 700);
+}
+
 
 
 // Listens for events on the student info button, which renders the detailed student info
@@ -1821,8 +1886,6 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
           </ul>
         </div>
 
-        <ol class="flex-control-nav flex-control-paging">
-        </ol>
 
         <ul class="flex-direction-nav">
           <li class="flex-nav-prev">

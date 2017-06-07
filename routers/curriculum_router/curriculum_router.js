@@ -366,7 +366,7 @@ curriculum_router.delete('/:id', (req, res) => {
     // expects full curriculum object to be provided
 
 curriculum_router.delete('/student-curriculum-projects/:id', (req, res) => {
-  
+  console.log('the delete project endpoint has been activated')
   if (req.user._user.role === 'student' || !('user' in req)) {
     return res.status(401).json({
       error: 'unauthorized'
