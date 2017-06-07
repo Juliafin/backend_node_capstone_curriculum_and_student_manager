@@ -424,6 +424,20 @@ div.card {
   padding-top: 2vw;
 }
 
+.delete_student_project_confirmation_container.popIn {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 12vw;
+    margin: 0 auto;
+    width: 37vw;
+    height: 19vw;
+    z-index: 3000;
+    background: white;
+    border: .3vw solid black;
+    box-shadow: .2vw .2vw .2vw black;
+}
+
 .delete_color_strip {
   margin-bottom: 1vw;
   padding-bottom: 2vw;
@@ -500,7 +514,9 @@ button.student_curriculum,
 button.delete_student,
 button.cancel_delete_student_confirmation,
 button.delete_student_confirmation,
-button.delete_student_curriculum_modal {
+button.delete_student_curriculum_modal,
+button.delete_student_project_confirmation,
+button.cancel_delete_student_project_confirmation {
   margin-top: 2vw;
   border-radius: 2px;
   outline: none;
@@ -568,7 +584,11 @@ button.delete_student_confirmation:focus,
 button.cancel_delete_student_confirmation:hover,
 button.cancel_delete_student_confirmation:focus,
 button.delete_student_curriculum_modal:hover,
-button.delete_student_curriculum_modal:focus {
+button.delete_student_curriculum_modal:focus,
+button.delete_student_project_confirmation:hover,
+button.delete_student_project_confirmation:focus,
+button.cancel_delete_student_project_confirmation:hover,
+button.cancel_delete_student_project_confirmation:focus{
   background: rgb(33, 80, 97);
   filter: brightness(120%);
   transform: scale(1.1);
@@ -579,7 +599,13 @@ button.delete_student_curriculum_modal:focus {
 button.add_student_project:active,
 button.student_info:active,
 .nav>li:active,
-button.delete_student:active {
+button.delete_student:active,
+button.exit_student_curriculum:active,
+button.add_student_curriculum_modal:active,
+button.edit_student_curriculum_modal:active,
+button.delete_student_curriculum_modal:active,
+button.student_exit:active, button.edit_info:active,
+button.student_curriculum:active {
   color: #ffaa5b;
   filter: brightness(130%);
   transform: scale(1.2);

@@ -1483,6 +1483,60 @@ function deleteStudentCardButtonListener() {
 }
 
 
+function renderDeleteProjectConfirmation(record, projectIndex, color) {
+  var deleteconfirmation = `
+    <div class="delete_student_project_confirmation_container popIn">
+      <div class="delete_color_strip">
+        <p>Are you sure you want to delete the project # ${projectIndex} with the name: ${record.student_curriculum[projectIndex-1].project_name}?</p>
+      </div>
+      <button class="delete_student_project_confirmation">
+      Delete Project
+      </button>
+      <button class="cancel_delete_student_project_confirmation">
+      Cancel
+      </button>
+    <div>
+  `;
+
+  // disable click events
+  $('button.exit_student_curriculum, button.add_student_curriculum_modal, button.edit_student_curriculum_modal, button.delete_student_curriculum_modal, .flex-next, .flex-prev, ol.flex-control-nav.flex-control-paging > a').css('pointer-events', "none");
+
+
+  // Write html to dom
+  $('body').append(deleteconfirmation);
+
+
+  // Set css and colors according to the element clicked
+  $('div.delete_color_strip, button.delete_student_project_confirmation, button.cancel_delete_student_project_confirmation').css('background-color', color);
+
+  if ($('.delete_color_strip').css('background-color') === 'rgb(255, 193, 7)') {
+    $('button.delete_student_project_confirmation, button.cancel_delete_student_project_confirmation').css('color', 'black');
+  }
+
+  $('button.delete_student_project_confirmation, button.cancel_delete_student_project_confirmation').hover(
+    function(event) {
+      $(this).css('background-color', 'rgb(33, 80, 97)');
+      if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
+        $(this).css('color', 'white');
+      }
+    },
+    function(event) {
+      $(this).css('background-color', color);
+      if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
+        $(this).css('color', 'black');
+      }
+    }
+  
+  );
+
+
+}
+
+
+
+
+
+
 // Render function to render the confirmation box
 function renderDeleteConfirmation(record, color) {
   var deleteconfirmation = `
@@ -1742,6 +1796,7 @@ function studentCurriculumListener(color) {
     exitStudentCurriculumListener();
     editStudentProjectModalButtonListener();
     addStudentProjectModalButtonListener();
+    deleteStudentProjectModalButtonListener();
 
   });
 }
@@ -1888,6 +1943,47 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 
 }
 
+function deleteStudentProjectModalButtonListener() {
+  $('button.delete_student_curriculum_modal').click(function(event) {
+
+    console.log('Delete Project button clicked');
+    
+    // Remove previous errors
+    $('.errors, .error').remove();
+
+    var studentID = $('.flex-active-slide > div.project_container').attr('id');
+    console.log(studentID);
+    var projectIndex = $('.flex-active-slide div.project_number_container').attr('id');
+    console.log(projectIndex);
+
+    var backgroundColor = $(".flexslider").css('background-color')
+
+    // If no projects exist throw an error
+    if (projectIndex === undefined) {
+      var noProjectsToEdit = `
+      <div class="error popIn">  
+        <p class="errors">Error: No Projects to delete, please click the Add Project button to add a new project.</p>
+      </div>
+        `;
+      $('li.flex-active-slide').append(noProjectsToEdit);
+      return;
+    }
+
+    var student_record = state.student_records.find(function(record) {
+      if (studentID === record.id) {
+        return record;
+      }
+    });
+
+    renderDeleteProjectConfirmation(student_record, projectIndex, backgroundColor );
+
+
+
+
+
+
+  });
+}
 
 // Listener for the add student project button on the project modal
 function addStudentProjectModalButtonListener() {
@@ -1899,9 +1995,9 @@ function addStudentProjectModalButtonListener() {
 
     // Get student data
     
-    var studentID = $('.flex-active-slide > .no_projects').attr('id');
+    var studentID = $('.flex-active-slide > div.project_container').attr('id') || $('.flex-active-slide > .no_projects').attr('id');
     console.log('Student ID', studentID);
-
+    
 
     var student = state.student_records.find(function(record) {
       if (studentID === record.id) {

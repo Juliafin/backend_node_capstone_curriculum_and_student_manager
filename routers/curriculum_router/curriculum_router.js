@@ -366,8 +366,13 @@ curriculum_router.delete('/:id', (req, res) => {
     // expects full curriculum object to be provided
 
 curriculum_router.delete('/student-curriculum-projects/:id', (req, res) => {
+  
+  if (req.user._user.role === 'student' || !('user' in req)) {
+    return res.status(401).json({
+      error: 'unauthorized'
+    });
 
-  if ('student_curriculum' in req.body) {
+  } else if ('student_curriculum' in req.body) {
 
     Curriculum
           .findByIdAndUpdate(req.params.id, {
