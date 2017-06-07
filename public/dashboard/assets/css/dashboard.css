@@ -384,7 +384,7 @@ form.project input {
 
 div.card {
   width: 19vw;
-  height: 23vw;
+  height: 25vw;
   background-color: #fffaf3;
   /* border: 1px solid rgba(0, 0, 0, 0.18); */
   border-radius: 1px;
@@ -398,7 +398,37 @@ div.card {
   position: relative;
   top: 0;
   width: 100%;
-  height: 10vw;
+  height: 14vw;
+}
+
+.delete_student_confirmation_container {
+    position: fixed;
+    top: 41%;
+    right: 0;
+    left: 0;
+    height: 20vw;
+    width: 37vw;
+    text-align: center;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.87);
+    font-family: trocchi;
+    box-shadow: .3vw .3vw 0.2vw black;
+    border: .1vw solid rgba(0, 0, 0, 0.69);
+}
+
+.delete_student_confirmation_container p {
+    color: white;
+    padding-top: 2vw;
+}
+
+.delete_color_strip {
+    margin-bottom: 1vw;
+    padding-bottom: 2vw;
+}
+
+button.delete_student_confirmation, button.cancel_delete_student_confirmation {
+    color: white;
+    font-family: trocchi;
 }
 
 .student_container {
@@ -451,7 +481,7 @@ p.success {
   background-color: #4caf50;
 }
 
-button.add_student_project, button.student_info, button.student_exit, button.edit_info, button.student_curriculum, .exit_student_curriculum, .edit_student_curriculum_modal, .add_student_curriculum_modal {
+button.add_student_project, button.student_info, button.student_exit, button.edit_info, button.student_curriculum, .exit_student_curriculum, .edit_student_curriculum_modal, .add_student_curriculum_modal, button.delete_student, button.cancel_delete_student_confirmation, button.delete_student_confirmation {
   margin-top: 2vw;
   border-radius: 2px;
   outline: none;
@@ -494,8 +524,8 @@ button#_edit_student_project:active {
   background-color: #b7c3ce;
 }
 
-button.add_student_project:hover, button.add_student_project:focus, button.student_info:hover, button.student_info:focus, button.edit_info:hover, button.edit_info:focus, button.student_exit:hover, button.student_exit:focus, button.student_curriculum:hover, button.student_curriculum:focus, button.exit_student_curriculum:hover, button.exit_student_curriculum:focus, .student_version button.exit_student_curriculum:hover, .student_version button.exit_student_curriculum:focus, button.edit_student_curriculum_modal:hover, button.edit_student_curriculum_modal:focus,
-button.add_student_curriculum_modal:hover, button.add_student_curriculum_modal:focus {
+button.add_student_project:hover, button.add_student_project:focus, button.student_info:hover, button.student_info:focus, button.edit_info:hover, button.edit_info:focus, button.student_exit:hover, button.student_exit:focus, button.student_curriculum:hover, button.student_curriculum:focus, button.exit_student_curriculum:hover, button.exit_student_curriculum:focus, .student_version button.exit_student_curriculum:hover, .student_version button.exit_student_curriculum:focus, button.edit_student_curriculum_modal:hover, button.edit_student_curriculum_modal:focus, button.add_student_curriculum_modal:hover, button.add_student_curriculum_modal:focus, button.delete_student:hover, button.delete_student:focus, button.delete_student_confirmation:hover, button.delete_student_confirmation:focus, button.cancel_delete_student_confirmation:hover,
+ button.cancel_delete_student_confirmation:focus {
   background: rgb(33, 80, 97);
   filter: brightness(120%);
   transform: scale(1.1);
@@ -503,9 +533,8 @@ button.add_student_curriculum_modal:hover, button.add_student_curriculum_modal:f
   transition: all ease-in-out 301ms;
 }
 
-button.add_student_project:active,
-button.student_info:active,
-.nav>li:active {
+button.add_student_project:active, button.student_info:active, .nav>li:active,
+ button.delete_student:active {
   color: #ffaa5b;
   filter: brightness(130%);
   transform: scale(1.2);
@@ -514,21 +543,24 @@ button.student_info:active,
 
 button.student_exit {
     display: inline-block;
-    width: auto;
+    width: 20vw;
     margin-right: 3vw;
     height: 3vw;
     color: white;
+    font-size: 2vw;
 }
 
 button.edit_info, button.student_curriculum {
     display: inline-block;
-    width: auto;
+    width: 20vw;
     height: 3vw;
     color: white;
+    font-size: 2vw;
 }
 
 button.student_curriculum {
     margin-left: 3vw;
+    width: 20vw;
 }
 
 .nav li:hover,
@@ -574,14 +606,14 @@ input:focus {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  border: 2px solid black;
+  border: .2vw solid black;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.91);
   z-index: 200;
   overflow: auto;
-  box-shadow: 3px 3px 12px black;
+  box-shadow: 0.2vw 0.1vw 0.6vw rgba(53, 52, 52, 0.54);
 }
 
 .student_main_info h2 {
@@ -778,8 +810,9 @@ div.student_not_found > h2 {
 div.card {
   width: 33vw;
   margin: 5vw auto;
-  height: 29vw;
+  height: 39vw;
 }
+
 
 p.lesson_time {
   padding:0;
@@ -791,22 +824,47 @@ p.student_basic_info {
     font-size: 2vw;
   }
 
-  button.add_student_project, button.student_info {
+  button.add_student_project, button.student_info, button.delete_student {
     width: 18vw;
     font-size: 1.5vw;
     padding-top: 1vw;
-    height: auto;
-    padding-bottom: 3vw;
-    margin: 2vw 0vw;
+    padding-bottom: 1.3vw;
     margin-bottom: 0vw;
+    margin-top: 2.4vw;
   }
 
   .card_color {
     position: relative;
     top: 0;
     width: 100%;
-    height: 15vw;
+    height: 23vw;
 }
+
+  .student_main_info {
+    height: 34vw;
+    width: 90vw;
+  }
+
+  h2.student_name {
+    font-size: 3vw;
+    margin-top: 2vw;
+  }
+
+  .student_main_info p {
+    font-size:1.7vw;
+  }
+
+  button.student_curriculum, button.student_exit, button.edit_info {
+  width: 25vw;
+  font-size: 2vw;
+  }
+
+  .columns {
+    width: 80vw;
+    text-align: center;
+    margin: 0 auto;
+    height: 12vw;
+  } 
 
 }
 
@@ -845,3 +903,5 @@ p.student_basic_info {
   }
 
 }
+
+

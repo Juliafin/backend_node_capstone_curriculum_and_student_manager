@@ -232,13 +232,13 @@ var state = {
   }
 };
 
-
 var sortOptions = {
   1:['first_name', false],
   2:['first_name', true],
   3: ['last_name', false],
   4: ['last_name', true]
 };
+
 
 // Student version navigation bar listener
 function studentNavbarListener () {
@@ -377,6 +377,7 @@ function displayNav() {
   }
 }
 
+
 // Render the navigation bar for student version
 function displayStudentNav() {
   if (window.localStorage.getItem('token')) {
@@ -416,6 +417,7 @@ function sendStudentProject(project, id, index) {
   });
 }
 
+
 // Authenticate the token in memory and return user data
 function authenticateToken() {
   return $.ajax({
@@ -427,6 +429,7 @@ function authenticateToken() {
   });
 }
 
+
 // Get student list from the server
 function getStudentData() {
   return $.ajax({
@@ -437,6 +440,7 @@ function getStudentData() {
     }
   });
 }
+
 
 // Add student to the server
 function postStudentData(studentObj) {
@@ -451,6 +455,18 @@ function postStudentData(studentObj) {
   });
 }
 
+
+function deletestudentData(id) {
+  return $.ajax({
+    type: 'DELETE',
+    url: `/cu-manager/${id}`,
+    headers: {
+      Authorization: `bearer ${window.localStorage.getItem('token')}`
+    }
+  });
+}
+
+
 // Update and send student to the server
 function updateStudent(studentObj, id) {
   // console.log('this is the obj to be sent', studentObj);
@@ -464,6 +480,7 @@ function updateStudent(studentObj, id) {
   });
 }
 
+// Listener for typing in the input search box for the student list
 function studentSearchListener() {
  
   $('input#student_search').keydown(  
@@ -473,6 +490,7 @@ function studentSearchListener() {
 }
 
 
+// sort results based on the value of the Select tag option on the student list using fuse.js library
 function sortResults(event) {
 
   console.log('HERE====> ' + $('select#sort').val());
@@ -534,6 +552,8 @@ function sortResults(event) {
   renderStudentCard(arrayToDisplay);
 }
 
+
+// wrapper for .sort function to select various fields for sort
 function sortFields (arr, field, descending = true ) {
   var sorted = arr.sort(function(a, b) {
     if (a[field] < b[field]) {
@@ -560,14 +580,14 @@ function sortFields (arr, field, descending = true ) {
 }
 
 
-
+// Sorts on changes to the select tag
 function studentListSortListener() {
 
   $('select#sort').change(sortResults);
 }
 
 
-
+// Sorts students according to the upcoming schedule when the Select tag is set to 'upcoming lessons'
 function daySort(arr) {
 
   var daysArray = arr.map(function(element) {
@@ -624,9 +644,6 @@ function daySort(arr) {
   console.log('daysArray',daysArray);  
   return daySortedArray;
 }
-
-
-
 
 
 // Listener for editing students on the add / edit student form
@@ -1359,6 +1376,10 @@ function renderStudentCard(state) {
         <button class="student_info">
         Student info
         </button>
+        <button class="delete_student">
+        Delete Student
+        </button>
+
       </div>
       <div class="student_container">
       <p class="student_basic_info">Name: ${student_record.first_name} ${student_record.last_name}</p>
@@ -1439,6 +1460,131 @@ function addstudentProjectCardListener () {
 }
 
 
+// *Delegrated - Listens for clicks on the delete student button the student card
+function deleteStudentCardButtonListener() {
+  $('div.background').on('click', 'button.delete_student', function(event) {
+    event.preventDefault();
+    console.log('delete button clicked');
+
+    var id = $(this).closest('div.card').attr('id');
+    console.log(id);
+    var background_color = $(this).closest('div.card_color').css('background-color');
+    console.log( background_color);
+    var recordToDelete = state.student_records.find(function (record) {
+      if (id === record.id) {
+        return record;
+      }
+    });
+
+    console.log('record to delete', recordToDelete);
+    renderDeleteConfirmation(recordToDelete, background_color);
+
+  });
+}
+
+
+// Render function to render the confirmation box
+function renderDeleteConfirmation(record, color) {
+  var deleteconfirmation = `
+    <div class="delete_student_confirmation_container popIn">
+      <div class="delete_color_strip">
+        <p>Are you sure you want to delete the student: <br> ${record.first_name} ${record.last_name}?</p>
+      </div>
+      <button class="delete_student_confirmation">
+      Delete Student
+      </button>
+      <button class="cancel_delete_student_confirmation">
+      Cancel
+      </button>
+    <div>
+  `;
+
+  // Stop scroll on main window
+  $('html, body').css('overflow', 'hidden');
+  // console.log('This is the student record inside the student info render', student_record);
+
+  // disable bottom click events
+  $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "none");
+
+  // Write html to dom
+  $('body').append(deleteconfirmation);
+  
+  // Set css and colors according to the element clicked
+  $('div.delete_color_strip, button.delete_student_confirmation, button.cancel_delete_student_confirmation').css('background-color', color);
+
+  if ($('.delete_color_strip').css('background-color') === 'rgb(255, 193, 7)') {
+    $('button.delete_student_confirmation, button.cancel_delete_student_confirmation').css('color', 'black');
+  }
+
+  $('button.delete_student_confirmation, button.cancel_delete_student_confirmation').hover(
+    function(event) {
+      $(this).css('background-color', 'rgb(33, 80, 97)');
+      if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
+        $(this).css('color', 'white');
+      }
+    },
+    function(event) {
+      $(this).css('background-color', color);
+      if ( $(this).css('background-color') === "rgb(255, 193, 7)") {
+        $(this).css('color', 'black');
+      }
+    }
+  
+  );
+
+  deleteStudentConfirmationListener(record);
+  deleteStudentCancelConfirmationListener();
+}
+
+
+// Listener for clicks on the delete student button in the student confirmation box
+function deleteStudentConfirmationListener(record) {
+  $('button.delete_student_confirmation').click(function(event) {
+    event.preventDefault();
+    console.log('delete student confirmation button clicked');
+    deletestudentData(record.id)
+      .then(function(result) {
+        console.log('result', result);
+        dismantleDeleteConfirmation();
+        state.student_records.length = 0;
+        saveStudentData(false);
+
+        console.log(result);
+
+      }).catch(function(err) {
+        console.log('There was an error deleting the student');
+
+      });
+  });
+}
+
+
+// Listener for clicks on the cancel button in the student confirmation box
+function deleteStudentCancelConfirmationListener() {
+
+  $('button.cancel_delete_student_confirmation').click(function(event) {
+    dismantleDeleteConfirmation();
+  });
+}
+
+
+// Removes the delete student confirmation box
+function dismantleDeleteConfirmation() {
+   // Re-allow scrolling on main page
+  $('html, body').css('overflow', 'auto');
+
+    // Re-allow clicks on the main page
+  $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "auto");
+
+    // Remove the modal
+  $('div.delete_student_confirmation_container').fadeOut();
+  setTimeout(function () {
+    $('div.delete_student_confirmation_container').remove();
+
+  }, 700);
+}
+
+
 // Listens for events on the student info button, which renders the detailed student info
 function studentInfoListener() {
 
@@ -1462,6 +1608,7 @@ function studentInfoListener() {
   });
 }
 
+
 // Render the the detailed student info into a modal
 function renderStudentInfo(student_record, color) {
 
@@ -1470,7 +1617,7 @@ function renderStudentInfo(student_record, color) {
   // console.log('This is the student record inside the student info render', student_record);
 
   // disable bottom click events
-  $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "none");
+  $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "none");
 
 
   var lesson_duration = moment(student_record.student_lesson_time.endTime).diff(moment(student_record.student_lesson_time.startTime), 'minutes');
@@ -1662,7 +1809,6 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 
   // console.log(record);
 
-
   // Create student curriculum html
   var studentCurriculumHtml = record.student_curriculum.map(function (project, index) {
 
@@ -1693,6 +1839,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   // If there is student curriculum data, display it, if not display filler html
   if (record.student_curriculum.length !== 0 ) {
     $('ul.slides').html(studentCurriculumHtml);
+  
   } else {
     var noProjects = `
       <li class="clone" aria-hidden="true">
@@ -1700,7 +1847,6 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
       </li>`;
     $('ul.slides').html(noProjects);
   }
-
 
   // In teacher version, set colors based on a specific background color
   if (color !== null) {
@@ -1729,7 +1875,6 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
     );
   }
 
-  
   // Initialize the modal
   $('.flexslider').flexslider({
     animation: "slide"
@@ -1737,6 +1882,8 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 
 }
 
+
+// Listener for the add student project button on the project modal
 function addStudentProjectModalButtonListener() {
   $('button.add_student_curriculum_modal').click(function (event) {
     // Remove previous errors
@@ -1818,10 +1965,10 @@ function addStudentProjectModalButtonListener() {
 
   });
 
-
 }
 
 
+  // Listener for button to edit student projects on the project modal
 function editStudentProjectModalButtonListener() {
   $('button.edit_student_curriculum_modal').click(function (event) {
     // Remove previous errors
@@ -2065,8 +2212,6 @@ function addEditStudentFormRadioListener() {
       // Remove the edit inputs if they exist
       $('label[for="existing_first_name"], label[for="existing_last_name"],label[for="existing_email"], input#existing_first_name, input#existing_last_name, input#existing_email, .edit_break').remove();
 
-      
-
       // Remove listener from adding student
       $('button[name="add_student"]').off('click').css({
         'pointer-events': 'none',
@@ -2077,8 +2222,6 @@ function addEditStudentFormRadioListener() {
         'pointer-events': 'auto',
         'background-color': 'rgb(178, 18, 18)'
       });
-
-
 
       // console.log('The edit student radio button is checked');
       editStudentFormListener();
@@ -2238,6 +2381,7 @@ function studentCardEditButtonListener() {
   }); 
 }
 
+
 // Listener for button to exit the student info screen
 function studentInfoExitListener() {
 
@@ -2258,7 +2402,7 @@ function studentInfoExitListener() {
     $('div.student_modal').css('overflow', 'auto');
 
     // Re-allow clicks on the main page
-    $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "auto");
+    $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "auto");
 
     // Remove the modal
     $('div.student_modal').fadeOut();
@@ -2269,6 +2413,7 @@ function studentInfoExitListener() {
 
   });
 }
+
 
 // Verify the token, and set application state based on the result
 function authenticateResult() {
@@ -2284,10 +2429,11 @@ function authenticateResult() {
         if (state.role === 'teacher') {
           state.teacher_first_name = result.first_name;
           state.teacher_last_name = result.last_name;
-          saveStudentData();          
+          saveStudentData(true);          
           displayNav();
           studentInfoListener();
           addstudentProjectCardListener();
+          deleteStudentCardButtonListener();
         } else if (state.role === 'student') {
           state.student_first_name = result.first_name;
           state.student_last_name = result.last_name;
@@ -2326,6 +2472,7 @@ function authenticateResult() {
     });
 }
 
+
 // Redirect the user to the log in screen if they are unauthorized
 function redirectHome(err = null) {
   var pathArr = window.location.pathname.split('/');
@@ -2340,6 +2487,7 @@ function redirectHome(err = null) {
     return false;
   }
 }
+
 
 // Renders welcome screen for teachers
 function renderWelcome () {
@@ -2367,8 +2515,9 @@ function renderWelcome () {
   }
 }
 
+
 // Makes a GET request and saves the student list per teacher
-function saveStudentData() {
+function saveStudentData(initial = true) {
   getStudentData()
     .then(function (data) {
       // console.log(data);
@@ -2377,7 +2526,13 @@ function saveStudentData() {
         record.student_curriculum_length = record.student_curriculum.length;
         state.student_records.push(record);
       });
-      renderWelcome();
+      if (initial === true) {
+        renderWelcome();
+      } else {
+        $(document).scrollTop(0);
+        $('div.card_container').empty();
+        renderStudentCard(state.student_records);
+      }
       // console.log('state.student_records', state.student_records);
       
     });
