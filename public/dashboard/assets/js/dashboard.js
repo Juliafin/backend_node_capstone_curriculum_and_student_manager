@@ -1495,6 +1495,7 @@ function deleteStudentCardButtonListener() {
 }
 
 
+// Generates confirmation prompt
 function renderDeleteProjectConfirmation(record, projectIndex, color) {
   var project = record.student_curriculum[projectIndex-1];
   console.log(project);
@@ -1547,7 +1548,7 @@ function renderDeleteProjectConfirmation(record, projectIndex, color) {
   );
 
   deleteStudentProjectCancelConfirmationListener();
-  deleteStudentProjectConfirmationListener(id, project,projectPosition, studentPosition);
+  deleteStudentProjectConfirmationListener(id, project,projectPosition, studentPosition, color);
 
 
 }
@@ -1630,19 +1631,28 @@ function deleteStudentConfirmationListener(record) {
 
 
 // Listener for project delete confirmation button on modal
-function deleteStudentProjectConfirmationListener(id, project, projectposition, studentPosition) {
+function deleteStudentProjectConfirmationListener(id, project, projectposition, studentPosition, color) {
   $('button.delete_student_project_confirmation').click(function(event) {
     event.preventDefault();
     console.log('delete student confirmation button clicked');
     deletestudentProjectData(id, project)
-      .then(function(result) {
-        console.log(result);
+      .then(function(returned_record) {
+        console.log(returned_record);
+
+
         state.student_records[studentPosition].student_curriculum.splice(projectposition, 1);
-        $(`div.project_container[id="${projectposition+1}"]`).remove();
-        $(`ol.flex-control-nav.flex-control-paging li:nth-child(${projectposition+1})`).remove();
-        $('.slides li').removeClass('flex-active-slide');
-        $('.slides:first-child').addClass('flex-active-slide');
+        
         dismantleDeleteProjectConfirmation();
+
+        // Remove the student curriculum modal
+        $('div.student_curriculum_container').remove();
+
+        renderStudentCurriculum(state.student_records[studentPosition], color);
+        exitStudentCurriculumListener();
+        editStudentProjectModalButtonListener();
+        addStudentProjectModalButtonListener();
+        deleteStudentProjectModalButtonListener();
+
 
       })
       .catch(function(err) {
@@ -2040,9 +2050,6 @@ function deleteStudentProjectModalButtonListener() {
     });
 
     renderDeleteProjectConfirmation(student_record, projectIndex, backgroundColor );
-
-
-
 
 
 
