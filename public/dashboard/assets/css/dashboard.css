@@ -405,10 +405,10 @@ div.card {
 
 .delete_student_confirmation_container {
   position: fixed;
-  top: 41%;
+  top: 13vw;
   right: 0;
   left: 0;
-  height: 20vw;
+  height: 25vw;
   width: 37vw;
   text-align: center;
   margin: 0 auto;
@@ -421,6 +421,7 @@ div.card {
 .delete_student_confirmation_container p {
   color: white;
   padding-top: 2vw;
+  font-size: 2vw;
 }
 
 .delete_student_project_confirmation_container.popIn {
@@ -522,7 +523,7 @@ button.delete_student_curriculum_modal,
 button.delete_student_project_confirmation,
 button.cancel_delete_student_project_confirmation {
   margin-top: 2vw;
-  border-radius: 2px;
+  border-radius: .2vw;
   outline: none;
   border: none;
   background: white;
@@ -530,7 +531,7 @@ button.cancel_delete_student_project_confirmation {
   width: 60%;
   max-height: 22%;
   font-size: 1.1vw;
-  border: 1px grey solid;
+  border: .1vw grey solid;
 }
 
 button[name="add_student"],
