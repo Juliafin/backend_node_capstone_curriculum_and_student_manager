@@ -7,17 +7,26 @@
 
 
 
-## Screenshotshots
+## Screenshots
 
-Dashboard: 
+
+
+### Dashboard: 
 
 ![Dashboard Screenshot](https://github.com/Juliafin/backend_node_capstone_curriculum_and_student_manager/blob/master/Docs/Curriculum_%20Dashboard.png)
 
 
-Form: 
+
+
+### Form: 
+
 ![Form Screenshot](https://github.com/Juliafin/backend_node_capstone_curriculum_and_student_manager/blob/master/Docs/Curriculum_form.png)
 
-Student List:
+
+
+
+### Student List:
+
 ![Student List Screenshot](https://github.com/Juliafin/backend_node_capstone_curriculum_and_student_manager/blob/master/Docs/Curriculum_Student_List.png)
 
 ## Teachers
