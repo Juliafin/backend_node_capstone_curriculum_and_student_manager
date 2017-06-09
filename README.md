@@ -1,9 +1,9 @@
-### Teacher Manager
+# Teacher Manager
 
 
 ## Purpose 
 
-# A manager of curriculum and student info for teachers. And a way for students to keep track of their projects and current progress, and lesson times. 
+### A manager of curriculum and student info for teachers. And a way for students to keep track of their projects and current progress, and lesson times. 
 
 
 ## Teachers
