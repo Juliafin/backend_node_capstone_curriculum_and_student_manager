@@ -275,7 +275,7 @@ li#logged_in {
 @media only screen and (max-device-height: 1024px) and (max-device-width: 768px) {
   
   nav {
-    height: 50vw
+    height: 33vw;
   }
   .nav {
     flex-wrap: wrap;
@@ -287,23 +287,28 @@ li#logged_in {
   .nav li {
     width: 100vw;
     font-size: 3vw;
-    border-radius: none;
     border-bottom: .2vw white solid;
-    padding: 2vw 0;
   }
 
     li#logged_in {
       font-size: 3vw;
-      padding-bottom: 2vw;
     }
-    
+
+    li#logged_in br {
+      display:none
+    }
+
+    li#logged_in span{
+      margin-left: 1vw;
+    }
+  
     .curriculum_image {
       height: 180vw;
       filter: brightness(90%);
     }
 
     h1.landing_heading {
-      margin-top: 90vw;
+      margin-top: 40vw;
       margin-bottom: 10vw;
       font-size: 7vw;
     }

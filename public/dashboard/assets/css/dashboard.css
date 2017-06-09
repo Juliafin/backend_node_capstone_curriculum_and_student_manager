@@ -1003,6 +1003,20 @@ nav {
     li#logged_in span{
       margin-left: 1vw;
     }
+
+    h1.dashboard_welcome {
+      margin-top: 40vw;
+      margin-top: 40vw;
+      margin-bottom: 10vw;
+      font-size: 7vw;
+    }
+
+    
+    h2.features {
+      margin-bottom: 10vw;
+      font-size: 3vw;
+
+    }
     
     .curriculum_image {
       height: 180vw;
@@ -1010,7 +1024,7 @@ nav {
     }
 
     h1.add_student_project, h1.add_student_header, .studentList h1 {
-      margin-top: 50vw;
+      margin-top: 40vw;
       font-size: 8vw;
     }
 
