@@ -457,7 +457,7 @@ function postStudentData(studentObj) {
   });
 }
 
-
+// Delete student on the server
 function deletestudentData(id) {
   return $.ajax({
     type: 'DELETE',
@@ -468,6 +468,8 @@ function deletestudentData(id) {
   });
 }
 
+
+// Delete student project on the server
 function deletestudentProjectData(id, project) {
   return $.ajax({
     type: 'DELETE',
@@ -478,7 +480,6 @@ function deletestudentProjectData(id, project) {
     }
   });
 }
-
 
 
 // Update and send student to the server
@@ -493,6 +494,7 @@ function updateStudent(studentObj, id) {
     }
   });
 }
+
 
 // Listener for typing in the input search box for the student list
 function studentSearchListener() {
@@ -2729,6 +2731,8 @@ function saveStudentData(initial = true) {
       
     });
 }
+
+
 
 //-----------------Initialize the manager----------------//
 //-------------------------------------------------------//
