@@ -101,10 +101,10 @@ function navbarListener() {
     }
 
     if ($(this).text() === 'Dashboard') {
-      console.log(window.localStorage);
+      // console.log(window.localStorage);
       authenticateDashboard()
       .then(function(response){
-        console.log(response);
+        // console.log(response);
       $(this).toggleClass('selected');
       $('div.nav li').not($(this)).removeClass('selected');
         window.location = window.localStorage.getItem('dashboard_url');
@@ -115,7 +115,7 @@ function navbarListener() {
     }
 
     if ($(this).attr('id') === 'logged_in') {
-      console.log('clearing token');
+      // console.log('clearing token');
       window.localStorage.setItem('token', '');
       window.localStorage.setItem('current_user', '');
       window.localStorage.setItem('dashboard_url', '');
@@ -134,28 +134,28 @@ function registerSubmitListener() {
     event.preventDefault();
 
     var role = $('input[name="radSize"]:checked').val();
-    console.log(role);
+    // console.log(role);
     var username = $('input#register_username').val();
     var password = $('input#register_password').val();
     var first_name = $('input#register_first_name').val();
     var last_name = $('input#register_last_name').val();
-    console.log(username);
-    console.log(password);
-    console.log(first_name);
-    console.log(last_name);
+    // console.log(username);
+    // console.log(password);
+    // console.log(first_name);
+    // console.log(last_name);
     var validatedData = validateRegistrationData(password, username, first_name, last_name);
     validatedData.role = role;
-    console.log(validatedData);
+    // console.log(validatedData);
 
     if (validatedData.message && validatedData.message === "No errors found.") {
       delete validatedData.message;
       register(validatedData)
         .then(function (data) {
-          console.log(data);
+          // console.log(data);
           $('div.button_container').before('<p class="success">Registration Successful!</p>');
         })
         .catch(function (err) {
-          console.log(err);
+          // console.log(err);
         });
     }
 
@@ -169,18 +169,18 @@ function loginSubmitListener() {
 
   $('button#login_button').click(function (event) {
     event.preventDefault();
-    console.log('button clicked');
+    // console.log('button clicked');
     var username = $('input#username').val();
     var password = $('input#password').val();
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
     var validatedFormData = validateLoginData(password, username);
-    console.log(validatedFormData);
+    // console.log(validatedFormData);
     if (validatedFormData.message && validatedFormData.message === "No errors found.") {
       delete validatedFormData.message;
       login(validatedFormData)
         .then(function (userdata) {
-          console.log(userdata.token);
+          // console.log(userdata.token);
           setToken(userdata.token);
           window.localStorage.setItem('dashboard_url', userdata.url);
           window.localStorage.setItem('current_user', userdata.username);
@@ -188,9 +188,9 @@ function loginSubmitListener() {
           window.location = window.localStorage.getItem('dashboard_url');
         })
         .catch(function (err) {
-          console.log(err.responseJSON);
+          // console.log(err.responseJSON);
           var errormsg = `<p class="error">${err.responseJSON.error}</p>`;
-          console.log(errormsg);
+          // console.log(errormsg);
           $('.button_container').before(errormsg);
         });
     }
@@ -225,9 +225,9 @@ function register(loginObj) {
 function validateLoginData(password, username) {
   var errors = {};
   var formdata = {};
-  console.log("inside validate login data");
-  console.log('username:', username);
-  console.log('password:', password);
+  // console.log("inside validate login data");
+  // console.log('username:', username);
+  // console.log('password:', password);
   $('.error').remove();
   if (password === "") {
     errors.password = "The Password field is empty.";
@@ -245,9 +245,9 @@ function validateLoginData(password, username) {
     Object.keys(errors).forEach(function (elem) {
       var currentError = errors[elem];
       var errorMsg = `<p class="error" id="${elem}_error"> ${currentError}</p>`;
-      console.log(errorMsg);
-      console.log(errors.elem);
-      console.log(currentError);
+      // console.log(errorMsg);
+      // console.log(errors.elem);
+      // console.log(currentError);
       $(`input[name="${elem}"]`).after(errorMsg);
       return errors;
     });
@@ -316,12 +316,12 @@ function validateRegistrationData(password, username, first_name, last_name) {
   // render to the DOM
   if (Object.keys(errors).length > 0) {
     Object.keys(errors).forEach(function (elem) {
-      console.log(elem);
-      console.log(errors);
+      // console.log(elem);
+      // console.log(errors);
       var currentError = errors[elem];
-      console.log(currentError);
+      // console.log(currentError);
       var errorMsg = `<p class="error" id="${elem}_error"> ${currentError}</p>`;
-      console.log(errorMsg);
+      // console.log(errorMsg);
       $(`input[name="${elem}"]`).after(errorMsg);
     });
     return errors;
@@ -361,14 +361,14 @@ function checkTokenAndAppendNav() {
   if (window.localStorage.getItem('token')) {
     authenticateToken().
     then(function (userdata) {
-      console.log(userdata.url);
+      // console.log(userdata.url);
       window.localStorage.setItem('current_user', userdata.username);
       window.localStorage.setItem('dashboard_url', userdata.url);
 
       appendLoggedinNav();
     })
       .catch(function (err) {
-        console.log(err);
+        // console.log(err);
       });
 
   }
@@ -406,16 +406,16 @@ function appendLoggedinNav() {
 
 // Writes received token to local storage;
 function setToken(token) {
-  console.log(token);
+  // console.log(token);
   window.localStorage.setItem('token', token);
   var tokenInStorage = window.localStorage.getItem('token');
-  console.log("The token has been written to storage", tokenInStorage);
+  // console.log("The token has been written to storage", tokenInStorage);
 }
 
 
 // Test for the token being sent
 function testDashboard() {
-  console.log('token to be sent', window.localStorage.getItem('token'));
+  // console.log('token to be sent', window.localStorage.getItem('token'));
 
   return $.ajax({
     type: 'GET',
@@ -424,8 +424,8 @@ function testDashboard() {
     }
   })
   .then(function(token) {
-    console.log('request was sent)');
-    console.log(token);
+    // console.log('request was sent)');
+    // console.log(token);
   });
 }
 

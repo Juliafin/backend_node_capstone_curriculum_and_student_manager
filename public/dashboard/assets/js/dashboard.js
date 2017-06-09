@@ -507,11 +507,11 @@ function studentSearchListener() {
 // sort results based on the value of the Select tag option on the student list using fuse.js library
 function sortResults(event) {
 
-  console.log('HERE====> ' + $('select#sort').val());
+  // console.log('HERE====> ' + $('select#sort').val());
 
   var input = $('input#student_search').val();
-  console.log('input entered');
-  console.log(input);
+  // console.log('input entered');
+  // console.log(input);
 
   var options = {
     shouldSort: true,
@@ -538,9 +538,9 @@ function sortResults(event) {
   var fuse = new Fuse(state.student_records, options);
   var result = fuse.search(input);
   state.current_sort = result;
-  console.log('state.current_sort', state.current_sort);
-  console.log(result);
-  console.log(Array.isArray(result));
+  // console.log('state.current_sort', state.current_sort);
+  // console.log(result);
+  // console.log(Array.isArray(result));
   var arrayToSort = null;
 
   if (input === "") {
@@ -555,7 +555,7 @@ function sortResults(event) {
     arrayToDisplay = daySort(state.student_records);
   } else if (selected) {
     
-    console.log(selected);
+    // console.log(selected);
     arrayToDisplay = sortFields(arrayToSort,
             sortOptions[selected][0],
             sortOptions[selected][1]);
@@ -588,7 +588,7 @@ function sortFields (arr, field, descending = true ) {
     return 0;
   });
 
-  console.log('returning sorted array', sorted);
+  // console.log('returning sorted array', sorted);
   return sorted;
         
 }
@@ -613,7 +613,7 @@ function daySort(arr) {
     }; 
     return dayElement;
   });
-  console.log(daysArray);
+  // console.log(daysArray);
 
   var weekdays = [
     'Sunday',
@@ -635,7 +635,7 @@ function daySort(arr) {
 
 
   var currentDay = moment().format('dddd');
-  console.log('days', days);
+  // console.log('days', days);
 
   daysArray.sort(function(a, b){
     return days[a.weekday] - days[b.weekday] 
@@ -654,8 +654,8 @@ function daySort(arr) {
 
   });
 
-  console.log('final sorted array', daySortedArray);
-  console.log('daysArray',daysArray);  
+  // console.log('final sorted array', daySortedArray);
+  // console.log('daysArray',daysArray);  
   return daySortedArray;
 }
 
@@ -1496,19 +1496,19 @@ function addstudentProjectCardListener () {
 function deleteStudentCardButtonListener() {
   $('div.background').on('click', 'button.delete_student', function(event) {
     event.preventDefault();
-    console.log('delete button clicked');
+    // console.log('delete button clicked');
 
     var id = $(this).closest('div.card').attr('id');
-    console.log(id);
+    // console.log(id);
     var background_color = $(this).closest('div.card_color').css('background-color');
-    console.log( background_color);
+    // console.log( background_color);
     var recordToDelete = state.student_records.find(function (record) {
       if (id === record.id) {
         return record;
       }
     });
 
-    console.log('record to delete', recordToDelete);
+    // console.log('record to delete', recordToDelete);
     renderDeleteConfirmation(recordToDelete, background_color);
 
   });
@@ -1518,7 +1518,7 @@ function deleteStudentCardButtonListener() {
 // Generates confirmation prompt
 function renderDeleteProjectConfirmation(record, projectIndex, color) {
   var project = record.student_curriculum[projectIndex-1];
-  console.log(project);
+  // console.log(project);
   var id = record.id;
   var projectPosition = projectIndex-1;
   var studentPosition = record.order-1;
@@ -1631,18 +1631,18 @@ function renderDeleteConfirmation(record, color) {
 function deleteStudentConfirmationListener(record) {
   $('button.delete_student_confirmation').click(function(event) {
     event.preventDefault();
-    console.log('delete student confirmation button clicked');
+    // console.log('delete student confirmation button clicked');
     deletestudentData(record.id)
       .then(function(result) {
-        console.log('result', result);
+        // console.log('result', result);
         dismantleDeleteConfirmation();
         state.student_records.length = 0;
         saveStudentData(false);
 
-        console.log(result);
+        // console.log(result);
 
       }).catch(function(err) {
-        console.log('There was an error deleting the student');
+        // console.log('There was an error deleting the student');
 
       });
   });
@@ -1653,10 +1653,10 @@ function deleteStudentConfirmationListener(record) {
 function deleteStudentProjectConfirmationListener(id, project, projectposition, studentPosition, color) {
   $('button.delete_student_project_confirmation').click(function(event) {
     event.preventDefault();
-    console.log('delete student confirmation button clicked');
+    // console.log('delete student confirmation button clicked');
     deletestudentProjectData(id, project)
       .then(function(returned_record) {
-        console.log(returned_record);
+        // console.log(returned_record);
 
 
         state.student_records[studentPosition].student_curriculum.splice(projectposition, 1);
@@ -1675,8 +1675,8 @@ function deleteStudentProjectConfirmationListener(id, project, projectposition, 
 
       })
       .catch(function(err) {
-        console.log(err);
-        console.log('Something went wrong');
+        // console.log(err);
+        // console.log('Something went wrong');
       });
 
       
@@ -1752,7 +1752,7 @@ function studentInfoListener() {
     var bgColor = $(this).closest('.card_color').css('background-color');
     renderStudentInfo(student_record, bgColor);
 
-    console.log(student_record);
+    // console.log(student_record);
 
   });
 }
@@ -2042,15 +2042,15 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 function deleteStudentProjectModalButtonListener() {
   $('button.delete_student_curriculum_modal').click(function(event) {
 
-    console.log('Delete Project button clicked');
+    // console.log('Delete Project button clicked');
     
     // Remove previous errors
     $('.errors, .error').remove();
 
     var studentID = $('.flex-active-slide > div.project_container').attr('id');
-    console.log(studentID);
+    // console.log(studentID);
     var projectIndex = $('.flex-active-slide div.project_number_container').attr('id');
-    console.log(projectIndex);
+    // console.log(projectIndex);
 
     var backgroundColor = $(".flexslider").css('background-color')
 
@@ -2084,12 +2084,12 @@ function addStudentProjectModalButtonListener() {
     // Remove previous errors
     $('.errors, .error').remove();
 
-    console.log('Edit project button clicked');
+    // console.log('Edit project button clicked');
 
     // Get student data
     
     var studentID = $('.flex-active-slide > div.project_container').attr('id') || $('.flex-active-slide > .no_projects').attr('id');
-    console.log('Student ID', studentID);
+    // console.log('Student ID', studentID);
     
 
     var student = state.student_records.find(function(record) {
@@ -2098,7 +2098,7 @@ function addStudentProjectModalButtonListener() {
       }
     });
 
-    console.log(student);
+    // console.log(student);
 
     // Re-allow scrolling on main page
     $('html, body').css('overflow', 'auto');
@@ -2169,13 +2169,13 @@ function editStudentProjectModalButtonListener() {
     // Remove previous errors
     $('.errors, .error').remove();
 
-    console.log('Edit project button clicked');
+    // console.log('Edit project button clicked');
 
     // Get Project and student Ids and student data
     var projectIndex = $('.flex-active-slide div.project_number_container').attr('id');
     var studentID = $('.flex-active-slide > div.project_container').attr('id');
-    console.log('Project Index: ',projectIndex);
-    console.log('Student ID', studentID);
+    // console.log('Project Index: ',projectIndex);
+    // console.log('Student ID', studentID);
 
     // If no projects exist throw an error
     if (projectIndex === undefined) {
@@ -2194,7 +2194,7 @@ function editStudentProjectModalButtonListener() {
       }
     });
 
-    console.log(student);
+    // console.log(student);
 
     // Re-allow scrolling on main page
     $('html, body').css('overflow', 'auto');
