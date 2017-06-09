@@ -6,6 +6,20 @@
 ### A manager of curriculum and student info for teachers. And a way for students to keep track of their projects and current progress, and lesson times. 
 
 
+
+## Screenshotshots
+
+Dashboard: 
+
+![Dashboard Screenshot](https://github.com/Juliafin/backend_node_capstone_curriculum_and_student_manager/blob/master/Docs/Curriculum_%20Dashboard.png)
+
+
+Form: 
+![Form Screenshot](https://github.com/Juliafin/backend_node_capstone_curriculum_and_student_manager/blob/master/Docs/Curriculum_form.png)
+
+Student List:
+![Student List Screenshot](https://github.com/Juliafin/backend_node_capstone_curriculum_and_student_manager/blob/master/Docs/Curriculum_Student_List.png)
+
 ## Teachers
 
 - Register and Login
