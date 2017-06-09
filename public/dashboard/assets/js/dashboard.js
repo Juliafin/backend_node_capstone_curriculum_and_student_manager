@@ -146,6 +146,7 @@ var state = {
         <div class="button_container">
           <button type="button" name="add_student">Add Student</button>
           <button type="button" name="edit_student">Edit Student</button>
+          <button type="button" name="clear_form">Clear Form</button>
         </div>
 
 
@@ -202,6 +203,7 @@ var state = {
           <div class="button_container">
             <button type="button" name="add_student_project" id="add_student_project">Add Student Project</button>
             <button type="button" name="edit_student_project" id="edit_student_project">Edit Student Project</button>
+            <button type="button" name="clear_form">Clear Form</button>
           </div>
       
       </form>
@@ -306,6 +308,7 @@ function navbarListener() {
       addStudentFormListener();
       editStudentFormListener();
       addEditStudentFormRadioListener();
+      clearformButtonListener();
     }
 
     if ($(this).text() === 'Add / Edit Student Project') {
@@ -324,6 +327,7 @@ function navbarListener() {
       addStudentProjectFormListener();
       editStudentProjectFormListener();
       addEditStudentProjectFormRadioListener();
+      clearformButtonListener();
       $('input#project_date').val(moment().format('YYYY-MM-DD'));
     }
 
@@ -494,11 +498,9 @@ function updateStudent(studentObj, id) {
 
 // Listener for typing in the input search box for the student list
 function studentSearchListener() {
- 
   $('input#student_search').keydown(  
       $.debounce(500, sortResults)
     );
-
 }
 
 
@@ -843,8 +845,6 @@ function addStudentFormListener() {
           `;
           $('div.button_container').before(success);
 
-          // clear the form if the student has posted sucessfully
-          clearStudentform();
         })
         .catch(function (err) {
           // console.log('There was an error');
@@ -1334,22 +1334,40 @@ function validateStudentProject(curriculum) {
 
 // TODO make this function clear all forms and add those clears
 // clear main student form
-function clearStudentform() {
+function clearForm() {
   $('input[name="first_name"]').val(''),
-    $('input[name="last_name"]').val(''),
-    $('input[name="email"]').val(''),
-    $('input[name="parent_first_name"]').val(''),
-    $('input[name="parent_last_name"]').val(''),
-    $('input[name="street_address"]').val(''),
-    $('input[name="apartment_number"]').val(''),
-    $('input[name="city"]').val(''),
-    $('select#state').val(''),
-    $('input[name="zipcode"]').val(''),
-    $('input[name="startDate"]').val(''),
-    $('select#weekday').val(''),
-    $('input[name="startTime"]').val(''),
-    $('input[name="endTime"]').val(''),
-    $('input[name="teacher_comments"]').val('');
+  $('input[name="last_name"]').val(''),
+  $('input[name="email"]').val(''),
+  $('input[name="parent_first_name"]').val(''),
+  $('input[name="parent_last_name"]').val(''),
+  $('input[name="street_address"]').val(''),
+  $('input[name="apartment_number"]').val(''),
+  $('input[name="city"]').val(''),
+  $('select#state').val(''),
+  $('input[name="zipcode"]').val(''),
+  $('input[name="startDate"]').val(''),
+  $('select#weekday').val(''),
+  $('input[name="startTime"]').val(''),
+  $('input[name="endTime"]').val(''),
+  $('textarea[name="teacher_comments"]').val('');
+  $('input[name="project_number"]').val('');
+  $('input[name="existing_first_name"]').val('');
+  $('input[name="existing_last_name"]').val('');
+  $('input[name="existing_email"]').val('');
+  $('input[name="student_first_name"]').val('');
+  $('input[name="student_last_name"]').val('');
+  $('input[name="project_date"]').val('');
+  $('input[name="project_name"]').val('');
+  $('input[name="project_description"]').val('');
+  $('textarea[name="project_comments"]').val('');
+  
+}
+
+function clearformButtonListener () {
+  $('button[name="clear_form"]').click(function(event) {
+    event.preventDefault();
+    clearForm();
+  });
 }
 
 // Render welcome screen for students
@@ -1549,7 +1567,6 @@ function renderDeleteProjectConfirmation(record, projectIndex, color) {
 
   deleteStudentProjectCancelConfirmationListener();
   deleteStudentProjectConfirmationListener(id, project,projectPosition, studentPosition, color);
-
 
 }
 
@@ -1854,6 +1871,7 @@ function renderStudentInfo(student_record, color) {
 
 }
 
+
 // Listens for clicks to open project modal
 function studentCurriculumListener(color) {
   $('button.student_curriculum ').click(function (event) {
@@ -2017,6 +2035,8 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
 
 }
 
+
+// Listener for click on the delete project button on the student project modal
 function deleteStudentProjectModalButtonListener() {
   $('button.delete_student_curriculum_modal').click(function(event) {
 
