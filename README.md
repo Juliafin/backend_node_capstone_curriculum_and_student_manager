@@ -3,7 +3,11 @@
 
 ## Purpose 
 
-### A manager of curriculum and student info for teachers. And a way for students to keep track of their projects and current progress, and lesson times. 
+### As a private teacher for many years, I have always felt the need for a tool to better manage my students. To not have to keep all the addresses and contact info, lesson times, parent's names, as well as what the student is working on in my head. And maybe the student forgot what they should be doing for that week. I wanted to help the student stay on top of what we discussed in lessons. 
+
+These problems were my motivation for working on this project. I wanted to create something with a simple interface that would have the necessary flexibility for teachers to keep track of their students, becoming better teachers in the process, and students keeping track of their own progress, learning much more effectively.
+
+This project solves these problems hopefully. It is a manager of student info for teachers that also allows students to keep. And a way for students to keep track of their projects and current progress, and lesson times. 
 
 
 
