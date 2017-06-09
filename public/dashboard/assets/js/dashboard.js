@@ -1363,12 +1363,15 @@ function clearForm() {
   
 }
 
+
+// Listener for button to clear both student and project forms
 function clearformButtonListener () {
   $('button[name="clear_form"]').click(function(event) {
     event.preventDefault();
     clearForm();
   });
 }
+
 
 // Render welcome screen for students
 function renderStudentWelcome(studentData) {
@@ -1412,8 +1415,8 @@ function renderStudentCard(state) {
 
       </div>
       <div class="student_container">
-      <p class="student_basic_info">Name: ${student_record.first_name} ${student_record.last_name}</p>
-      <p class="lesson_time">Lesson time: <br> ${student_record.student_lesson_time.weekday} at ${moment(student_record.student_lesson_time.startTime).format("hh:mm A")}</p>
+      <p class="student_basic_info">Name: <strong>${student_record.first_name} ${student_record.last_name}</strong></p>
+      <p class="lesson_time">Lesson time: <br> <strong>${student_record.student_lesson_time.weekday}</strong> at <strong>${moment(student_record.student_lesson_time.startTime).format("hh:mm A")}</strong></p>
       </div>
     </div>
   `;
@@ -1523,7 +1526,7 @@ function renderDeleteProjectConfirmation(record, projectIndex, color) {
   var deleteconfirmation = `
     <div class="delete_student_project_confirmation_container popIn">
       <div class="delete_project_color_strip">
-        <p>Are you sure you want to delete the project # ${projectIndex} with the name: ${record.student_curriculum[projectIndex-1].project_name}?</p>
+        <p>Are you sure you want to delete the project <strong># ${projectIndex}</strong> with the name: <strong>${record.student_curriculum[projectIndex-1].project_name}</strong>?</p>
       </div>
       <button class="delete_student_project_confirmation">
       Delete Project
@@ -1576,7 +1579,7 @@ function renderDeleteConfirmation(record, color) {
   var deleteconfirmation = `
     <div class="delete_student_confirmation_container popIn">
       <div class="delete_color_strip">
-        <p>Are you sure you want to delete the student: <br> ${record.first_name} ${record.last_name}?</p>
+        <p>Are you sure you want to delete the student: <br> <strong>${record.first_name} ${record.last_name}</strong>?</p>
       </div>
       <button class="delete_student_confirmation">
       Delete Student

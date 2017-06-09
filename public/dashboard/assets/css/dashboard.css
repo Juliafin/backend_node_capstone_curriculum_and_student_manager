@@ -902,6 +902,10 @@ div.student_not_found>h2 {
     margin: 2vw;
     font-size: 2vw;
   }
+
+  p.lesson_duration {
+    margin: 0;
+  }
   p.student_basic_info {
     font-size: 2vw;
   }
@@ -942,7 +946,7 @@ div.student_not_found>h2 {
     width: 80vw;
     text-align: center;
     margin: 0 auto;
-    height: 12vw;
+    height: 13vw;
   }
 }
 
