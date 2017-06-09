@@ -1215,3 +1215,26 @@ div.student_not_found>h2 {
     font-size: 3vw;
   }
 }
+
+@media only screen and (min-aspect-ratio: 39/34) {
+  h1.dashboard_welcome, h1.add_student_header, h1.add_student_project, div.studentList.popIn h1 {
+    margin-top: 10vw;
+  }
+
+  .student_main_info {
+    height: 50vw;
+  }
+
+  .columns {
+    height: 20vw;
+  }
+
+  div.student_curriculum_container {
+    height: 60vw;
+  }
+
+ body section.slider {
+    margin-top: 15vw;
+  }
+  
+}
