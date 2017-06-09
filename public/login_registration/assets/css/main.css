@@ -272,7 +272,7 @@ li#logged_in {
     z-index: -1;
 }
 
-@media only screen and (max-device-height: 732px) and (max-device-width: 412px) {
+@media only screen and (max-device-height: 1024px) and (max-device-width: 768px) {
   
   nav {
     height: 50vw
