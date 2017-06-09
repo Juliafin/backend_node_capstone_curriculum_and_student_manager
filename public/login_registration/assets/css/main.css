@@ -132,7 +132,7 @@ button {
 }
 
 button#login_button {
-    margin-top: 3vw;
+  margin-top: 3vw;
 }
 
 label#teacher_label,
@@ -146,8 +146,9 @@ input#student {
   width: 17%;
 }
 
-label#teacher_label, label#student_label {
-    margin-left: 0;
+label#teacher_label,
+label#student_label {
+  margin-left: 0;
 }
 
 input[type="radio"] {
@@ -181,7 +182,7 @@ p.success {
 p>a {
   display: inline;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
   text-decoration: none;
   color: rgb(69, 173, 76);
 }
@@ -260,156 +261,157 @@ li#logged_in {
 }
 
 .curriculum_image {
-    background: url('./../images/curriculum_new.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 45vw;
-    position: absolute;
-    top: 2vw;
-    filter: brightness(73%);
-    z-index: -1;
+  background: url('./../images/curriculum_new.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 45vw;
+  position: absolute;
+  top: 2vw;
+  filter: brightness(73%);
+  z-index: -1;
 }
 
 @media only screen and (max-device-height: 1024px) and (max-device-width: 768px) {
-  
   nav {
     height: 33vw;
   }
   .nav {
     flex-wrap: wrap;
   }
-   
-   .nav li:nth-child(1) {
-     padding-top:2vw;
-   }
+  .nav li:nth-child(1) {
+    padding-top: 2vw;
+  }
   .nav li {
     width: 100vw;
     font-size: 3vw;
     border-bottom: .2vw white solid;
   }
+  li#logged_in {
+    font-size: 3vw;
+  }
+  li#logged_in br {
+    display: none
+  }
+  li#logged_in span {
+    margin-left: 1vw;
+  }
+  .curriculum_image {
+    height: 180vw;
+    filter: brightness(90%);
+  }
+  h1.landing_heading {
+    margin-top: 40vw;
+    margin-bottom: 10vw;
+    font-size: 7vw;
+  }
+  h2.features {
+    margin-bottom: 10vw;
+    font-size: 3vw;
+  }
+  .signupbox {
+    margin-top: 60vw;
+    height: 110vw;
+    width: 85vw;
+  }
+  .signup {
+    height: 100vw;
+    margin: 0;
+  }
+  .signup h1 {
+    font-size: 4.7vw;
+    margin-bottom: 7vw;
+  }
+  .signup label {
+    margin-top: 1vw;
+    margin-bottom: 3vw;
+    margin-right: 2vw;
+    display: inline-block;
+    font-size: 3vw;
+  }
+  .signup input {
+    height: 6vw;
+    display: inline-block;
+    position: relative;
+    top: -8vw;
+    left: 9vw;
+  }
+  .teacher_student_select {
+    position: relative;
+    margin: 2vw;
+    top: -6vw;
+  }
+  input[type="radio"] {
+    top: 0;
+    left: 5vw;
+  }
+  .teacher_student_select label {
+    position: relative;
+    left: 6vw;
+    top: -2vw;
+  }
+  button#register_button {
+    position: relative;
+    top: -3vw;
+  }
+  button#login_button,
+  button#register_button {
+    height: 7vw;
+    width: 30vw;
+    font-size: 5vw;
+  }
+  p.error {
+    position: relative;
+    display: inline-block;
+    top: -7vw;
+    font-size: 3vw;
+  }
+  .login h1 {
+    font-size: 5.5vw;
+    margin-top: 7vw;
+    margin-bottom: 17vw;
+  }
+  .login label {
+    margin-bottom: 5vw;
+    font-size: 4vw;
+  }
+  .login input {
+    height: 7vw;
+    margin-bottom: 10vw;
+  }
+  .login .error {
+    font-size: 3vw;
+  }
+  p.success {
+    position: relative;
+    top: -5vw;
+  }
+}
 
-    li#logged_in {
-      font-size: 3vw;
-    }
-
-    li#logged_in br {
-      display:none
-    }
-
-    li#logged_in span{
-      margin-left: 1vw;
-    }
-  
-    .curriculum_image {
-      height: 180vw;
-      filter: brightness(90%);
-    }
-
-    h1.landing_heading {
-      margin-top: 40vw;
-      margin-bottom: 10vw;
-      font-size: 7vw;
-    }
-
-    h2.features {
-      margin-bottom: 10vw;
-      font-size: 3vw;
-
-    }
-
-    .signupbox {
-      margin-top: 60vw;
-      height: 110vw;
-      width: 85vw;
-    }
-
-    .signup {
-      height: 100vw;
-      margin: 0;
-    }
-
-    .signup h1 {
-      font-size: 4.7vw;
-      margin-bottom: 7vw;
-    }
-
-    .signup label {
-      margin-top: 1vw;
-      margin-bottom: 3vw;
-      margin-right: 2vw;
-      display: inline-block;
-      font-size: 3vw;
-    }
-
-    .signup input {
-      height: 6vw;
-      display: inline-block;
-      position: relative;
-      top: -8vw;
-      left: 9vw;
-    }
-
-    .teacher_student_select {
-      position: relative;
-      margin: 2vw;
-      top: -6vw;
-    }
-
-    input[type="radio"] {
-      top: 0;
-      left: 5vw;
-    }
-
-    .teacher_student_select label {
-      position: relative;
-      left: 6vw;
-      top: -2vw;
-    }
-
-    button#register_button {
-      position: relative;
-      top: -3vw;
-    }
-
-    button#login_button, button#register_button{
-      height: 7vw;
-      width: 30vw;
-      font-size: 5vw;
-
-    }
-
-    p.error {
-      position: relative;
-      display: inline-block;
-      top: -7vw;
-      font-size: 3vw;
-    }
-
-    .login h1 {
-      font-size: 5.5vw;
-      margin-top: 7vw;
-      margin-bottom: 17vw;
-    }
-
-    .login label {
-      margin-bottom: 5vw;
-      font-size: 4vw;                
-    }
-
-    .login input {
-      height: 7vw;
-      margin-bottom: 10vw;
-    }
-
-    .login .error {
-      font-size: 3vw;
-    }
-
-    p.success {
-      position: relative;
-      top: -5vw;
-    }
-
+@media only screen and (aspect-ratio: 39/34) {
+  h1.landing_heading {
+    margin-top: 10vw;
+    font-size: 6vw;
+  }
+  .curriculum_image {
+    height: 150vw
+  }
+  h2.features {
+    margin-bottom: 7vw;
+    font-size: 3vw;
+  }
+  .nav>li {
+    font-size: 2.7vw;
+  }
+  li#logged_in {
+    font-size: 2.3vw;
+  }
+  div.signupbox {
+    margin-top: 20vw;
+  }
+  form.signup,
+  form.login {
+    height: 60vw;
+  }
 }

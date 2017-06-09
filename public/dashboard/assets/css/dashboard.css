@@ -903,7 +903,6 @@ div.student_not_found>h2 {
     margin: 2vw;
     font-size: 2vw;
   }
-
   p.lesson_duration {
     margin: 0;
   }
@@ -971,7 +970,8 @@ div.student_not_found>h2 {
     font-size: 2vw;
     margin: 2vw 0;
   }
-  button.add_student_project, button.student_info {
+  button.add_student_project,
+  button.student_info {
     width: 18vw;
     font-size: 1.9vw;
     padding-top: 1vw;
@@ -980,7 +980,6 @@ div.student_not_found>h2 {
     margin: 3vw 2vw;
     margin-top: 5vw;
   }
-
   button.delete_student {
     font-size: 1.9vw;
     padding-top: 1vw;
@@ -1217,34 +1216,30 @@ div.student_not_found>h2 {
 }
 
 @media only screen and (aspect-ratio: 39/34) {
-  h1.dashboard_welcome, h1.add_student_header, h1.add_student_project, div.studentList.popIn h1 {
+  h1.dashboard_welcome,
+  h1.add_student_header,
+  h1.add_student_project,
+  div.studentList.popIn h1 {
     margin-top: 10vw;
     font-size: 6vw;
   }
-
   .student_main_info {
     height: 50vw;
   }
-
   .columns {
     height: 20vw;
   }
-
   div.student_curriculum_container {
     height: 60vw;
   }
-
- body section.slider {
+  body section.slider {
     margin-top: 15vw;
   }
-
   .curriculum_image {
-    height: 150vw;  
+    height: 150vw;
   }
-  
   h2.features {
     margin-bottom: 7vw;
     font-size: 3vw;
   }
-  
 }
