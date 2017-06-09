@@ -1028,15 +1028,64 @@ nav {
       font-size: 8vw;
     }
 
-     form.project input {
-      height: 5vw;
-      font-size: 3vw;
+     form.project input, form.signup input {
+      height: 8vw;
+      font-size: 4vw;
       margin-top: 3vw;
       margin-bottom: 5vw;
     }
 
-    textarea {
+    input#first_name, input#last_name, input#parent_last_name, input#parent_first_name, input#student_first_name, input#student_last_name{
+      width: 45vw;
+    }
+
+    input#student_email{
+      width: 45vw;
+    }
+
+    input#project_name, input#project_description{
+      width: 60vw;
+    }
+
+    input#street_address {
+      width: 55vw;
+    }
+
+    input#apartment_number{
+      width: 15vw
+    }
+
+    input#city{
+      width: 40vw;
+    }
+
+    select#state, select#weekday{
+      height: 7vw;
+      font-size: 3vw;
+      width: 30vw;
+    }
+
+    select#weekday {
+      margin-bottom: 4vw;
+      margin-top:3vw;
+    }
+
+    label[for="startTime"], label[for="endTime"]{
+      display: block;
+    }
+
+    label[for="project_comments"] {
+      margin-bottom: 3vw;
+    }
+
+    input#zipcode{
+      width: 30vw;
+    }
+
+    textarea#project_comments {
       font-size: 4vw;
+      margin-top: 3vw;
+      height: 40vw;
     }
 
     .errors .error {
