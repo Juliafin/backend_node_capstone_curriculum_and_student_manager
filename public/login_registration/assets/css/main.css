@@ -407,6 +407,9 @@ li#logged_in {
       font-size: 3vw;
     }
 
-
+    p.success {
+      position: relative;
+      top: -5vw;
+    }
 
 }
