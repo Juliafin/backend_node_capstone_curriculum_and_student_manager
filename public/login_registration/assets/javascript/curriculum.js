@@ -68,7 +68,7 @@ var state = {
 
 };
 
-
+// Listener for clicks on the navbar
 function navbarListener() {
 
   $('nav li').click(function (event) {
@@ -126,6 +126,8 @@ function navbarListener() {
 }
 
 
+
+// Listens for clicks on the register button and initiates submission of registration data
 function registerSubmitListener() {
 
   $('button#register_button').click(function (event) {
@@ -162,6 +164,7 @@ function registerSubmitListener() {
 }
 
 
+// Listens for clicks on Login and initiates submission of login data
 function loginSubmitListener() {
 
   $('button#login_button').click(function (event) {
@@ -195,6 +198,7 @@ function loginSubmitListener() {
 }
 
 
+// Ajax submits login data
 function login(loginObj) {
   return $.ajax({
     type: 'POST',
@@ -204,6 +208,7 @@ function login(loginObj) {
 }
 
 
+// Ajax submits registration data
 function register(loginObj) {
   return $.ajax({
     type: 'POST',
@@ -216,6 +221,7 @@ function register(loginObj) {
 }
 
 
+// Validates login data before submit
 function validateLoginData(password, username) {
   var errors = {};
   var formdata = {};
@@ -251,6 +257,8 @@ function validateLoginData(password, username) {
   }
 }
 
+
+// Validates Registration data before submit
 function validateRegistrationData(password, username, first_name, last_name) {
   var errors = {};
   var formData = {};
@@ -324,6 +332,7 @@ function validateRegistrationData(password, username, first_name, last_name) {
 }
 
 
+// Submits token to authenticate endpoint, checking if it exists
 function authenticateToken() {
   return $.ajax({
     type: 'POST',
@@ -334,6 +343,8 @@ function authenticateToken() {
   });
 }
 
+
+// Verifies token when accessing dashboard
 function authenticateDashboard() {
   return $.ajax({
     type: 'GET',
@@ -344,6 +355,8 @@ function authenticateDashboard() {
   });
 }
 
+
+// Checks token and if it exists appends the nav
 function checkTokenAndAppendNav() {
   if (window.localStorage.getItem('token')) {
     authenticateToken().
@@ -362,9 +375,7 @@ function checkTokenAndAppendNav() {
 }
 
 
-
-
-
+// If user is logged in, changes nav to include new options
 function appendLoggedinNav() {
   if (window.localStorage.getItem('token')) {
 
@@ -393,6 +404,7 @@ function appendLoggedinNav() {
 }
 
 
+// Writes received token to local storage;
 function setToken(token) {
   console.log(token);
   window.localStorage.setItem('token', token);
@@ -401,16 +413,7 @@ function setToken(token) {
 }
 
 
-function navbarActiveListener() {
-
-  // $('div.nav li').click(function (event) {
-
-  $(this).toggleClass('selected');
-  $('div.nav li').not($(this)).removeClass('selected');
-  // });
-}
-
-
+// Test for the token being sent
 function testDashboard() {
   console.log('token to be sent', window.localStorage.getItem('token'));
 
@@ -423,9 +426,12 @@ function testDashboard() {
   .then(function(token) {
     console.log('request was sent)');
     console.log(token);
-  })
+  });
 }
 
+
+// Initialize the welcome screen //
+//-------------------------------//
 ($(document).ready(function () {
   navbarListener();
   checkTokenAndAppendNav();
