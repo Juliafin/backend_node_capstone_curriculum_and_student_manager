@@ -1705,7 +1705,7 @@ function deleteStudentProjectCancelConfirmationListener() {
 // Removes the delete student confirmation box
 function dismantleDeleteConfirmation() {
    // Re-allow scrolling on main page
-  $('html, body').css('overflow', 'auto');
+  $('html, body').css('overflow', 'initial');
 
     // Re-allow clicks on the main page
   $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "auto");
@@ -2101,10 +2101,10 @@ function addStudentProjectModalButtonListener() {
     // console.log(student);
 
     // Re-allow scrolling on main page
-    $('html, body').css('overflow', 'auto');
+    $('html, body').css('overflow', 'initial');
 
     // Remove scroll from the modal
-    $('div.student_modal').css('overflow', 'auto');
+    $('div.student_modal').css('overflow', 'initial');
 
     // Re-allow clicks on the main page
     $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "auto");
@@ -2197,10 +2197,10 @@ function editStudentProjectModalButtonListener() {
     // console.log(student);
 
     // Re-allow scrolling on main page
-    $('html, body').css('overflow', 'auto');
+    $('html, body').css('overflow', 'initial');
 
     // Remove scroll from the modal
-    $('div.student_modal').css('overflow', 'auto');
+    $('div.student_modal').css('overflow', 'initial');
 
     // Re-allow clicks on the main page
     $('.nav li, button.student_info, button.add_student_project').css('pointer-events', "auto");
@@ -2460,10 +2460,10 @@ function studentCardEditButtonListener() {
     });
 
 // Re-allow scrolling on main page
-    $('html, body').css('overflow', 'auto');
+    $('html, body').css('overflow', 'initial');
 
     // Remove scroll from the modal
-    $('div.student_modal').css('overflow', 'auto');
+    $('div.student_modal').css('overflow', 'initial');
 
 
     // Re-allow clicks on the main page
@@ -2590,10 +2590,10 @@ function studentInfoExitListener() {
     }
     
     // Re-allow scrolling on main page
-    $('html, body').css('overflow', 'auto');
+    $('html, body').css('overflow', 'visible');
 
     // Remove scroll from the modal
-    $('div.student_modal').css('overflow', 'auto');
+    $('div.student_modal').css('overflow', 'visible');
 
     // Re-allow clicks on the main page
     $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "auto");
