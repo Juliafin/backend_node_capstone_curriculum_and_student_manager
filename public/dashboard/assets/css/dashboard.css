@@ -283,6 +283,7 @@ input#project_number {
 
 p.optional_text {
   color: aliceblue;
+  font-size: 1.5vw;
 }
 
 span.optional {
