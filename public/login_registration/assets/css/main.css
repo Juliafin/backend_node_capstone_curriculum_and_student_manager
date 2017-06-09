@@ -222,7 +222,6 @@ a.login {
   font-size: 1.6vw;
   width: 20%;
   text-align: center;
-  border-radius: 20px;
 }
 
 li:hover {
@@ -271,4 +270,138 @@ li#logged_in {
     top: 2vw;
     filter: brightness(73%);
     z-index: -1;
+}
+
+@media only screen and (max-device-height: 732px) and (max-device-width: 412px) {
+  
+  nav {
+    height: 50vw
+  }
+  .nav {
+    flex-wrap: wrap;
+  }
+   
+   .nav li:nth-child(1) {
+     padding-top:2vw;
+   }
+  .nav li {
+    width: 100vw;
+    font-size: 3vw;
+    border-radius: none;
+    border-bottom: .2vw white solid;
+    padding: 2vw 0;
+  }
+
+    li#logged_in {
+      font-size: 3vw;
+      padding-bottom: 2vw;
+    }
+    
+    .curriculum_image {
+      height: 180vw;
+      filter: brightness(90%);
+    }
+
+    h1.landing_heading {
+      margin-top: 90vw;
+      margin-bottom: 10vw;
+      font-size: 7vw;
+    }
+
+    h2.features {
+      margin-bottom: 10vw;
+      font-size: 3vw;
+
+    }
+
+    .signupbox {
+      margin-top: 60vw;
+      height: 110vw;
+      width: 85vw;
+    }
+
+    .signup {
+      height: 100vw;
+      margin: 0;
+    }
+
+    .signup h1 {
+      font-size: 4.7vw;
+      margin-bottom: 7vw;
+    }
+
+    .signup label {
+      margin-top: 1vw;
+      margin-bottom: 3vw;
+      margin-right: 2vw;
+      display: inline-block;
+      font-size: 3vw;
+    }
+
+    .signup input {
+      height: 6vw;
+      display: inline-block;
+      position: relative;
+      top: -8vw;
+      left: 9vw;
+    }
+
+    .teacher_student_select {
+      position: relative;
+      margin: 2vw;
+      top: -6vw;
+    }
+
+    input[type="radio"] {
+      top: 0;
+      left: 5vw;
+    }
+
+    .teacher_student_select label {
+      position: relative;
+      left: 6vw;
+      top: -2vw;
+    }
+
+    button#register_button {
+      position: relative;
+      top: -3vw;
+    }
+
+    button#login_button, button#register_button{
+      height: 7vw;
+      width: 30vw;
+      font-size: 5vw;
+
+    }
+
+    p.error {
+      position: relative;
+      display: inline-block;
+      top: -7vw;
+      font-size: 3vw;
+    }
+
+    .login h1 {
+      font-size: 5.5vw;
+      margin-top: 7vw;
+      margin-bottom: 17vw;
+    }
+
+    .login label {
+      margin-bottom: 5vw;
+      font-size: 4vw;                
+    }
+
+    .login input {
+      height: 7vw;
+      margin-bottom: 10vw;
+    }
+
+    .login .error {
+      font-size: 3vw;
+    }
+
+
+
 }

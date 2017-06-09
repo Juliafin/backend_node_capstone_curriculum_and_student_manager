@@ -79,13 +79,13 @@ function closeServer() {
 if(require.main === module) {
   runServer()
   .then(function () {
-User.count()
+    User.count()
         .then(function(count) {
           if (count === 0){
             saveUser(generateUser());
           }
         });
-      Curriculum.count()
+    Curriculum.count()
         .then(function(count) {
           if (count === 0) {
             generateFakeCurriculumData(19);      
@@ -98,22 +98,3 @@ User.count()
 }
 
 module.exports = {app, runServer, closeServer};
-
-
-// #1 build server
-// #2 create models
-
-
-// TABLE
-
-// Student NAME (first and last)     ///   Address // lesson time /// 
-
-
-
-// #3 build api
-    // get list of students
-    // change info for a student
-    // delete a student
-    // 
-
-// #4 connect to mongo
