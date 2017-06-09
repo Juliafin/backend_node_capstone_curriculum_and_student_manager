@@ -1401,7 +1401,7 @@ function renderStudentCard(state) {
    
     var studentCard = `
     <div class="card flip" id=${student_record.id}>
-      <div class="card_color">
+      <div class="card_color" id="${index}">
         <button class="add_student_project">
         Add Student Project
         </button>
@@ -1423,9 +1423,17 @@ function renderStudentCard(state) {
     // stagger the append of the cards
     setTimeout(function () {
       $('.card_container').append(studentCard);
+      if (student_record.first_name === 'Donald' && student_record.last_name === 'Trump') {
+        $(`div.card_color#${index}`).css('background-color', "black");
+      }
+
     }, 200 * index);
 
+
   });
+
+
+
 
 }
 
