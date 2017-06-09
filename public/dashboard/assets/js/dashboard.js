@@ -320,7 +320,6 @@ function navbarListener() {
       }, 1);
 
       $('div.background').empty();
-      // TODO Make template
       $('div.background').html(state.templates.addStudentProject);
       $(this).addClass('selected');
       $('div.nav li').not($(this)).removeClass('selected');
@@ -339,7 +338,6 @@ function navbarListener() {
       }, 1);
 
       $('div.background').empty();
-      // TODO Make template
       $('div.background').html(state.templates.studentList);
       $(this).addClass('selected');
       $('div.nav li').not($(this)).removeClass('selected');
@@ -1332,7 +1330,6 @@ function validateStudentProject(curriculum) {
 }
 
 
-// TODO make this function clear all forms and add those clears
 // clear main student form
 function clearForm() {
   $('input[name="first_name"]').val(''),
@@ -1958,7 +1955,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
   // Displays a student version of the modal if a student is logged in
   if (student_version === true) {
     $('.student_curriculum_container').addClass('student_version');
-    $('.edit_student_curriculum_modal, .add_student_curriculum_modal, .delete_student_curriculum_modal').remove();
+    $('.edit_student_curriculum_modal, .add_student_curriculum_modal, .delete_student_curriculum_modal, .exit_student_curriculum').remove();
   }
 
   // console.log(record);
@@ -1971,7 +1968,7 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
           <div class="project_number_container" id="${index+1}">
             <p class="project_number"># ${index+1} </p>
           </div>
-            <p class="project_name">Project Name: <br> ${project.project_name}</p>
+            <p class="project_name">${project.project_name}</p>
             <br>
             <p class="project_date">Project started on ${moment(project.project_date).format('dddd, MMMM Do YYYY')} </p>
             <p class="project_description">Project Description: <br> ${project.project_description}</p>
@@ -2511,7 +2508,6 @@ function studentCardEditButtonListener() {
 
 
     // Establish the radio listener and the state of the form
-    // TODO ABSOLUTELY ADD THE EDIT LISTENER
     addEditStudentFormRadioListener();
     editStudentFormListener();
     
