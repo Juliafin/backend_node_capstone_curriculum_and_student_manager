@@ -966,15 +966,19 @@ div.student_not_found>h2 {
     font-size: 2vw;
     margin: 2vw 0;
   }
-  button.add_student_project,
-  button.student_info {
+  button.add_student_project, button.student_info {
     width: 18vw;
-    font-size: 1.5vw;
+    font-size: 1.9vw;
     padding-top: 1vw;
     height: auto;
     padding-bottom: 3vw;
     margin: 3vw 2vw;
     margin-top: 5vw;
+  }
+
+  button.delete_student {
+    font-size: 1.9vw;
+    padding-top: 1vw;
   }
 }
 
