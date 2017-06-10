@@ -160,18 +160,6 @@ curriculum_router.post('/', (req, res) => {
       missing.address = address;
     }
 
-        // check if student curriculum fields are missing
-    // studentCurriculumFields.forEach(function (curricField) {
-    //       // console.log(req.body);
-    //       // console.log(curricField)
-    //   if (!(curricField in req.body['student_curriculum'][0])) {
-    //     student_curriculum[curricField] = curricField;
-    //   }
-    // });
-
-    // if (Object.keys(student_curriculum).length !== 0) {
-    // }
-
         //  check if student lesson times are missing
     studentLessonTime.forEach(function (lessonField) {
       if (!(lessonField in req.body['student_lesson_time'])) {
