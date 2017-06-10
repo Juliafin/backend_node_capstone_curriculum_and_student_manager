@@ -1137,5 +1137,8 @@ body section.slider {
     margin-top: 0vw;
     padding-top: 10vw;
   }
+  p.optional_text {
+  font-size: 4vw;
+}
 
 }
