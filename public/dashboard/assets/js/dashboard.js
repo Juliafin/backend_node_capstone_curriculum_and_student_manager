@@ -1978,12 +1978,14 @@ function renderStudentCurriculum (record, color=null, student_version=false) {
           <div class="project_number_container" id="${index+1}">
             <p class="project_number"># ${index+1} </p>
           </div>
-            <p class="project_name">${project.project_name}</p>
+            <p class="project_name"><strong>${project.project_name}</strong></p>
             <br>
-            <p class="project_date">Project started on ${moment(project.project_date).format('dddd, MMMM Do YYYY')} </p>
-            <p class="project_description">Project Description: <br> ${project.project_description}</p>
+            <p class="project_date">Project started on <strong>${moment(project.project_date).format('dddd, MMMM Do YYYY')}.</strong> </p>
+            <br>
+            <p class="project_description">Project Description: <br> <strong>${project.project_description}</strong></p>
+            <br>
           <div class="teacher_project_container">
-            <p class="teacher_project_comments">Project Comments: <br> ${(project.teacher_project_comments || "No comments were provided.")}</p>
+            <p class="teacher_project_comments">Project Comments: <br> <strong>${(project.teacher_project_comments || "No comments were provided.")}</strong></p>
           </div>
         </div>
       `;
