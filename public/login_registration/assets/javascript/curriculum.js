@@ -61,10 +61,12 @@ var state = {
     <h2 class="features F_one">Manage and view your students' personal data</h2>
     <h2 class="features F_two">Add student projects</h2>
     <h2 class="features F_three">Keep track of lesson times</h2>
-    <h2 class="features F_four">Students can view their latest project and lesson data</h2>`,
-
+    <h2 class="features F_four">Students can view their latest project and lesson data</h2>
+    <button class="try_it_out">
+    Try the app
+    </button>
+    `,
   }
-
 };
 
 // Listener for clicks on the navbar
@@ -104,8 +106,8 @@ function navbarListener() {
       authenticateDashboard()
       .then(function(response){
         // console.log(response);
-      $(this).toggleClass('selected');
-      $('div.nav li').not($(this)).removeClass('selected');
+        $(this).toggleClass('selected');
+        $('div.nav li').not($(this)).removeClass('selected');
         window.location = window.localStorage.getItem('dashboard_url');
         // setTimeout(function() {
 
@@ -160,6 +162,30 @@ function registerSubmitListener() {
 
   });
 
+}
+
+function testButtonListener() {
+
+  $('div.background').on('click', 'button.try_it_out', function(event) {
+    event.preventDefault();
+    var loginData = {
+      username: "EliseR",
+      password: "myGreatestHope!1"
+    }
+
+    login(loginData)
+      .then(function (userdata) {
+        console.log(userdata);
+        setToken(userdata.token);
+        window.localStorage.setItem('dashboard_url', userdata.url);
+        window.localStorage.setItem('current_user', userdata.username);
+        appendLoggedinNav();
+        window.location = window.localStorage.getItem('dashboard_url');
+      })
+        .catch(function (err) {
+          console.log(err);
+        });
+  });
 }
 
 
@@ -433,6 +459,7 @@ function testDashboard() {
 //-------------------------------//
 ($(document).ready(function () {
   navbarListener();
+  testButtonListener();
   checkTokenAndAppendNav();
   $(this).scrollTop(0);
   testDashboard();

@@ -46,9 +46,9 @@
 
 ## Students
 
--Register and Login
--View your teacher and lesson times
--View assignments and projects
+- Register and Login
+- View your teacher and lesson times
+- View assignments and projects
 
 
 ## Technologies used: 
@@ -80,3 +80,10 @@
 - Winston
 - Morgan
 
+
+## Future features: 
+
+- A way for students and teachers to send messages to each other through the app
+- Password recovery mechanism
+- Income calculator
+- Flexible lesson time assignments

@@ -108,9 +108,13 @@ button {
   color: white;
   font-size: 2vw;
   border: none;
-  font-family: Roboto;
+  font-family: Trocchi;
   margin-bottom: 3vw;
   cursor: pointer;
+}
+button.try_it_out {
+    margin: 2vw auto;
+    width: 100%;
 }
 button#login_button {
   margin-top: 3vw;
