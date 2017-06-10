@@ -263,7 +263,7 @@ curriculum_router.put('/:id', (req, res) => {
             .then((_student_record) => {
               student_record = _student_record;
               return res.status(201).json({
-                updated: student_record
+                updated: student_record.apiView()
               });
 
             })

@@ -552,7 +552,7 @@ function sortResults(event) {
   var arrayToDisplay = null;
   var selected = +($('select#sort').val());
   if (selected === 5) {
-    arrayToDisplay = daySort(state.student_records);
+    arrayToDisplay = daySort(arrayToSort);
   } else if (selected) {
     
     // console.log(selected);
@@ -753,9 +753,13 @@ function editStudentFormListener() {
       // Update the student
       updateStudent(validatedStudent, foundRecord.id)
           .then(function(updatedRecord) {
-            // console.log('updatedRecord', updatedRecord);
+            console.log('updatedRecord from server', updatedRecord);
             state.student_records[recordIndex] = updatedRecord.updated;
-            // console.log(state.student_records[recordIndex]);
+            state.student_records[recordIndex].order = recordIndex + 1;
+            state.student_records[recordIndex].student_curriculum_length = state.student_records[recordIndex].student_curriculum.length;
+            state.student_records[recordIndex].id = state.student_records[recordIndex]._id;
+            console.log('writing updated data to state');
+            console.log('state with updated student', state.student_records[recordIndex]);
             var successMsg = `<p class="success">Student successfully updated!</p>`;
             $('.button_container').before(successMsg);
 
@@ -1747,16 +1751,16 @@ function studentInfoListener() {
 
   $('div.background').on('click', 'button.student_info', function (event) {
     event.preventDefault();
-    // console.log('this listener is working');
+    console.log('this listener is working');
     var id = $(this).closest('div.card').attr('id');
-    // console.log(id);
+    console.log(id);
     var student_record = state.student_records.find(function (record) {
-      // console.log(id);
+      console.log(id);
       if (record.id === id) {
         return record;
       }
-      // console.log(student_record);
     });
+    console.log('student info at student info button listener ', student_record);
     var bgColor = $(this).closest('.card_color').css('background-color');
     renderStudentInfo(student_record, bgColor);
 
@@ -2457,10 +2461,10 @@ function addEditStudentFormRadioListener() {
 function studentCardEditButtonListener() {
   $('button.edit_info').click(function(event) {
     event.preventDefault();
-    // console.log('This is the edit info listener');
+    console.log('This is the edit info listener');
 
     var id = $(this).closest('.student_main_info').attr('id');
-    // console.log(id);
+    console.log(id);
 
 
     var student_record = state.student_records.find( function(record) {
@@ -2468,6 +2472,8 @@ function studentCardEditButtonListener() {
         return record;
       }
     });
+
+    console.log('student record inside the edit button listener', student_record);
 
 // Re-allow scrolling on main page
     $('html, body').css('overflow', 'initial');
