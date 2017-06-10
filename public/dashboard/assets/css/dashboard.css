@@ -1005,7 +1005,7 @@ div.student_not_found>h2 {
     font-size: 3vw;
   }
   .student_main_info {
-    height: 70vw;
+    height: 86vw;
   }
   .columns {
     height: 32vw;
@@ -1020,7 +1020,7 @@ div.student_not_found>h2 {
     height: 6vw;
   }
   section.slider {
-    padding-top: 5vw;
+    padding-top: 28vw;
     padding-bottom: 5vw;
   }
   .flexslider {
@@ -1125,4 +1125,17 @@ div.student_not_found>h2 {
     margin-bottom: 7vw;
     font-size: 3vw;
   }
+}
+
+@media only screen and (max-device-height: 732px) and (max-device-width: 412px) {
+
+div.student_curriculum_container {
+  height: 90vw;
+}
+
+body section.slider {
+    margin-top: 0vw;
+    padding-top: 10vw;
+  }
+
 }
