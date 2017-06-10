@@ -3,7 +3,6 @@
   padding: 0;
   margin: 0;
 }
-
 nav {
   position: fixed;
   display: block;
@@ -18,17 +17,14 @@ nav {
   background-position: center;
   box-shadow: 0px 2px 5px 0px #3e3c3c;
 }
-
 .nav li.selected {
   background-color: rgb(1, 73, 99);
   transition: background-color linear 300ms;
 }
-
 body {
   background-color: rgb(33, 80, 97);
   font-family: Roboto, sans-serif;
 }
-
 .signupbox {
   display: block;
   position: relative;
@@ -38,19 +34,13 @@ body {
   margin: 9% auto;
   background-color: white;
 }
-
-
-/*Fieldset reset*/
-
 fieldset {
   border: 0;
   padding: 0;
   margin: 0;
   min-width: 0;
   display: flex;
-  /* flex-wrap: wrap; */
 }
-
 h1 {
   padding-top: 3vw;
   text-align: center;
@@ -59,7 +49,6 @@ h1 {
   margin-bottom: 3vw;
   font-size: 3vw;
 }
-
 h2.features {
   color: antiquewhite;
   margin-bottom: 1vw;
@@ -69,23 +58,18 @@ h2.features {
   margin-left: 10;
   font-size: 1.8vw;
 }
-
 h2.features.F_one {
   margin-left: 10vw;
 }
-
 h2.features.F_two {
   margin-left: 20vw;
 }
-
 h2.features.F_three {
   margin-left: 30vw;
 }
-
 h2.features.F_four {
   margin-left: 40vw;
 }
-
 h1.landing_heading {
   color: aliceblue;
   font-size: 5vw;
@@ -95,7 +79,6 @@ h1.landing_heading {
   text-transform: uppercase;
   font-weight: 100;
 }
-
 label {
   display: block;
   text-align: left;
@@ -105,7 +88,6 @@ label {
   margin-left: 10vw;
   font-size: 2vw;
 }
-
 input {
   display: block;
   margin-left: auto;
@@ -118,7 +100,6 @@ input {
   border-radius: .4vw;
   font-size: 1.5vw;
 }
-
 button {
   margin-top: 0vw;
   width: 19vw;
@@ -130,43 +111,35 @@ button {
   font-family: Roboto;
   margin-bottom: 3vw;
 }
-
 button#login_button {
   margin-top: 3vw;
 }
-
 label#teacher_label,
 label#student_label {
   display: inline;
 }
-
 input#teacher,
 input#student {
   display: inline;
   width: 17%;
 }
-
 label#teacher_label,
 label#student_label {
   margin-left: 0;
 }
-
 input[type="radio"] {
   height: 2vw;
   margin-top: 3vw;
   padding: 0;
   cursor: pointer;
 }
-
 button:hover {
   color: rgb(255, 133, 3);
   transition: all ease-in-out 200ms;
 }
-
 p {
   text-align: center;
 }
-
 p.error {
   color: #cc6969;
   font-family: monospace;
@@ -174,11 +147,9 @@ p.error {
   font-size: 1.5vw;
   font-weight: bold;
 }
-
 p.success {
   color: lightgreen;
 }
-
 p>a {
   display: inline;
   margin-left: auto;
@@ -186,7 +157,6 @@ p>a {
   text-decoration: none;
   color: rgb(69, 173, 76);
 }
-
 .accountq,
 a.login {
   margin-top: 30px;
@@ -194,16 +164,13 @@ a.login {
   font-size: 16px;
   font-weight: bold;
 }
-
 .teacher_student_select {
   text-align: center;
   height: 9vw;
 }
-
 .button_container {
   text-align: center;
 }
-
 .nav {
   display: flex;
   flex-direction: row;
@@ -211,7 +178,6 @@ a.login {
   height: 100%;
   align-items: center;
 }
-
 .nav>li {
   text-decoration: none;
   outline: none;
@@ -224,22 +190,18 @@ a.login {
   width: 20%;
   text-align: center;
 }
-
 li:hover {
   transform: scale(1.1);
   transition: all linear 300ms;
 }
-
 nav li:active {
   color: #ffaa5b;
   transition: color linear 300ms;
 }
-
 li#logged_in {
   font-size: 1.2vw;
   text-transform: initial;
 }
-
 @keyframes displayElement {
   from {
     transform: scale(.5);
@@ -250,7 +212,6 @@ li#logged_in {
     opacity: (1);
   }
 }
-
 .popIn {
   animation-name: displayElement;
   animation-duration: 200ms;
@@ -259,7 +220,6 @@ li#logged_in {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
-
 .curriculum_image {
   background: url('./../images/curriculum_new.jpg');
   background-position: center;
@@ -272,7 +232,6 @@ li#logged_in {
   filter: brightness(73%);
   z-index: -1;
 }
-
 @media only screen and (max-device-height: 1024px) and (max-device-width: 768px) {
   nav {
     height: 33vw;

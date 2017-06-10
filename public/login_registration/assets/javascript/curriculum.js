@@ -10,7 +10,7 @@ var state = {
   		  <label for="Username">Username</label>
           <input placeholder="Username!1%" type="text" name="username" id="register_username" required>
   
-  		   <label for="Password">Password</label>
+  		  <label for="Password">Password</label>
           <input placeholder="1234passw0rd" type="password" name="password" id="register_password" required>
 
           <label for="First_Name">First Name</label>
@@ -29,8 +29,7 @@ var state = {
 
           <div class="button_container">	
           <button id="register_button" type="submit" name="signup">Sign Up</button>
-  </div>
-         
+  </div> 
         </fieldset>
         
       </form>
@@ -48,7 +47,7 @@ var state = {
           <label for="Password">Password</label>
           <input placeholder="1234passw0rd" type="password" name="password" id="password">
           <div class="button_container">
-           <button id="login_button" name="signup">Login</button>
+            <button id="login_button" name="signup">Login</button>
           </div>
 
       </form>
