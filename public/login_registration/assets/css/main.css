@@ -110,6 +110,7 @@ button {
   border: none;
   font-family: Roboto;
   margin-bottom: 3vw;
+  cursor: pointer;
 }
 button#login_button {
   margin-top: 3vw;
@@ -149,6 +150,9 @@ p.error {
 }
 p.success {
   color: lightgreen;
+  font-size: 2vw;
+  position: relative;
+  top: -1.7vw;
 }
 p>a {
   display: inline;
