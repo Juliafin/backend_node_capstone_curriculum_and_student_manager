@@ -1873,7 +1873,7 @@ function renderStudentInfo(student_record, color) {
   }
 
   setTimeout(function () {
-    $('div.student_modal').css('overflow', 'scroll');
+    $('div.student_modal').css('overflow', 'auto');
 
   }, 800);
 
