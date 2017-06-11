@@ -57,7 +57,7 @@ h2.features {
   font-weight: 100;
   margin-left: 1vw;
   font-size: 1.8vw;
-  background: linear-gradient(rgb(35, 32, 32), rgba(100, 100, 100, 0.22));
+  background: linear-gradient(rgba(35, 32, 32, 0.53), rgba(100, 100, 100, 0.73));
   position: relative;
   width: auto;
   padding-left: 1vw;
@@ -117,10 +117,7 @@ button {
   margin-bottom: 3vw;
   cursor: pointer;
 }
-button.try_it_out {
-    margin: 2vw auto;
-    width: 100%;
-}
+button.try_it_out {margin-top: 3vw;border-radius: .3vw;}
 button#login_button {
   margin-top: 3vw;
 }
@@ -360,6 +357,10 @@ li#logged_in {
     position: relative;
     top: -5vw;
   }
+  button.try_it_out {
+    height: 10vw;
+    width: 30vw;
+  }
 }
 
 @media only screen and (aspect-ratio: 39/34) {
@@ -387,4 +388,9 @@ li#logged_in {
   form.login {
     height: 60vw;
   }
+  button.try_it_out {
+    height: 10vw;
+    width: 30vw;
+  }
+  
 }

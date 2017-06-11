@@ -62,9 +62,11 @@ var state = {
     <h2 class="features F_two">Add student projects</h2>
     <h2 class="features F_three">Keep track of lesson times</h2>
     <h2 class="features F_four">Students can view their latest project and lesson data</h2>
-    <button class="try_it_out">
-    Try the app
-    </button>
+    <div class="button_container">
+      <button class="try_it_out">
+      Try the app
+      </button>
+    </div>
     `,
   }
 };
