@@ -1187,7 +1187,7 @@ div.student_not_found>h2 {
   button.add_student_project,
   button.student_info,
   button.delete_student {
-    font-size: 2.1vw;
+    font-size: 2vw;
     width: 20vw;
     height: 7vw;
   }
@@ -1279,3 +1279,25 @@ div.student_not_found>h2 {
     font-size: 4vw;
   }
 }
+@media only screen and (aspect-ratio: 8/5) {
+  
+  div.curriculum_image{
+    height: 60vw;
+  }
+}
+
+@media only screen and (aspect-ratio: 16/9) {
+  
+  div.curriculum_image{
+    height: 54vw;
+  }
+}
+
+@media only screen and (aspect-ratio: 4/3) {
+  
+  div.curriculum_image {
+    height: 76vw;
+  }
+}
+
+

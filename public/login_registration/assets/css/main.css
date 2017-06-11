@@ -394,3 +394,26 @@ li#logged_in {
   }
   
 }
+
+@media only screen and (aspect-ratio: 8/5) {
+  
+  div.curriculum_image{
+    height: 60vw;
+  }
+}
+
+@media only screen and (aspect-ratio: 16/9) {
+  
+  div.curriculum_image{
+    height: 54vw;
+  }
+}
+
+@media only screen and (aspect-ratio: 4/3) {
+  
+  div.curriculum_image {
+    height: 74vw;
+  }
+}
+
+
