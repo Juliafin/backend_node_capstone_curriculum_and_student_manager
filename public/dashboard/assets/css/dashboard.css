@@ -1208,6 +1208,7 @@ div.student_not_found>h2 {
   .delete_student_confirmation_container {
     height: 45vw;
     width: 70vw;
+    margin-top: 60vw;
   }
   button.delete_student_confirmation,
   button.cancel_delete_student_confirmation {
@@ -1228,6 +1229,7 @@ div.student_not_found>h2 {
   div.delete_student_project_confirmation_container.popIn {
     height: 45vw;
     width: 60vw;
+    margin-top: 60vw;
   }
   button.delete_student_project_confirmation,
   button.cancel_delete_student_project_confirmation {
