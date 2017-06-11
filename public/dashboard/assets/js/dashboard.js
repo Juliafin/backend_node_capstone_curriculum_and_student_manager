@@ -140,8 +140,7 @@ var state = {
         </fieldset>
         <label for="teacher_comments">Teacher Comments<span class="optional">*</span></label>
         <br>
-        <textarea type="textarea" name="teacher_comments" id="teacher_comments">
-        </textarea>
+        <textarea type="textarea" name="teacher_comments" id="teacher_comments"></textarea>
 
         <div class="button_container">
           <button type="button" name="add_student">Add Student</button>
@@ -197,8 +196,7 @@ var state = {
           <input type="text" name="project_description" id="project_description">
 
           <label for="project_comments">Project Comments</label>
-          <textarea type="textarea" name="project_comments" id="project_comments">
-          </textarea>
+          <textarea type="textarea" name="project_comments" id="project_comments"></textarea>
           
           <div class="button_container">
             <button type="button" name="add_student_project" id="add_student_project">Add Student Project</button>

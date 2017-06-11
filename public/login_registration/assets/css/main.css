@@ -50,13 +50,18 @@ h1 {
   font-size: 3vw;
 }
 h2.features {
-  color: antiquewhite;
+  color: white;
   margin-bottom: 1vw;
   margin-top: 3vw;
   font-family: Trocchi;
   font-weight: 100;
-  margin-left: 10;
+  margin-left: 1vw;
   font-size: 1.8vw;
+  background: linear-gradient(rgb(35, 32, 32), rgba(100, 100, 100, 0.22));
+  position: relative;
+  width: auto;
+  padding-left: 1vw;
+  border-radius: .4vw;
 }
 h2.features.F_one {
   margin-left: 10vw;
@@ -312,6 +317,7 @@ li#logged_in {
   input[type="radio"] {
     top: 0;
     left: 5vw;
+    box-shadow: none;
   }
   .teacher_student_select label {
     position: relative;
