@@ -250,6 +250,8 @@ li#logged_in {
     font-size: 1.5vw;
     color: #5e5ecc;
     font-weight: 600;
+    border-bottom: 1px dotted grey;
+    width: 1vw;
 }
 .tooltip .tooltiptext {
     visibility: hidden;
