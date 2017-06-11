@@ -4,6 +4,7 @@
   margin: 0;
   text-align: center;
 }
+
 .unauthorized {
   background-image: url(./../images/403.jpg);
   background-repeat: no-repeat;
@@ -16,6 +17,7 @@
   right: 0;
   background-position: center center;
 }
+
 p.unauthorized_redirect {
   position: fixed;
   display: inline-block;
@@ -25,10 +27,12 @@ p.unauthorized_redirect {
   left: 28.5%;
   font-weight: 600;
 }
+
 body {
   background-color: rgb(33, 80, 97);
   font-family: sans-serif;
 }
+
 label {
   display: inline-block;
   margin: 2% auto;
@@ -37,6 +41,16 @@ label {
   font-size: 2vw;
   height: 2vw;
 }
+
+label[for="weekday"],
+label[for="state"] {
+  margin-right: 1vw;
+}
+
+input#street_address:focus {
+  transform: scale(1.051, 1.10);
+}
+
 h1 {
   padding: 16px;
   color: white;
@@ -44,6 +58,7 @@ h1 {
   font-family: Trocchi;
   font-size: 4vw;
 }
+
 h2.features {
   color: white;
   margin-bottom: 1vw;
@@ -58,19 +73,24 @@ h2.features {
   padding-left: 1vw;
   border-radius: .4vw;
 }
+
 h2.features.F_one {
   margin-left: 3vw;
   margin-top: 1vw;
 }
+
 h2.features.F_two {
   margin-left: 12vw;
 }
+
 h2.features.F_three {
   margin-left: 20vw;
 }
+
 h2.features.F_four {
   margin-left: 28vw;
 }
+
 nav {
   position: fixed;
   display: block;
@@ -85,10 +105,12 @@ nav {
   background-position: center;
   box-shadow: 0px 2px 5px 0px #3e3c3c;
 }
+
 .nav li.selected {
   background-color: rgb(1, 73, 99);
   transition: background-color linear 300ms;
 }
+
 .nav {
   display: flex;
   flex-direction: row;
@@ -96,6 +118,7 @@ nav {
   height: 100%;
   align-items: center;
 }
+
 .nav>li {
   text-decoration: none;
   outline: none;
@@ -108,17 +131,21 @@ nav {
   width: 100%;
   text-align: center;
 }
+
 .nav li:nth-child(3) {
   margin-left: 3vw;
 }
+
 .nav li:nth-child(1) {
   margin-left: 3vw;
   margin-right: 3vw;
   width: 80%;
 }
+
 fieldset.general_info {
   margin-top: 5vw;
 }
+
 fieldset {
   color: antiquewhite;
   margin-top: 3vw;
@@ -132,15 +159,20 @@ fieldset {
   padding-bottom: 1vw;
   padding-top: 3vw;
 }
+
 input#apartment_number {
   width: 5vw;
+  margin-left: 0;
 }
+
 input#street_address {
   width: 35vw;
 }
+
 input[type="radio"] {
-    box-shadow: none;
+  box-shadow: none;
 }
+
 input {
   height: 3vw;
   border-radius: .2vw;
@@ -151,28 +183,34 @@ input {
   margin: 0 4vw 0px 1vw;
   font-size: 2vw;
 }
+
 label[for="student_search"] {
   display: block;
 }
+
 input#student_search {
   width: 47vw;
   margin: 1vw 0;
 }
+
 input#student_search:hover,
 input#student_search:focus {
   transition: none;
   transform: none;
 }
+
 input#add_student_project,
 input#edit_student_project {
   height: 2vw;
   width: 2vw;
   margin: 0 2vw;
 }
+
 input#edit_student_project {
   height: 2vw;
   width: 2vw;
 }
+
 textarea {
   width: 80vw;
   height: 24vw;
@@ -182,10 +220,12 @@ textarea {
   padding: 1vw;
   resize: none;
 }
+
 textarea:focus {
   border: 2px solid rgb(178, 18, 18);
   transform: scale(1.02);
 }
+
 select {
   box-shadow: 3px 5px 5px 0px #3e3c3c;
   border: none;
@@ -195,93 +235,118 @@ select {
   height: 3vw;
   font-size: 2vw;
 }
+
 .mode_select {
   text-align: center;
   border-bottom: 1px solid #ffaa5b;
   padding: 1vw;
 }
+
 input#parent_first_name {
   width: 13vw;
+  margin-left: 0.5vw;
 }
+
 input#parent_last_name {
   width: 18vw;
+  margin-left: 0.5vw;
 }
+
 input#first_name,
 input#existing_first_name {
   width: 13vw;
 }
+
 input#last_name,
 input#existing_last_name {
   width: 21vw;
 }
+
 input#city {
   width: 18vw;
   margin-right: 2vw;
 }
+
 input#zipcode {
   width: 10vw;
 }
+
 input[type="date"] {
   font-size: 2vw;
 }
+
 label[for="startTime"],
 label[for="endTime"] {
   display: inline-block;
   margin-right: .5vw;
 }
+
 input#startTime {
   display: inline-block;
   left: -86px;
 }
+
 input#endTime {
   display: inline-block;
 }
+
 input#project_number {
   width: 8vw;
   margin: 0;
   padding-left: 2.3vw;
 }
+
 .project input {
   margin: 0;
 }
+
 p.optional_text {
   color: aliceblue;
   font-size: 1.5vw;
 }
+
 span.optional {
   color: rgb(178, 18, 18);
   margin-left: .5vw;
 }
+
 label>span {
   font-size: 1.5vw;
 }
+
 p.error {
   display: inline-block;
   color: rgb(255, 43, 43);
   margin-right: 2vw;
   font-size: 1.5vw;
 }
+
 .errors {
   border-top: 0.2vw solid red;
   border-bottom: 0.2vw solid red;
   margin: 4vw 0;
   padding-bottom: 1vw;
 }
+
 form.project>label {
   display: block;
   margin-bottom: 4vh;
 }
+
 input#project_comments {
   width: 76vw;
   height: 50vw;
 }
+
 form.project input {
   height: 3.5vw;
   width: 30vw;
 }
+
 .hidden {
   transform: scale(0);
 }
+
 @keyframes displayElement {
   from {
     transform: scale(.5);
@@ -292,6 +357,7 @@ form.project input {
     opacity: (1);
   }
 }
+
 .popIn {
   animation-name: displayElement;
   animation-duration: 400ms;
@@ -300,6 +366,7 @@ form.project input {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
+
 .slowPopIn {
   animation-name: displayElement;
   animation-duration: 600ms;
@@ -308,6 +375,7 @@ form.project input {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
+
 @keyframes removeElement {
   from {
     transform: scale(1);
@@ -318,6 +386,7 @@ form.project input {
     opacity: (0);
   }
 }
+
 .slowPopOut {
   animation-name: removeElement;
   animation-duration: 600ms;
@@ -326,6 +395,7 @@ form.project input {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
+
 .card_container {
   display: flex;
   justify-content: left;
@@ -333,6 +403,7 @@ form.project input {
   min-height: 100%;
   margin: 1vw;
 }
+
 div.card {
   width: 19vw;
   height: 25vw;
@@ -344,12 +415,14 @@ div.card {
   margin-top: 4vw;
   box-shadow: 1px 1px 5px black;
 }
+
 .card_color {
   position: relative;
   top: 0;
   width: 100%;
   height: 14vw;
 }
+
 .delete_student_confirmation_container {
   position: fixed;
   top: 13vw;
@@ -364,11 +437,13 @@ div.card {
   box-shadow: .3vw .3vw 0.2vw black;
   border: .1vw solid rgba(0, 0, 0, 0.69);
 }
+
 .delete_student_confirmation_container p {
   color: white;
   padding-top: 2vw;
   font-size: 2vw;
 }
+
 .delete_student_project_confirmation_container.popIn {
   position: fixed;
   left: 0;
@@ -382,30 +457,37 @@ div.card {
   border: .3vw solid black;
   box-shadow: .2vw .2vw .2vw black;
 }
+
 .delete_color_strip,
 .delete_project_color_strip {
   margin-bottom: 1vw;
   padding-bottom: 2vw;
 }
+
 button.delete_student_confirmation,
 button.cancel_delete_student_confirmation {
   color: white;
   font-family: trocchi;
 }
+
 .delete_project_color_strip p {
   padding: 1vw;
 }
+
 .student_container {
   height: 54%;
 }
+
 .student_container p {
   padding: 0vw;
   font-size: 1.3vw;
   margin-top: 10%;
 }
+
 p.success {
   color: lightgreen;
 }
+
 @keyframes cardFlip {
   from {
     transform: rotateY(180deg);
@@ -416,6 +498,7 @@ p.success {
     opacity: (1);
   }
 }
+
 .flip {
   animation-name: cardFlip;
   animation-duration: 400ms;
@@ -424,25 +507,31 @@ p.success {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
+
 .card:nth-child(4n+1)>.card_color,
 .student_version .slides>li:nth-child(4n+1) {
   background-color: #9c27b0;
 }
+
 .card:nth-child(4n+2)>.card_color,
 .student_version .slides>li:nth-child(4n+2) {
   background-color: #ff5722;
 }
+
 .card:nth-child(4n+3)>.card_color,
 .student_version .slides>li:nth-child(4n+3) {
   background-color: #ffc107;
 }
+
 .card:nth-child(4n+4)>.card_color,
 .student_version .slides>li:nth-child(4n+4) {
   background-color: #4caf50;
 }
-button{
+
+button {
   cursor: pointer;
 }
+
 button.add_student_project,
 button.student_info,
 button.student_exit,
@@ -468,6 +557,7 @@ button.cancel_delete_student_project_confirmation {
   font-size: 1.1vw;
   border: .1vw grey solid;
 }
+
 button[name="add_student"],
 button[name="edit_student"],
 button#add_student_project,
@@ -481,6 +571,7 @@ button[name="clear_form"] {
   color: aliceblue;
   font-size: 2vw;
 }
+
 button[name="add_student"]:hover,
 button[name="edit_student"]:hover,
 button#add_student_project:hover,
@@ -490,6 +581,7 @@ button[name="clear_form"]:hover {
   color: #ffaa5b;
   transition: all 300ms linear;
 }
+
 button[name="add_student"]:active,
 button[name="edit_student"]:active,
 button#add_student_project:active,
@@ -497,6 +589,7 @@ button#_edit_student_project:active {
   color: aliceblue;
   background-color: #b7c3ce;
 }
+
 button.add_student_project:hover,
 button.add_student_project:focus,
 button.student_info:hover,
@@ -533,6 +626,7 @@ button.cancel_delete_student_project_confirmation:focus {
   color: white;
   transition: all ease-in-out 301ms;
 }
+
 button.add_student_project:active,
 button.student_info:active,
 .nav>li:active,
@@ -549,6 +643,7 @@ button.student_curriculum:active {
   transform: scale(1.2);
   transition: all linear 200ms;
 }
+
 button.student_exit {
   display: inline-block;
   width: 20vw;
@@ -557,6 +652,7 @@ button.student_exit {
   color: white;
   font-size: 2vw;
 }
+
 button.edit_info,
 button.student_curriculum {
   display: inline-block;
@@ -565,20 +661,24 @@ button.student_curriculum {
   color: white;
   font-size: 2vw;
 }
+
 button.student_curriculum {
   margin-left: 3vw;
   width: 20vw;
 }
+
 .nav li:hover,
 .nav li:focus {
   transform: scale(1.1);
   transition: all linear 300ms;
 }
+
 input:focus {
   border: 2px solid rgb(178, 18, 18);
   transform: scale(1.1, 1.3);
   transition: all linear 300ms;
 }
+
 .student_modal {
   position: fixed;
   width: 100%;
@@ -587,6 +687,7 @@ input:focus {
   text-align: center;
   background: rgba(0, 80, 144, 0.45);
 }
+
 .student_curriculum_container {
   position: fixed;
   text-align: center;
@@ -602,6 +703,7 @@ input:focus {
   background: rgba(255, 255, 255, 0.87);
   overflow: auto;
 }
+
 .student_main_info {
   width: 80vw;
   height: 80vh;
@@ -617,6 +719,7 @@ input:focus {
   overflow: auto;
   box-shadow: 0.2vw 0.1vw 0.6vw rgba(53, 52, 52, 0.54);
 }
+
 .student_main_info h2 {
   font-family: Trocchi;
   margin-top: 3vw;
@@ -625,19 +728,23 @@ input:focus {
   position: relative;
   font-size: 2vw;
 }
+
 .student_main_info p {
   font-size: 1.5vw;
   font-weight: 600;
 }
+
 .student_main_info>div.columns>p span {
   font-weight: 400;
 }
+
 div.frame_bottom,
 div.frame_top,
 div.frame_left,
 div.frame_right {
   color: rgba(0, 0, 0, 0);
 }
+
 .frame_bottom {
   position: absolute;
   bottom: 0;
@@ -645,6 +752,7 @@ div.frame_right {
   z-index: 1300;
   width: 100%;
 }
+
 .frame_top {
   position: absolute;
   top: 0;
@@ -652,6 +760,7 @@ div.frame_right {
   z-index: 1300;
   width: 100%;
 }
+
 .frame_left {
   position: absolute;
   left: 0;
@@ -659,6 +768,7 @@ div.frame_right {
   z-index: 1300;
   width: 9.5vw;
 }
+
 .frame_right {
   position: absolute;
   right: 0;
@@ -666,12 +776,14 @@ div.frame_right {
   z-index: 1300;
   width: 9.5vw;
 }
+
 .columns {
   column-count: 3;
   margin: 0 3vw;
   height: auto;
   min-height: 11vw;
 }
+
 p.email {
   margin-bottom: 12vh;
   z-index: 1000;
@@ -679,65 +791,80 @@ p.email {
   color: whitesmoke;
   font-size: 1.5vw;
 }
+
 p.street_address_2,
 p.lesson_duration {
   margin-bottom: 4vw;
 }
+
 p.parent_name {
   margin-bottom: 1vw;
 }
+
 .comments_container {
   overflow: auto;
   height: 75px;
 }
+
 .color_strip {
   position: absolute;
   width: 100%;
   height: 10vw;
 }
+
 div.flex-viewport {
   overflow: hidden;
   position: relative;
   height: auto;
 }
+
 div.flex-viewport li {
   width: 503px;
   margin-right: 0px;
   float: left;
   display: block
 }
+
 div.flex-viewport>ul.slides {
   width: 1200%;
   transition-duration: 0.6s;
   transform: translate3d(-1006px, 0px, 0px);
 }
+
 .flex-viewport {
   height: 12vw;
 }
+
 .flexslider {
   height: 27vw;
   margin-bottom: 3vw;
   text-align: center;
 }
+
 ul.slides p {
   color: white;
   font-family: Trocchi;
   font-size: 1.5vw;
 }
+
 p.no_projects {
   margin-top: 6vw;
   font-size: 3vw;
 }
+
 p.project_number {
   margin-top: 1vw;
 }
+
 .project_container p.project_name {
   margin-top: 1vw;
   font-size: 3vw;
 }
+
 div.project_container {
   height: 26vw;
 }
+
 button.exit_student_curriculum,
 button.edit_student_curriculum_modal,
 button.add_student_curriculum_modal,
@@ -749,25 +876,31 @@ button.delete_student_curriculum_modal {
   width: 14vw;
   margin: 0 1vw;
 }
+
 div.teacher_project_container {
   overflow: auto;
   height: 6vw;
 }
+
 div.student_not_found.popIn {
   margin-top: 16vw;
   font-family: trocchi;
 }
+
 div.student_not_found>h2 {
   color: white;
 }
+
 .student_curriculum_container.student_version.slowPopIn {
   position: relative;
   z-index: 0;
   margin-top: 4vw;
 }
+
 .student_version button.exit_student_curriculum {
   background: rgb(178, 18, 18);
 }
+
 .curriculum_image {
   background: url('./../images/curriculum_new.jpg');
   background-position: center;
@@ -781,6 +914,7 @@ div.student_not_found>h2 {
   z-index: -1;
   opacity: .75;
 }
+
 @media screen and (max-width: 840px) {
   div.card {
     width: 33vw;
@@ -1134,17 +1268,14 @@ div.student_not_found>h2 {
 }
 
 @media only screen and (max-device-height: 732px) and (max-device-width: 412px) {
-
-div.student_curriculum_container {
-  height: 90vw;
-}
-
-body section.slider {
+  div.student_curriculum_container {
+    height: 90vw;
+  }
+  body section.slider {
     margin-top: 0vw;
     padding-top: 10vw;
   }
   p.optional_text {
-  font-size: 4vw;
-}
-
+    font-size: 4vw;
+  }
 }
