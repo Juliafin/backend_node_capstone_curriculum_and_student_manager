@@ -1298,6 +1298,9 @@ div.student_not_found>h2 {
   div.curriculum_image {
     height: 76vw;
   }
+  h1 {
+    margin-top: 10vw;
+  }
 }
 
 
@@ -1305,6 +1308,9 @@ div.student_not_found>h2 {
   
   div.curriculum_image {
     height: 51vw;
+  }
+  h1 {
+    margin-top: 10vw;
   }
 }
 
