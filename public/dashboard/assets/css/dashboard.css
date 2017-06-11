@@ -1289,7 +1289,7 @@ div.student_not_found>h2 {
 @media only screen and (aspect-ratio: 16/9) {
   
   div.curriculum_image{
-    height: 54vw;
+    height: 57vw;
   }
 }
 
@@ -1301,3 +1301,16 @@ div.student_not_found>h2 {
 }
 
 
+@media only screen and (aspect-ratio: 2/1) {
+  
+  div.curriculum_image {
+    height: 51vw;
+  }
+}
+
+@media only screen and (aspect-ratio: 3/2) {
+  
+  div.curriculum_image {
+    height: 68vw;
+  }
+}
