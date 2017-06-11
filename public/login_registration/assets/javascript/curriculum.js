@@ -9,6 +9,10 @@ var state = {
           
   		  <label for="Username">Username</label>
           <input placeholder="Username!1%" type="text" name="username" id="register_username" required>
+
+          <div class="tooltip">?
+            <span class="tooltiptext">Password must be 8 to 20 characters, and contain one uppercase letter, one lowercase letter, one number, and one special character.</span>
+          </div>
   
   		  <label for="Password">Password</label>
           <input placeholder="1234passw0rd" type="password" name="password" id="register_password" required>

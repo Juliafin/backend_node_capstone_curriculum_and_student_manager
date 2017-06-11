@@ -242,6 +242,36 @@ li#logged_in {
   filter: brightness(73%);
   z-index: -1;
 }
+.tooltip {
+    position: relative;
+    display: inline-block;
+    left: 20vw;
+    top: 2vw;
+    font-size: 1.5vw;
+    color: #5e5ecc;
+    font-weight: 600;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 21vw;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    font-size: 1vw;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+label[for="Password"] {
+    margin-top: 0;
+  }
+
 @media only screen and (max-device-height: 1024px) and (max-device-width: 768px) {
   nav {
     height: 33vw;
