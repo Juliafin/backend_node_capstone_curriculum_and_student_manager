@@ -1372,4 +1372,56 @@ div.student_not_found>h2 {
   .nav li:nth-child(1), .nav li:nth-child(3) {
     margin: 0;
   }
+
+  h1.add_student_project, h1.add_student_header, .studentList h1 {
+    margin-top: 8vw;
+  }
+
+  div.card {
+    height: 70vw;
+    width: 40vw;
+  }
+
+  div.card_color {
+    height: 38vw;
+  }
+
+  button.delete_student {
+    margin-top: 3vw;
+  }
+
+  button.add_student_project{
+    margin-top: 5vw;
+  }
+
+  div.student_main_info {
+    height: 50vw;
+  }
+
+  div.columns {
+    height: 18vw;
+  }
+
+  button.student_exit, button.edit_info, button.student_curriculum {
+    margin-top: 4vw;
+  }
+
+  div.student_curriculum_container {
+    height: 94vh;
+  }
+
+  section.slider {
+    height: 36vw;
+    padding: 0vw;
+  }
+
+  div.flexslider {
+    height: 35vw;
+  }
+
+  div.project_container p {
+    font-size: 2vw;
+  }
+
+  
 }
