@@ -1018,13 +1018,12 @@ div.student_not_found>h2 {
   .nav {
     flex-wrap: wrap;
   }
-  .nav li:nth-child(1) {
-    padding-top: 2vw;
-  }
-  .nav li {
+   .nav li {
     width: 100vw;
-    font-size: 3vw;
+    font-size: 3.8vw;
     border-bottom: .2vw white solid;
+    height: 6vw;
+    padding-top: .6vw;
   }
   li#logged_in {
     font-size: 3vw;

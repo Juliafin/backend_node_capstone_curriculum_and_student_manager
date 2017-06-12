@@ -281,13 +281,12 @@ label[for="Password"] {
   .nav {
     flex-wrap: wrap;
   }
-  .nav li:nth-child(1) {
-    padding-top: 2vw;
-  }
   .nav li {
     width: 100vw;
-    font-size: 3vw;
+    font-size: 3.8vw;
     border-bottom: .2vw white solid;
+    height: 6vw;
+    padding-top: .6vw;
   }
   li#logged_in {
     font-size: 3vw;
@@ -309,7 +308,7 @@ label[for="Password"] {
   }
   h2.features {
     margin-bottom: 10vw;
-    font-size: 3vw;
+    font-size: 3.5vw;
   }
   .signupbox {
     margin-top: 60vw;
@@ -392,6 +391,7 @@ label[for="Password"] {
   button.try_it_out {
     height: 10vw;
     width: 30vw;
+    font-size: 3vw;
   }
 }
 
