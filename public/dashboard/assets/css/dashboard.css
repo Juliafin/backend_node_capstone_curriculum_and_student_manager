@@ -1427,4 +1427,7 @@ div.student_not_found>h2 {
   label[for="edit_student"] {
     font-size: 3vw;
   }
+  div.student_container p {
+    margin-top: 6.6vw;
+  }
 }
