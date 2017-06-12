@@ -1423,5 +1423,19 @@ div.student_not_found>h2 {
     font-size: 2vw;
   }
 
+  h1.dashboard_welcome {
+    margin-top: 8vw;
+    margin-bottom: 1vw;
+  }
+
+  h2.features {
+    font-size: 3vw;
+    margin: 2vw;
+   }
+
+   h2.features.F_one{
+     margin-top: 0px;
+   }
+
   
 }
