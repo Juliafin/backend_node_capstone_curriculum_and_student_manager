@@ -449,6 +449,13 @@ label[for="Password"] {
     left: 25vw;
     top: -2.5vw
   }
+  .tooltiptext {
+    height: 10vw;
+    width: 36vw;
+    top: -11vw;
+    left: 3vw;
+    font-size: 1.8vw;
+  }
 }
 
 @media only screen and (aspect-ratio: 39/34) {
