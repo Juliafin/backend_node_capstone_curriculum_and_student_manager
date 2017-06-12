@@ -472,6 +472,7 @@ button.cancel_delete_student_confirmation {
 
 .delete_project_color_strip p {
   padding: 1vw;
+  font-size: 2vw;
 }
 
 .student_container {
