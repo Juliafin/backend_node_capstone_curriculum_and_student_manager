@@ -139,7 +139,7 @@ button.try_it_out {
 }
 
 button#login_button {
-  margin-top: 3vw;
+  margin-top: 14vw;
 }
 
 label#teacher_label,
@@ -427,7 +427,7 @@ label[for="Password"] {
   }
   .login input {
     height: 7vw;
-    margin-bottom: 10vw;
+    margin-bottom: 5vw;
     font-size: 3vw;
   }
 
