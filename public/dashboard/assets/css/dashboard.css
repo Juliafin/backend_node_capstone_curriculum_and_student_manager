@@ -1142,8 +1142,11 @@ div.student_not_found>h2 {
   }
   select#sort {
     height: 7vw;
-    font-size: 2.5vw;
-    width: 25vw;
+    font-size: 3vw;
+    width: 28vw;
+    margin-left: 2vw;
+    position: relative;
+    top: -.5vw;
   }
   button#add_student_project,
   button#edit_student_project,
@@ -1175,7 +1178,7 @@ div.student_not_found>h2 {
     padding-bottom: 5vw;
   }
   .flexslider {
-    height: 50vw;
+    height: 56vw;
   }
   .flex-control-paging li a {
     height: 2vw;
@@ -1210,7 +1213,7 @@ div.student_not_found>h2 {
     margin-top: 4vw;
   }
   ul.slides {
-    height: 47vw;
+    height: 52vw;
     overflow: auto;
   }
   .slides p.no_projects {
@@ -1290,7 +1293,7 @@ div.student_not_found>h2 {
 
 @media only screen and (max-device-height: 732px) and (max-device-width: 412px) {
   div.student_curriculum_container {
-    height: 90vw;
+    height: 95vw;
   }
   body section.slider {
     margin-top: 0vw;
