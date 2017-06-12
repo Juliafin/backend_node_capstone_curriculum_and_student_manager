@@ -364,6 +364,7 @@ label[for="Password"] {
   .signup h1 {
     font-size: 4.7vw;
     margin-bottom: 7vw;
+    margin-top: 7vw;
   }
   .signup label {
     margin-top: 1vw;
