@@ -52,9 +52,9 @@ input#street_address:focus {
 }
 
 h1 {
-  padding: 16px;
+  padding: 4vw 4vw 2vw 4vw;
   color: white;
-  margin-top: 8vw;
+  margin-top: 4vw;
   font-family: Trocchi;
   font-size: 4vw;
 }
@@ -302,7 +302,8 @@ input#project_number {
 
 p.optional_text {
   color: aliceblue;
-  font-size: 1.5vw;
+  font-size: 2vw;
+  margin-top: 2vw;
 }
 
 span.optional {
