@@ -190,11 +190,13 @@ input {
 
 label[for="student_search"] {
   display: block;
+  text-align: left;
+  margin-left: 14vw;
 }
 
 input#student_search {
   width: 47vw;
-  margin: 1vw 0;
+  margin: 1vw 0 4vw 0;
 }
 
 input#student_search:hover,
