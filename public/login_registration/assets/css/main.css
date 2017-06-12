@@ -367,11 +367,14 @@ label[for="Password"] {
     margin-top: 7vw;
   }
   .signup label {
-    margin-top: 1vw;
+    margin-top: 0vw;
     margin-bottom: 3vw;
     margin-right: 2vw;
     display: inline-block;
     font-size: 3vw;
+  }
+  .signup label[for=Password] {
+    margin-top: -5vw;
   }
   .signup input {
     height: 6vw;
@@ -439,6 +442,12 @@ label[for="Password"] {
     height: 10vw;
     width: 30vw;
     font-size: 3vw;
+  }
+
+  .tooltip {
+    font-size: 3vw;
+    left: 25vw;
+    top: -2.5vw
   }
 }
 
