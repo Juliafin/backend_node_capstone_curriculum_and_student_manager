@@ -141,8 +141,9 @@ nav {
   margin-right: 3vw;
   width: 80%;
 }
+
 li#logged_in {
-    font-size: 1.1vw;
+  font-size: 1.1vw;
 }
 
 fieldset.general_info {
@@ -1022,7 +1023,7 @@ div.student_not_found>h2 {
   .nav {
     flex-wrap: wrap;
   }
-   .nav li {
+  .nav li {
     width: 100vw;
     font-size: 3.8vw;
     border-bottom: .2vw white solid;
@@ -1106,13 +1107,17 @@ div.student_not_found>h2 {
   label[for="project_comments"] {
     margin-bottom: 3vw;
   }
-  label[for="add_student_project"], label[for="edit_student_project"] {
+  label[for="add_student_project"],
+  label[for="edit_student_project"] {
     margin: 5vw 0;
   }
   input#zipcode {
     width: 30vw;
   }
-  input#add_student_project, input#edit_student_project, input#add_student, input#edit_student {
+  input#add_student_project,
+  input#edit_student_project,
+  input#add_student,
+  input#edit_student {
     height: 3vw;
     width: 3vw;
   }
@@ -1128,7 +1133,7 @@ div.student_not_found>h2 {
   fieldset {
     font-size: 5vw;
   }
-  form.project > label {
+  form.project>label {
     font-size: 4vw;
     margin: 4vw 0 5vw 0;
   }
@@ -1304,22 +1309,20 @@ div.student_not_found>h2 {
     font-size: 4vw;
   }
 }
+
 @media only screen and (aspect-ratio: 8/5) {
-  
-  div.curriculum_image{
+  div.curriculum_image {
     height: 60vw;
   }
 }
 
 @media only screen and (aspect-ratio: 16/9) {
-  
-  div.curriculum_image{
+  div.curriculum_image {
     height: 57vw;
   }
 }
 
 @media only screen and (aspect-ratio: 4/3) {
-  
   div.curriculum_image {
     height: 76vw;
   }
@@ -1328,9 +1331,7 @@ div.student_not_found>h2 {
   }
 }
 
-
 @media only screen and (aspect-ratio: 2/1) {
-  
   div.curriculum_image {
     height: 51vw;
   }
@@ -1340,7 +1341,6 @@ div.student_not_found>h2 {
 }
 
 @media only screen and (aspect-ratio: 3/2) {
-  
   div.curriculum_image {
     height: 68vw;
   }
@@ -1350,92 +1350,81 @@ div.student_not_found>h2 {
   .nav {
     flex-wrap: initial;
   }
-
   nav {
     height: 8vw;
   }
-
-  .nav > li {
+  .nav>li {
     border: none;
     font-size: 2vw;
     padding-top: 1.vw;
     margin-left: 1vw;
     margin-right: 1vw;
   }
-
-  div.nav > li#logged_in {
+  div.nav>li#logged_in {
     font-size: 2vw;
     margin-left: 3vw;
-  
   }
-  
-  .nav li:nth-child(1), .nav li:nth-child(3) {
+  .nav li:nth-child(1),
+  .nav li:nth-child(3) {
     margin: 0;
   }
-
-  h1.add_student_project, h1.add_student_header, .studentList h1 {
+  h1.add_student_project,
+  h1.add_student_header,
+  .studentList h1 {
     margin-top: 8vw;
   }
-
   div.card {
     height: 70vw;
     width: 40vw;
   }
-
   div.card_color {
     height: 38vw;
   }
-
   button.delete_student {
     margin-top: 3vw;
   }
-
-  button.add_student_project{
+  button.add_student_project {
     margin-top: 5vw;
   }
-
   div.student_main_info {
     height: 50vw;
   }
-
   div.columns {
     height: 18vw;
   }
-
-  button.student_exit, button.edit_info, button.student_curriculum {
+  button.student_exit,
+  button.edit_info,
+  button.student_curriculum {
     margin-top: 4vw;
   }
-
   div.student_curriculum_container {
     height: 94vh;
   }
-
   section.slider {
     height: 36vw;
     padding: 0vw;
   }
-
   div.flexslider {
     height: 35vw;
   }
-
   div.project_container p {
     font-size: 2vw;
   }
-
   h1.dashboard_welcome {
     margin-top: 8vw;
     margin-bottom: 1vw;
   }
-
   h2.features {
     font-size: 3vw;
     margin: 2vw;
-   }
-
-   h2.features.F_one{
-     margin-top: 0px;
-   }
-
-  
+  }
+  h2.features.F_one {
+    margin-top: 0px;
+  }
+  label[for="add_student_project"],
+  label[for="edit_student_project"],
+  label[for="add_student"],
+  label[for="edit_student"] {
+    font-size: 3vw;
+  }
 }
