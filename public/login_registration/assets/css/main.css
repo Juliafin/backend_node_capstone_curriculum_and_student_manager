@@ -378,6 +378,7 @@ label[for="Password"] {
     position: relative;
     top: -8vw;
     left: 9vw;
+    font-size: 4vw;
   }
   .teacher_student_select {
     position: relative;
@@ -413,16 +414,19 @@ label[for="Password"] {
   .login h1 {
     font-size: 5.5vw;
     margin-top: 7vw;
-    margin-bottom: 17vw;
+    margin-bottom: 9vw;
   }
   .login label {
-    margin-bottom: 5vw;
+    margin-bottom: 4vw;
+    margin-left: 19vw;
     font-size: 4vw;
   }
   .login input {
     height: 7vw;
     margin-bottom: 10vw;
+    font-size: 3vw;
   }
+
   .login .error {
     font-size: 3vw;
   }
