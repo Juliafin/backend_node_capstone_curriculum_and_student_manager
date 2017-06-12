@@ -7,7 +7,7 @@ nav {
   position: fixed;
   display: block;
   z-index: 2;
-  height: 10vh;
+  height: 7vh;
   width: 100%;
   top: 0px;
   left: 0px;
@@ -79,7 +79,7 @@ h1.landing_heading {
   color: aliceblue;
   font-size: 5vw;
   font-family: Trocchi;
-  margin-top: 11vh;
+  margin-top: 9vh;
   font-kerning: none;
   text-transform: uppercase;
   font-weight: 100;
@@ -209,9 +209,10 @@ nav li:active {
   transition: color linear 300ms;
 }
 li#logged_in {
-  font-size: 1.2vw;
+  font-size: 1.1vw;
   text-transform: initial;
 }
+
 @keyframes displayElement {
   from {
     transform: scale(.5);
