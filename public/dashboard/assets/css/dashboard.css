@@ -204,8 +204,8 @@ input#student_search:focus {
 
 input#add_student_project,
 input#edit_student_project {
-  height: 2vw;
-  width: 2vw;
+  height: 3vw;
+  width: 3vw;
   margin: 0 2vw;
 }
 
@@ -1062,7 +1062,7 @@ div.student_not_found>h2 {
   form.signup input {
     height: 8vw;
     font-size: 4vw;
-    margin-top: 3vw;
+    margin-top: 2vw;
     margin-bottom: 5vw;
   }
   input#first_name,
@@ -1106,8 +1106,15 @@ div.student_not_found>h2 {
   label[for="project_comments"] {
     margin-bottom: 3vw;
   }
+  label[for="add_student_project"], label[for="edit_student_project"] {
+    margin: 5vw 0;
+  }
   input#zipcode {
     width: 30vw;
+  }
+  input#add_student_project, input#edit_student_project, input#add_student, input#edit_student {
+    height: 3vw;
+    width: 3vw;
   }
   textarea#project_comments {
     font-size: 4vw;
@@ -1121,9 +1128,9 @@ div.student_not_found>h2 {
   fieldset {
     font-size: 5vw;
   }
-  label {
-    margin-bottom: 5vw;
-    font-size: 3.5vw;
+  form.project > label {
+    font-size: 4vw;
+    margin: 4vw 0 5vw 0;
   }
   .nav li:nth-child(1),
   .nav li:nth-child(3) {
