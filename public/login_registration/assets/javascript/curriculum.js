@@ -1,3 +1,5 @@
+/*global $ */
+
 var state = {
   templates: {
     register: `<div class="signupbox popIn">
@@ -177,7 +179,7 @@ function testButtonListener() {
     var loginData = {
       username: "EliseR",
       password: "myGreatestHope!1"
-    }
+    };
 
     login(loginData)
       .then(function (userdata) {

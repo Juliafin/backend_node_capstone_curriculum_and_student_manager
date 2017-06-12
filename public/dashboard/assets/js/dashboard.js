@@ -2064,7 +2064,7 @@ function deleteStudentProjectModalButtonListener() {
     var projectIndex = $('.flex-active-slide div.project_number_container').attr('id');
     // console.log(projectIndex);
 
-    var backgroundColor = $(".flexslider").css('background-color')
+    var backgroundColor = $(".flexslider").css('background-color');
 
     // If no projects exist throw an error
     if (projectIndex === undefined) {
