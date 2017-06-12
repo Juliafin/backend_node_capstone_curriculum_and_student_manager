@@ -518,3 +518,38 @@ label[for="Password"] {
     height: 64vw;
   }
 }
+
+@media only screen and (max-height: 412px) and (max-device-width: 732px) {
+  .nav {
+    flex-wrap: initial;
+  }
+
+  nav {
+    height: 8vw;
+  }
+
+  .nav > li {
+    border: none;
+    font-size: 3vw;
+    padding-top: 1.5vw;
+    width: 16vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+
+  div.nav > li#logged_in {
+    font-size: 2.5vw;
+    margin-left: 8vw;
+    margin-top: -2vw;
+  }
+
+  h1.landing_heading {
+    margin-top: 15vw;
+  }
+
+  div.signupbox {
+    margin-top: 18vw;
+  }
+
+
+}

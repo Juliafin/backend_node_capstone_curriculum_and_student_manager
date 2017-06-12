@@ -1345,3 +1345,31 @@ div.student_not_found>h2 {
     height: 68vw;
   }
 }
+
+@media only screen and (max-height: 412px) and (max-device-width: 732px) {
+  .nav {
+    flex-wrap: initial;
+  }
+
+  nav {
+    height: 8vw;
+  }
+
+  .nav > li {
+    border: none;
+    font-size: 2vw;
+    padding-top: 1.vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+
+  div.nav > li#logged_in {
+    font-size: 2vw;
+    margin-left: 3vw;
+  
+  }
+  
+  .nav li:nth-child(1), .nav li:nth-child(3) {
+    margin: 0;
+  }
+}
