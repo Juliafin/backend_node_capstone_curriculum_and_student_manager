@@ -217,7 +217,7 @@ input#edit_student_project {
 textarea {
   width: 80vw;
   height: 24vw;
-  margin-bottom: 2vw;
+  margin-bottom: 4vw;
   text-align: left;
   font-size: 2vw;
   padding: 1vw;
@@ -980,6 +980,7 @@ div.student_not_found>h2 {
 @media screen and (max-width: 600px) {
   label {
     display: block;
+    font-size: 3vw;
   }
   label#add_label,
   label#edit_label {
