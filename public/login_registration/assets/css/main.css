@@ -331,7 +331,7 @@ label[for="Password"] {
     padding-top: .6vw;
   }
   li#logged_in {
-    font-size: 3vw;
+    font-size: 4vw;
   }
   li#logged_in br {
     display: none
@@ -353,7 +353,7 @@ label[for="Password"] {
     font-size: 3.5vw;
   }
   .signupbox {
-    margin-top: 60vw;
+    margin-top: 51vw;
     height: 110vw;
     width: 85vw;
   }
@@ -401,7 +401,7 @@ label[for="Password"] {
   }
   button#register_button {
     position: relative;
-    top: -3vw;
+    top: 5vw;
   }
   button#login_button,
   button#register_button {
