@@ -3,6 +3,7 @@
   padding: 0;
   margin: 0;
 }
+
 nav {
   position: fixed;
   display: block;
@@ -17,14 +18,17 @@ nav {
   background-position: center;
   box-shadow: 0px 2px 5px 0px #3e3c3c;
 }
+
 .nav li.selected {
   background-color: rgb(1, 73, 99);
   transition: background-color linear 300ms;
 }
+
 body {
   background-color: rgb(33, 80, 97);
   font-family: Roboto, sans-serif;
 }
+
 .signupbox {
   display: block;
   position: relative;
@@ -34,6 +38,7 @@ body {
   margin: 9% auto;
   background-color: white;
 }
+
 fieldset {
   border: 0;
   padding: 0;
@@ -41,6 +46,7 @@ fieldset {
   min-width: 0;
   display: flex;
 }
+
 h1 {
   padding-top: 3vw;
   text-align: center;
@@ -49,6 +55,7 @@ h1 {
   margin-bottom: 3vw;
   font-size: 3vw;
 }
+
 h2.features {
   color: white;
   margin-bottom: 1vw;
@@ -57,24 +64,29 @@ h2.features {
   font-weight: 100;
   margin-left: 1vw;
   font-size: 1.8vw;
-  background: linear-gradient(rgba(35, 32, 32, 0.53), rgba(100, 100, 100, 0.73));
   position: relative;
   width: auto;
   padding-left: 1vw;
   border-radius: .4vw;
 }
+
 h2.features.F_one {
-  margin-left: 10vw;
+  margin-left: 3vw;
+  margin-top: 1vw;
 }
+
 h2.features.F_two {
+  margin-left: 12vw;
+}
+
+h2.features.F_three {
   margin-left: 20vw;
 }
-h2.features.F_three {
-  margin-left: 30vw;
-}
+
 h2.features.F_four {
-  margin-left: 40vw;
+  margin-left: 28vw;
 }
+
 h1.landing_heading {
   color: aliceblue;
   font-size: 5vw;
@@ -84,6 +96,7 @@ h1.landing_heading {
   text-transform: uppercase;
   font-weight: 100;
 }
+
 label {
   display: block;
   text-align: left;
@@ -93,6 +106,7 @@ label {
   margin-left: 10vw;
   font-size: 2vw;
 }
+
 input {
   display: block;
   margin-left: auto;
@@ -105,6 +119,7 @@ input {
   border-radius: .4vw;
   font-size: 1.5vw;
 }
+
 button {
   margin-top: 0vw;
   width: 19vw;
@@ -117,36 +132,48 @@ button {
   margin-bottom: 3vw;
   cursor: pointer;
 }
-button.try_it_out {margin-top: 3vw;border-radius: .3vw;}
+
+button.try_it_out {
+  margin-top: 3vw;
+  border-radius: .3vw;
+}
+
 button#login_button {
   margin-top: 3vw;
 }
+
 label#teacher_label,
 label#student_label {
   display: inline;
 }
+
 input#teacher,
 input#student {
   display: inline;
   width: 17%;
 }
+
 label#teacher_label,
 label#student_label {
   margin-left: 0;
 }
+
 input[type="radio"] {
   height: 2vw;
   margin-top: 3vw;
   padding: 0;
   cursor: pointer;
 }
+
 button:hover {
   color: rgb(255, 133, 3);
   transition: all ease-in-out 200ms;
 }
+
 p {
   text-align: center;
 }
+
 p.error {
   color: #cc6969;
   font-family: monospace;
@@ -154,12 +181,14 @@ p.error {
   font-size: 1.5vw;
   font-weight: bold;
 }
+
 p.success {
   color: lightgreen;
   font-size: 2vw;
   position: relative;
   top: -1.7vw;
 }
+
 p>a {
   display: inline;
   margin-left: auto;
@@ -167,6 +196,7 @@ p>a {
   text-decoration: none;
   color: rgb(69, 173, 76);
 }
+
 .accountq,
 a.login {
   margin-top: 30px;
@@ -174,13 +204,16 @@ a.login {
   font-size: 16px;
   font-weight: bold;
 }
+
 .teacher_student_select {
   text-align: center;
   height: 9vw;
 }
+
 .button_container {
   text-align: center;
 }
+
 .nav {
   display: flex;
   flex-direction: row;
@@ -188,6 +221,7 @@ a.login {
   height: 100%;
   align-items: center;
 }
+
 .nav>li {
   text-decoration: none;
   outline: none;
@@ -200,14 +234,17 @@ a.login {
   width: 20%;
   text-align: center;
 }
+
 li:hover {
   transform: scale(1.1);
   transition: all linear 300ms;
 }
+
 nav li:active {
   color: #ffaa5b;
   transition: color linear 300ms;
 }
+
 li#logged_in {
   font-size: 1.1vw;
   text-transform: initial;
@@ -223,6 +260,7 @@ li#logged_in {
     opacity: (1);
   }
 }
+
 .popIn {
   animation-name: displayElement;
   animation-duration: 200ms;
@@ -231,6 +269,7 @@ li#logged_in {
   animation-fill-mode: forwards;
   animation-direction: normal
 }
+
 .curriculum_image {
   background: url('./../images/curriculum_new.jpg');
   background-position: center;
@@ -240,40 +279,42 @@ li#logged_in {
   height: 45vw;
   position: absolute;
   top: 2vw;
-  filter: brightness(73%);
+  filter: brightness(92%) opacity(0.75);
   z-index: -1;
 }
+
 .tooltip {
-    position: relative;
-    display: inline-block;
-    left: 20vw;
-    top: 2vw;
-    font-size: 1.5vw;
-    color: #5e5ecc;
-    font-weight: 600;
-    border-bottom: 1px dotted grey;
-    width: 1vw;
+  position: relative;
+  display: inline-block;
+  left: 20vw;
+  top: 2vw;
+  font-size: 1.5vw;
+  color: #5e5ecc;
+  font-weight: 600;
+  border-bottom: 1px dotted grey;
+  width: 1vw;
 }
+
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 21vw;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    font-size: 1vw;
+  visibility: hidden;
+  width: 21vw;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  font-size: 1vw;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+  visibility: visible;
 }
 
 label[for="Password"] {
-    margin-top: 0;
-  }
+  margin-top: 0;
+}
 
 @media only screen and (max-device-height: 1024px) and (max-device-width: 768px) {
   nav {
@@ -425,40 +466,33 @@ label[for="Password"] {
     height: 10vw;
     width: 30vw;
   }
-  
 }
 
 @media only screen and (aspect-ratio: 8/5) {
-  
-  div.curriculum_image{
+  div.curriculum_image {
     height: 60vw;
   }
 }
 
 @media only screen and (aspect-ratio: 16/9) {
-  
-  div.curriculum_image{
+  div.curriculum_image {
     height: 54vw;
   }
 }
 
 @media only screen and (aspect-ratio: 4/3) {
-  
   div.curriculum_image {
     height: 74vw;
   }
 }
 
-
 @media only screen and (aspect-ratio: 2/1) {
-  
   div.curriculum_image {
     height: 48vw;
   }
 }
 
 @media only screen and (aspect-ratio: 3/2) {
-  
   div.curriculum_image {
     height: 64vw;
   }
