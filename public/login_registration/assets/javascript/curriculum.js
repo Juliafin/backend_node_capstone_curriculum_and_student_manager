@@ -466,6 +466,7 @@ function testDashboard() {
 // Initialize the welcome screen //
 //-------------------------------//
 ($(document).ready(function () {
+  $( "html" ).removeClass( "loading" );
   navbarListener();
   testButtonListener();
   checkTokenAndAppendNav();

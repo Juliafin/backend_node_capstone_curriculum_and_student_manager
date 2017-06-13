@@ -2751,6 +2751,8 @@ function saveStudentData(initial = true) {
 //-----------------Initialize the manager----------------//
 //-------------------------------------------------------//
 ($(document).ready(function () {
+
+  $( "html" ).removeClass( "loading" );
   $(this).scrollTop(0);
   authenticateResult();
   
