@@ -1054,13 +1054,14 @@ div.student_not_found>h2 {
   }
   .nav {
     flex-wrap: wrap;
+    height: 33vw;
   }
   .nav li {
     width: 100vw;
     font-size: 3.8vw;
     border-bottom: .2vw white solid;
-    height: 6vw;
-    padding-top: .3vw;
+    height: 8vw;
+    padding-top: 1.3vw;
   }
   li#logged_in {
     font-size: 4vw;
@@ -1172,7 +1173,7 @@ div.student_not_found>h2 {
   .nav li:nth-child(1),
   .nav li:nth-child(3) {
     width: 100%;
-    margin: 1vw 0 0 0;
+    margin: 0;
   }
   input#student_search {
     height: 7vw;
