@@ -2754,7 +2754,7 @@ function saveStudentData(initial = true) {
   setTimeout(function() {
     $( "html" ).removeClass( "loading" );
       
-  }, 500);
+  }, 1000);
   $(this).scrollTop(0);
   authenticateResult();
   

@@ -469,7 +469,7 @@ function testDashboard() {
 
   setTimeout(function() {
     $( "html" ).removeClass( "loading" );      
-  }, 500);
+  }, 1000);
   navbarListener();
   testButtonListener();
   checkTokenAndAppendNav();
