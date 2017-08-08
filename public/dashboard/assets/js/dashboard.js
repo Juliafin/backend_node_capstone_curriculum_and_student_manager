@@ -1405,7 +1405,7 @@ function renderStudentCard(state) {
     <div class="card flip" id=${student_record.id}>
       <div class="card_color" id="${index}">
         <button class="add_student_project">
-        Add Student Project
+        Add Project
         </button>
         <button class="student_info">
         Student info
