@@ -2751,8 +2751,10 @@ function saveStudentData(initial = true) {
 //-----------------Initialize the manager----------------//
 //-------------------------------------------------------//
 ($(document).ready(function () {
-
-  $( "html" ).removeClass( "loading" );
+  setTimeout(function() {
+    $( "html" ).removeClass( "loading" );
+      
+  }, 1000);
   $(this).scrollTop(0);
   authenticateResult();
   

@@ -306,7 +306,7 @@ li#logged_in {
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  height: 45vw;
+  height: 100%;
   position: absolute;
   top: 2vw;
   filter: brightness(92%) opacity(0.75);

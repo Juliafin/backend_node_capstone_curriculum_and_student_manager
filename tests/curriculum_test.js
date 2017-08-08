@@ -67,7 +67,7 @@ function loginUser(done) {
 
 
 
-describe('Student Curriculum Endpoints', function () {
+describe('Student Curriculum Endpoints', function (done) {
 
 
   before(function () {
