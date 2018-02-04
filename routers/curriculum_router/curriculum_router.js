@@ -93,9 +93,7 @@ curriculum_router.get('/', (req, res) => {
             });
           });
 
-
     }
-
 
   }
 
@@ -261,9 +259,12 @@ curriculum_router.put('/:id', (req, res) => {
           student_record
             .save()
             .then((_student_record) => {
+              console.log('this is the student record thats updated!!!')
               student_record = _student_record;
+              student_record.bullshitKey = true;
+              console.log(student_record)
               return res.status(201).json({
-                updated: student_record.apiView()
+                updated: student_record
               });
 
             })

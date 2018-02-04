@@ -76,11 +76,6 @@ const studentLessonTimeSchema = new mongoose.Schema({
   },
   _id: false
 });
-// object that has weekday and time 
-// student_start_date when student 
-
-// const project_date
-// TDOD
 
 const studentSchema = mongoose.Schema({
   first_name: {
@@ -172,16 +167,3 @@ const Curriculum = mongoose.model('student_records', studentSchema);
 module.exports = {
   Curriculum
 };
-
-
-
-
-// user schema user_type: [teacher,student] enum type
-
-// view student list (and flyouts for all the details)
-
-// view current schedule (upcoming students based on the schedule times entered)
-// add a student form
- // (not require a student curriculum project)
-
-// add student project form

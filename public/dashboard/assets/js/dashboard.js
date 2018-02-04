@@ -747,10 +747,13 @@ function editStudentFormListener() {
       delete validatedStudent.existing_email;
       delete validatedStudent.existing_first_name;
       delete validatedStudent.existing_last_name;
-      
+      console.log('validated student before updating', validatedStudent);
+      console.log(foundRecord.id, 'THIS IS THE ID OF THE FOUND RECORD!');
+
       // Update the student
       updateStudent(validatedStudent, foundRecord.id)
           .then(function(updatedRecord) {
+            updatedRecord.id = foundRecord.id;
             console.log('updatedRecord from server', updatedRecord);
             state.student_records[recordIndex] = updatedRecord.updated;
             state.student_records[recordIndex].order = recordIndex + 1;
@@ -1778,6 +1781,7 @@ function renderStudentInfo(student_record, color) {
   // disable bottom click events
   $('.nav li, button.student_info, button.add_student_project, button.delete_student').css('pointer-events', "none");
 
+  console.log('RECORD IN STUDENT INFO', student_record)
 
   var lesson_duration = moment(student_record.student_lesson_time.endTime).diff(moment(student_record.student_lesson_time.startTime), 'minutes');
   var lesson_start_time = moment(student_record.student_lesson_time.startTime).format("hh:mm A");
