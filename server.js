@@ -97,4 +97,6 @@ if(require.main === module) {
   });
 }
 
+console.log('hi');
+
 module.exports = {app, runServer, closeServer};
